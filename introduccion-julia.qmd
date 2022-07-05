@@ -1,0 +1,145 @@
+---
+title: "Introducción Julia"
+subtitle: "Orientada a computación científica y análisis de datos"
+format: 
+    revealjs:
+        theme: dark
+        logo: img/logos/logo-julia.svg
+        navigation-mode: vertical
+        footer: <https://aprendeconalf.es/introduccion-julia>
+        code-line-numbers: false
+        #auto-stretch: true
+---
+
+# Introducción a Julia
+
+## ¿Por qué Julia?
+
+[Julia](https://julialang.org/) es otro lenguaje de programación más, orientado al cálculo científicio y el análisis de datos, similar a Python, R o Matlab.
+
+::: {.fragment .r-stack}
+_¿De veras necesitamos aprender otro lenguaje más?_
+:::
+
+## ¿Qué pretende ser Julia? {.smaller}
+
+De los creadores de Julia:
+
+>_We want a language that is:_
+>
+- _Open source._
+- _With the speed of C._
+- _Obvious, familiar mathematical notation like Matlab._
+- _As usable for general programming as Python._
+- _As easy for statistics as R._
+- _As natural for string processing as Perl._
+- _As powerful for linear algebra as Matlab._
+- _As good at gluing programs together as the shell._
+- _Dirt simple to learn, yet keeps the most serious hackers happy._
+
+## Características de Julia
+
+- Lenguaje de alto nivel con una sintaxis fácil de aprender (similar a Python, R o Matlab) que permite escribir símbolos matemáticos en las expresiones (UTF-8).
+- Lenguaje dinámico (tipado dinámico y despacho múltiple).
+- De propósito general, pero orientado a la computación científica y el análisis de grandes volúmenes de datos.
+- Muy rápido (equiparable a C en muchas tareas.)
+
+---
+
+### Comparativa de rapidez de Julia con otros lenguajes
+
+![](./img/benchmarks.svg){fig-align="center"}
+
+## Características de Julia
+
+- Creado en 2019 en el MIT por el equipo del profesor Edelman.
+- Última versión: 1.7 (bastante maduro).
+- Código abierto.
+- Desarrollado por una gran [comunidad científica](https://julialang.org/community/).
+- [Repositorio de paquetes](https://julialang.org/packages/) de código abierto con más de 3000 paquetes en dominios muy diversos.
+
+## Algunas razones más para pensárselo
+
+- Evita el problema de la doble reescritura de código (prototipo + producción).
+- Permite la programación paralela y distribuida.
+- Puede ejecutar código realizado en otros lenguajes como C, Fortran, Python, R, Matlab, etc.
+
+## Instalación de Julia
+
+1. [Descargar e instalar Julia](https://julialang.org/downloads/).
+2. Añadir Julia al PATH del sistema.
+
+Una vez instalado, para ejecutar el intérprete de Julia basta con abrir una terminal y teclear `julia`.
+
+```bash
+prompt> julia
+               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.7.3 (2022-05-06)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia> 
+```
+
+## El REPL de Julia
+
+El REPL^[Read, Evaluate, Print and Loop] de Julia permite ejecutar código de Julia tecleándolo directamente en la terminal. 
+
+```bash
+julia> 2 + 3
+5
+```
+
+Tiene, además, varios modos:
+
+- `;` para abrir el modo shell.
+- `]` para abrir el modo de gestión de paquetes.
+- `?` para abrir el modoe de ayuda.to open help mode
+- `<backspace>` para volver al modo normal.
+
+
+## IDEs para Julia
+
+![](img/julia-ides.png)
+
+---
+
+### [Visual studio code](https://code.visualstudio.com/)
+
+- [Descargar e instalar VSCode](https://code.visualstudio.com/Download).
+- [Instalar la extensión de Julia](https://www.julia-vscode.org/).
+
+---
+
+![Visual Studio Code con la extensión para Julia](img/vscode.png)
+
+---
+
+### [Jupyter](https://jupyter.org/)
+
+- [Descargar e instalar Python](https://www.python.org/downloads/)
+- [Descargar e instalar Jupyter](https://jupyter.org/install)
+- Instalar el paquete IJulia:
+```julia
+julia> using Pkg
+julia> Pkg.add("IJulia")
+```
+---
+
+![Jupyter con el kernel de Julia](img/jupyter.png)
+
+
+
+
+
+
+
+
+
+
+
+
