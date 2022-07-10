@@ -1,6 +1,12 @@
 project:
-  title: "introduccion-julia"
   output-dir: "docs"
+
+format:
+  html:
+    title: "index"
+  revealjs: 
+    title: "presentacion"
+
 
 
 

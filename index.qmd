@@ -1,0 +1,785 @@
+---
+title: "Introducción Julia"
+subtitle: "Orientada a computación científica y análisis de datos"
+format: 
+    revealjs:
+        theme: [dark, custom.scss]
+        logo: img/logos/logo-julia.svg
+        navigation-mode: vertical
+        footer: <https://aprendeconalf.es/introduccion-julia>
+        code-line-numbers: false
+        code-tools:
+            code-block-bg: true
+            code-block-border-Izquierda: "#31BAE9"
+        highlight-style: monokai
+execute: 
+  echo: true
+---
+
+# Introducción a Julia
+
+## ¿Por qué Julia?
+
+[Julia](https://julialang.org/) es otro lenguaje de programación más, orientado a cálculo científicio el análisis de datos similar a Python, R o Matlab.
+
+::: {.fragment .r-stack}
+_¿De veras necesitamos aprender otro lenguaje más?_
+:::
+
+## ¿Qué pretende ser Julia?
+
+De los creadores de Julia:
+
+>_We want a language that is:_
+>
+- _Open source._
+- _With the speed of C._
+- _Obvious, familiar mathematical notation like Matlab._
+- _As usable for general programming as Python._
+- _As easy for statistics as R._
+- _As natural for string processing as Perl._
+- _As powerful for linear algebra as Matlab._
+- _As good at gluing programs together as the shell._
+- _Dirt simple to learn, yet keeps the most serious hackers happy._
+
+## ¿Qué es Julia?
+
+- Julia es un lenguaje de alto nivel con una sintaxis fácil de aprender (similar a Python, R o Matlab) que permite escribir símbolos matemáticos en las expresiones (UTF-8).
+- Julia es un lenguaje muy veloz (equiparable a C en muchas tareas.)
+- Lenguaje dinámico (tipado dinámico y despacho múltiple).
+- De propósito general, pero orientado a la computación científica y el análisis de grandes volúmenes de datos.
+- Creado en 2019 en el MIT por el equipo del profesor Edelman.
+- Última versión: 1.7 (bastante maduro).
+- Desarrollado por una gran [comunidad científica](https://julialang.org/community/).
+- [Repositorio de paquetes](https://julialang.org/packages/) de código abierto con más de 3000 paquetes en dominios muy diversos.
+
+---
+
+### Comparativa de rapidez de Julia con otros lenguajes
+
+![Comparativa de Julia con otros lenguajes](./img/benchmarks.svg)
+
+## Algunas razones más para pensárselo
+
+- Evita el problema de la doble reescritura de código (prototipo + versión operativa).
+- Permite la programación paralela y distribuida.
+- Puede ejecutar código realizado en otros lenguajes como C, Fortran, Python, R, Matlab, etc.
+
+## Instalación de Julia
+
+1. [Descargar e instalar Julia](https://julialang.org/downloads/).
+2. Añadir Julia al PATH del sistema.
+
+Una vez instalado, para ejecutar el intérprete de Julia basta con abrir una terminal y teclear `julia`.
+
+```bash
+prompt> julia
+               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.7.3 (2022-05-06)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia> 
+```
+
+## El REPL de Julia
+
+El REPL^[Read, Evaluate, Print and Loop] de Julia permite ejecutar código de Julia tecleándolo directamente en la terminal. 
+
+```bash
+julia> 2 + 3
+5
+```
+
+Tiene, además, varios modos:
+
+- `;` para abrir el modo shell.
+- `]` para abrir el modo de gestión de paquetes.
+- `?` para abrir el modoe de ayuda.to open help mode
+- `<backspace>` para volver al modo normal.
+
+
+## IDEs para Julia
+
+![](img/julia-ides.png)
+
+---
+
+### [Visual studio code](https://code.visualstudio.com/)
+
+- [Descargar e instalar VSCode](https://code.visualstudio.com/Download).
+- [Instalar la extensión de Julia](https://www.julia-vscode.org/).
+
+---
+
+![Visual Studio Code con la extensión para Julia](img/vscode.png)
+
+---
+
+### [Jupyter](https://jupyter.org/)
+
+- [Descargar e instalar Python](https://www.python.org/downloads/)
+- [Descargar e instalar Jupyter](https://jupyter.org/install)
+- Instalar el paquete IJulia:
+```julia
+julia> using Pkg
+julia> Pkg.add("IJulia")
+```
+---
+
+![Jupyter con el kernel de Julia](img/jupyter.png)
+
+# Tipos de datos y variables
+
+## Tipos de datos numéricos
+
+- Enteros: `Int64` (64 bits por defecto).
+- Racionales: `Rational{Int64}`. Utilizando el operador `//`.
+- Reales: `Float64` (64 bits por defecto).
+- Complejos: `Complex{Int64}`. Utilizando `im` después de la parte imaginaria.
+
+Para averiguar el tipo de un dato se utiliza la función `typeof()`.
+
+---
+
+## Ejemplos de tipos de datos numéricos
+
+```julia
+julia> typeof(3)
+Int64
+
+julia> typeof(3/2)
+Float64
+
+julia> typeof(3//2)
+Rational{Int64}
+
+julia> typeof(π)
+Irrational{:π}
+
+julia> typeof(3+2im)
+Complex{Int64}
+```
+
+## Jerarquía de tipos de datos numéricos
+
+![](img/tipos-datos-numericos.png)
+
+## Constantes predefinidas
+
+| Símbolo | Descripción           |
+|:---------- |:-------------- |
+| `pi` o `π`    | Número irracional $\pi$                   |
+| `ℯ` (\\euler + TAB)    | Número irracional $e$                    |
+| `Inf`    | Infinito                 |
+| `NaN`    | Valor no numérico                       |
+| `Missing`    | Valor desconocido         |
+
+---
+
+## Ejemplo de constantes predefinidas
+
+```julia
+julia> π
+π = 3.1415926535897...
+
+julia> 1 / 0
+Inf
+
+julia> 0 / 0
+NaN
+
+julia> Inf + Inf
+Inf
+
+julia> Inf - Inf
+NaN
+
+julia> 0 * Inf
+NaN
+```
+
+## Tipos de datos alfanuméricos
+
+- Caracteres: `Char`. Se representan entre comillas simples.
+- Cadenas: `String`. Se representan entre comillas dobles.
+
+```julia
+julia> typeof('a')
+Char
+
+julia> typeof("julia")
+String
+
+julia> typeof("a")
+String
+```
+
+## Tipo de datos booleanos
+
+- Booleanos: `bool`. Son un subtipo de los enteros `Integer`.
+
+Solo contienen dos posibles valores: `true` (1) y `false` (0).
+
+```julia
+julia> typeof(true)
+Bool
+
+julia> typeof(false)
+Bool
+
+julia> typeof(1 < 2)
+Bool
+
+julia> true + true
+2
+```
+
+## Variables
+
+Como lenguaje de tipado dinámico, no es necesario declarar una variable antes de usarla. Su tipo se infiere directamente del valor asociado.
+
+```julia
+julia> x = 1
+1
+
+julia> typeof(x)
+Int64
+
+julia> x = "julia"
+"julia"
+
+julia> typeof(x)
+String
+```
+
+No obstante, para variables de ámbito local, por ejemplo en funciones, es posible fijar el tipo de una variable indicándolo detras de su nombre con el operador `::`.
+
+```julia
+x::Int64
+```
+
+<!-- TODO: ## Conversión de tipos -->
+
+## Nombres de variables
+
+Julia reconoce la codificación Unicode (UTF-8), lo que permite utilizar caracteres con tildes, letras griegas, símbolos matemáticos y hasta emoticonos en los nombres de variables o funciones. Para ello se utilizan [códigos especiales](https://docs.julialang.org/en/v1/manual/unicode-input/) (en muchos casos son los mismos que en $\LaTeX$), pulsando después la tecla de tabulación.
+
+```julia
+julia> α = 1
+1
+
+julia> β = 2
+2
+
+julia> α + β
+3
+
+julia> 😄 = "julia"
+"julia"
+```
+
+Distingue entre mayúsculas y minúsculas.
+
+## Operadores aritméticos
+
+| Operador | Descripción           |
+|:---------- |:-------------- |
+| `x + y`    | Suma                       |
+| `x - y`    | Resta                    |
+| `x * y`    | Producto                 |
+| `x / y`    | División                       |
+| `x ÷ y`    | Cociente división entera          |
+| `x % y`    | Resto división entera                |
+| `x ^ y`    | Potencia           |
+
+## Operadores de comparación
+
+| Operador                   | Descripción                     |
+|:---------------------------- |:------------------------ |
+| `==`                 | Igualdad                 |
+| `!=`, `≠` | Desigualdad               |
+| `<`                  | Menor que                |
+| `<=`, `≤` | Menor o igual que    |
+| `>`                  | Mayor que             |
+| `>=`, `≥` | Mayor o igual que |
+
+## Operadores booleanos
+
+| Operador | Descripción |
+|:---------- |:------------------------------|
+| `!x` | Negación             |
+| `x && y`   | Conjunción (y)|
+| `x || y` | Disyunción (o)  |
+
+## Funciones numéricas predefinidas
+
+### Funciones de redondeo
+
+| Función         | Descripción                        |
+|:--------------------- |:-----------------------------|
+| `round(x)`    | Devuelve el entero más próximo a `x` |
+| `round(x, digits = n)`    | Devuelve al valor más próximo a `x` con `n` decimales |
+| `floor(x)`    | Redondea `x` al próximo entero menor |
+| `ceil(x)`     | Redondea `x` al próximo entero mayor |
+| `trunc(x)`    | Devuelve la parte entera de `x`      |
+
+---
+
+### Ejemplo de funciones de redondeo
+
+```julia
+julia> round(2.7)
+3.0
+
+julia> floor(2.7)
+2.0
+
+julia> floor(-2.7)
+-3.0
+
+julia> ceil(2.7)
+3.0
+
+julia> ceil(-2.7)
+-2.0
+
+julia> trunc(2.7)
+2.0
+
+julia> trunc(-2.7)
+-2.0
+
+julia> round(2.5)
+2.0
+
+julia> round(2.786, digits = 2)
+2.79
+```
+
+---
+
+### Funciones de división
+
+| Función                  | Descripción                                                                                               |
+|:------------------------- |:--------------------------------------------------------------------------------------------------------- |
+| `div(x,y)`, `x÷y` | Cociente de la división entera                                                         |
+| `fld(x,y)`        | Cociente de la división entera redodeado hacia abajo               |
+| `cld(x,y)`        | Cociente de la división entera redondeado hacia arriba                                                         |
+| `rem(x,y)`, `x%y` | Resto de la división entera. Se cumple `x == div(x,y)*y + rem(x,y)`                                       |
+| `mod(x,y)`        | Módulo con respecto a `y`. Se cumple `x == fld(x,y)*y + mod(x,y)`                                        |
+| `gcd(x,y...)`    | Máximo común divisor positivo de `x`, `y`,...                                                          |
+| `lcm(x,y...)`   | Mínimo común múltiplo positivo de `x`, `y`,...                                                            |
+
+---
+
+### Ejemplo de funciones de división
+
+```julia
+julia> div(5,3)
+1
+
+julia> cld(5,3)
+2
+
+julia> 5%3
+2
+
+julia> -5%3
+-2
+
+julia> mod(5,3)
+2
+
+julia> mod(-5,3)
+1
+
+julia> gcd(12,18)
+6
+
+julia> lcm(12,18)
+36
+```
+
+---
+
+### Funciones para el signo y el valor absoluto
+
+| Función                | Descripción                                                |
+|:----------------------- |:---------------------------------------------------------- |
+| `abs(x)`        | Valor absoluto de `x`                 |
+| `sign(x)`       | Devuelve -1 si `x` es positivo, -1 si es negativo y 0 si es 0.       |
+
+```julia
+julia> abs(2.5)
+2.5
+
+julia> abs(-2.5)
+2.5
+
+julia> sign(-2.5)
+-1.0
+
+julia> sign(0)
+0
+
+julia> sign(2.5)
+1.0
+```
+
+---
+
+### Raíces, exponenciales y logaritmos
+
+| Función                | Descripción                                                                |
+|:------------------------ |:-------------------------------------------------------------------------- |
+| `sqrt(x)`, `√x`  | Raíz cuadrada de `x`                                                         |
+| `cbrt(x)`, `∛x`  | Raíz cúbica de `x`                                                           |
+| `exp(x)`         | Exponencial de `x`                                        |
+| `log(x)`         | Logaritmo neperiano de `x`                                                   |
+| `log(b,x)`       | Logaritmo en base `b` de `x`                                                  |
+| `log2(x)`        | Logaritmo en base 2 de `x`                                                    |
+| `log10(x)`       | Logaritmo en base 10 de `x`                                                   |
+
+---
+
+### Ejemplo de raíces, exponenciales y logaritmos
+
+```julia
+julia> sqrt(4)
+2.0
+
+julia> cbrt(27)
+3.0
+
+julia> exp(1)
+2.718281828459045
+
+julia> exp(-Inf)
+0.0
+
+julia> log(1)
+0.0
+
+julia> log(0)
+-Inf
+
+julia> log(-1)
+ERROR: DomainError with -1.0:
+log will only return a complex result if called with a complex argument.
+...
+
+julia> log(-1+0im)
+0.0 + 3.141592653589793im
+
+julia> log2(2^3)
+3.0
+```
+
+---
+
+### Funciones trigonométricas
+
+| Función                | Descripción                                                                |
+|:------------------------ |:-------------------------------------------------------------------------- |
+| `hypot(x,y)`     | Hipotenusa del triángulo rectángulo con catetos `x` e `y` |
+| `sin(x)`  | Seno del ángulo `x` en radianes                                                        |
+| `sind(x)`  | Seno del ángulo `x` en grados                                                          |
+| `cos(x)`         | Coseno del ángulo `x` en radianes                                       |
+| `cosd(x)`         | Coseno del ángulo `x` en grados                                                  |
+| `tan(x)`       | Tangente del ańgulo `x` en radianes                                                  |
+| `tand(x)`       | Tangente del ańgulo `x` en grados                                                  |
+| `sec(x)`        | Secante del ángulo `x` en radianes                                                 |
+| `csc(x)`        | Cosecante del ángulo `x` en radianes                                                 |
+| `cot(x)`       | Cotangente del ángulo `x` en radianes                                                  |
+
+---
+
+### Ejemplo de funciones trigonométricas
+
+```julia
+julia> sin(π/2)
+1.0
+
+julia> cos(π/2)
+6.123233995736766e-17
+
+julia> cosd(90)
+0.0
+
+julia> tan(π/4)
+0.9999999999999999
+
+julia> tand(45)
+1.0
+
+julia> tan(π/2)
+1.633123935319537e16
+
+julia> tand(90)
+Inf
+
+julia> sin(π/4)^2 + cos(π/4)^2
+1.0
+```
+
+---
+
+### Funciones trigonométricas inversas
+
+| Función                | Descripción                                                                |
+|:------------------------ |:-------------------------------------------------------------------------- |
+| `asin(x)`        | Arcoseno (inversa del seno) de `x` en radianes                                                 |
+| `asind(x)`        | Arcoseno (inversa del seno) de `x` en grados                                                 |
+| `acos(x)`       | Arcocoseno (inversa del coseno) de `x` en radianes                                                  |
+| `acosd(x)`       | Arcocoseno (inversa del coseno) de `x` en grados                                                  |
+| `atan(x)` | Arcotangente (inversa de la tangente) de `x` en radianes |
+| `atand(x)` | Arcotangente (inversa de la tangente) de `x` en grados |
+| `asec(x)` | Arcosecante (inversa de la secante) de `x` en radianes |
+| `acsc(x)` | Arcocosecante (inversa de la cosecante) de `x` en radianes |
+| `acot(x)` | Arcocotangente (inversa de la cotangente) de `x` en radianes |
+
+---
+
+### Ejemplo de funciones trigonométricas inversas
+
+```julia
+julia> asin(1)
+1.5707963267948966
+
+julia> asind(1)
+90.0
+
+julia> acos(-1)
+3.141592653589793
+
+julia> atan(1)
+0.7853981633974483
+
+julia> atand(tan(π/4))
+45.0
+```
+
+## Precedencia de operadores
+
+De mayor a menor prioridad.
+
+| Categoría       | Operadores                                                                                      | Asociatividad              |
+|:-------------- |:------------------------------------------------------------------------------------------------- |:-------------------------- |
+| Exponeciación | `^`                                                                                               | Derecha                      |
+| Unarios          | `+ - √`                                                                                           | Derecha                |
+| Fracciones     | `//`                                                                                              | Izquierda                       |
+| Multiplicación | `* / % & \ ÷`                                                                                     | Izquierda                |
+| Adición       | `+ - |` | Izquierda  |
+| Comparaciones    | `> < >= <= == != !==`                                                                      |            |
+| Asignaciones    | `= += -= *= /= //= ^= ÷= %= |= &=`                                            | Derecha                      |
+
+## Operaciones con cadenas
+
+Las cadenas son secuenicas de caracteres alfanuméricos del tipo `char` entre dobles comillas.
+
+Cada caracter tiene asociado un índice entero. El primer caracter de la cadena tiene índice 1. 
+
+| | | | | | |
+|:-|:-:|:-:|:-:|:-:|:-:|
+|Índice | 1 | 2 | 3 | 4 | 5 |
+|Cadena | j | u | l | i | a |
+
+Podemos acceder a cada caracter usando su índice entre corchetes a continuación de la cadena:
+
+- `s[i]`: Devuelve el caracter con índice `i` en la cadena `s`.
+
+```julia
+julia> c = "julia"
+"julia"
+
+julia> c[2]
+'u': ASCII/Unicode U+0075 (category Ll: Letter, lowercase)
+```
+
+---
+
+### Acceso a caracteres Unicode
+
+Sin embargo, como Julia permite caracteres [Unicode](https://en.wikipedia.org/wiki/List_of_Unicode_characters), el índice de un caracter en una cadena, no siempre se corresponde con su posición en la cadena. Ello es debido a que la codificación UTF-8 no utiliza el mismo número de bytes para representar los caracteres Unicode. Mientras que los caracteres habituales del código ASCII (letras romanas y números árabes) solo necesitan un byte, otros caracteres como los símbolos matemáticos requieren más.
+
+| | | | | | |
+|:-|:-:|:-:|:-:|:-:|:-:|
+|Índice | 1 | 4 | 5 | 6 | 9 |
+|Cadena | ∀ | x |   | ∃ | y |
+
+---
+
+### Ejemplo de acceso a caracteres Unicode
+
+```julia
+julia> c = "∀x ∃y"
+"∀x ∃y"
+
+julia> c[1]
+'∀': Unicode U+2200 (category Sm: Symbol, math)
+
+julia> c[2]
+ERROR: StringIndexError: invalid index [2], 
+valid nearby indices [1]=>'∀', [4]=>'x'
+Stacktrace:
+ [1] string_index_err(s::String, i::Int64)
+   @ Base ./strings/string.jl:12
+ [2] getindex_continued(s::String, i::Int64, u::UInt32)
+   @ Base ./strings/string.jl:233
+ [3] getindex(s::String, i::Int64)
+   @ Base ./strings/string.jl:226
+ [4] top-level scope
+   @ REPL[128]:1
+```
+
+---
+
+### Acceso a índices en cadenas
+
+Las siguientes funciones permiten acceder a los índices de una cadena:
+
+- `firsindex(c)`: Devuelve el índice del primer caracter de la cadena `c`.
+- `lastindex(c)`: Devuelve el índice del primer caracter de la cadena `c`.
+- `nextind(c, i)`: Devuelve el índice del caracter de la cadena `c` que sigue al caracter con índice `i`.
+- `prevind(c, i)`: Devuelve el índice del caracter de la cadena `c` que sigue al caracter con índice `i`.
+
+---
+
+### Ejemplo de acceso a índices en cadenas
+
+```julia
+julia> firstindex(c)
+1
+
+julia> lastindex(c)
+9
+
+julia> c[9]
+'y': ASCII/Unicode U+0079 (category Ll: Letter, lowercase)
+
+julia> nextind(c,1)
+4
+
+julia> prevind(c, lastindex(c))
+6
+```
+
+---
+
+### Subcadenas
+
+Para obtener subcadenas se usan también los corchetes indicando los índices de inicio y fin separados por `:`.
+
+- `s[i:j]`: Devuelve la subcadena que va desde el índice `i` al índice `j`, ambos incluídos.
+
+Tambíen se pueden obtener subcadenas con la siguiente función:
+
+- `SubString(s, i, j)`: Devuelve la subcadena que va desde el índice `i` al índice `j`, ambos incluídos.
+
+```julia
+julia> c = "julia"
+"julia"
+
+julia> c[2:4]
+"uli"
+
+julia> SubString(c, 2, 4)
+"uli"
+```
+
+---
+
+## Concatenación de cadenas
+
+- `a * b`: Devuelve la cadena que resulta de concatenar las cadenas `a` y `b`.
+- `a ^ i`: Devuelve la cadena que resulta de repetir la cadena `a` el número de veces `i`.
+- `repeat(a, i)`: Devuelve la cadena que resulta de repetir la cadena `a` el número de veces `i`.
+
+```julia
+julia> a = "Hola"
+"Hola"
+
+julia> b = "Julia"
+"Julia"
+
+julia> a * b
+"HolaJulia"
+
+julia> b ^ 3
+"JuliaJuliaJulia"
+```
+
+---
+
+### Interpolación de cadenas
+
+En una cadena se pueden introducir variables o expresiones precedidas del símbolo `$`, de manera que al evaluarlas julia sustituye la variable o expresión por su valor. Esto es muy util para formatear salidas.
+
+```julia
+julia> "1 + 2 = $(1 + 2)"
+"1 + 2 = 3"
+
+julia> s = "Julia"
+"Julia"
+
+julia> "Hola $s"
+"Hola Julia"
+```
+
+---
+
+### Otras operaciones comunes con cadenas
+
+- `length(c)`: Devuelve el número de caracteres de la cadena `c`.
+- `findfirst(a, c)`: Devuelve el índice de la primera ocurrencia de la cadena `a` en la cadena `c`. Si `a` no es una subcadena de `c` devuelve nada (tipo `Nothing`).
+- `findlast(a, c)`: Devuelve el índice de la última ocurrencia de la cadena `a` en la cadena `c`. Si `a` no es una subcadena de `c` devuelve nada (tipo `Nothing`).
+- `findnext(a, c, i)`: Devuelve el índice de la primera ocurrencia de la cadena `a` en la cadena `c` posterior al índice `i`.
+- `findprev(a, c, i)`: Devuelve el índice de la última ocurrencia de la cadena `a` en la cadena `c` anterior al índice `i`.
+
+---
+
+### Otras operaciones comunes con cadenas
+
+- `occursin(a, c)`: Devuelve `true` si la cadena `a` es una subcadena de `c`, y `false` en caso contrario.
+- `replace(c, a => b)`: Devuelve la cadena que resulta de sustituir la cadena `a` por la `b` en la cadena `c`.
+- `lowercase(c)`: Devuelve la cadena `c` en minúsculas.
+- `uppercase(c)`: Devuelve la cadena `c` en mayúsculas.
+
+---
+
+### Ejemplo de otras operaciones con cadenas
+
+```julia
+julia> c = "Hola Julia"
+"Hola Julia"
+
+julia> length(c)
+10
+
+julia> findfirst("a", c) 
+4:4
+
+julia> findlast("Ju", c)
+6:7
+
+julia> findlast("x", c)
+
+julia> occursin("Julia", c)
+true
+
+julia> occursin("julia", c)
+false
+
+julia> replace(c, "a" => "o")
+"Holo Julio"
+
+julia> uppercase(c)
+"HOLA JULIA"
+```
+
+
