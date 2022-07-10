@@ -393,7 +393,7 @@
 </section>
 <section id="por-qué-julia" class="slide level2">
 <h2>¿Por qué Julia?</h2>
-<p><a href="https://julialang.org/">Julia</a> es otro lenguaje de programación más, orientado a cálculo científicio el análisis de datos similar a Python, R o Matlab.</p>
+<p><a href="https://julialang.org/">Julia</a> es otro lenguaje de programación más, orientado a cálculo científico el análisis de datos similar a Python, R o Matlab.</p>
 <div class="fragment r-stack">
 <p><em>¿De veras necesitamos aprender otro lenguaje más?</em></p>
 </div>
@@ -597,7 +597,7 @@
 <section id="tipos-de-datos-alfanuméricos" class="slide level2">
 <h2>Tipos de datos alfanuméricos</h2>
 <ul>
-<li>Caracteres: <code>Char</code>. Se representan entre comillas simples.</li>
+<li>carácteres: <code>Char</code>. Se representan entre comillas simples.</li>
 <li>Cadenas: <code>String</code>. Se representan entre comillas dobles.</li>
 </ul>
 <div class="sourceCode" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">typeof</span>(<span class="ch">'a'</span>)</span>
@@ -647,7 +647,7 @@
 </section>
 <section id="nombres-de-variables" class="slide level2">
 <h2>Nombres de variables</h2>
-<p>Julia reconoce la codificación Unicode (UTF-8), lo que permite utilizar caracteres con tildes, letras griegas, símbolos matemáticos y hasta emoticonos en los nombres de variables o funciones. Para ello se utilizan <a href="https://docs.julialang.org/en/v1/manual/unicode-input/">códigos especiales</a> (en muchos casos son los mismos que en <span class="math inline">\(\LaTeX\)</span>), pulsando después la tecla de tabulación.</p>
+<p>Julia reconoce la codificación Unicode (UTF-8), lo que permite utilizar carácteres con tildes, letras griegas, símbolos matemáticos y hasta emoticonos en los nombres de variables o funciones. Para ello se utilizan <a href="https://docs.julialang.org/en/v1/manual/unicode-input/">códigos especiales</a> (en muchos casos son los mismos que en <span class="math inline">\(\LaTeX\)</span>), pulsando después la tecla de tabulación.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> α <span class="op">=</span> <span class="fl">1</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fl">1</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -853,7 +853,7 @@
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>fld(x,y)</code></td>
-<td style="text-align: left;">Cociente de la división entera redodeado hacia abajo</td>
+<td style="text-align: left;">Cociente de la división entera redondeado hacia abajo</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><code>cld(x,y)</code></td>
@@ -1060,11 +1060,11 @@
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>tan(x)</code></td>
-<td style="text-align: left;">Tangente del ańgulo <code>x</code> en radianes</td>
+<td style="text-align: left;">Tangente del ángulo <code>x</code> en radianes</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><code>tand(x)</code></td>
-<td style="text-align: left;">Tangente del ańgulo <code>x</code> en grados</td>
+<td style="text-align: left;">Tangente del ángulo <code>x</code> en grados</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>sec(x)</code></td>
@@ -1198,7 +1198,7 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Exponeciación</td>
+<td style="text-align: left;">Exponenciación</td>
 <td style="text-align: left;"><code>^</code></td>
 <td style="text-align: left;">Derecha</td>
 </tr>
@@ -1237,8 +1237,8 @@
 </section>
 <section id="operaciones-con-cadenas" class="slide level2">
 <h2>Operaciones con cadenas</h2>
-<p>Las cadenas son secuenicas de caracteres alfanuméricos del tipo <code>char</code> entre dobles comillas.</p>
-<p>Cada caracter tiene asociado un índice entero. El primer caracter de la cadena tiene índice 1.</p>
+<p>Las cadenas son secuencias de carácteres alfanuméricos del tipo <code>char</code> entre dobles comillas.</p>
+<p>Cada carácter tiene asociado un índice entero. El primer carácter de la cadena tiene índice 1.</p>
 <table>
 <tbody>
 <tr class="odd">
@@ -1259,9 +1259,9 @@
 </tr>
 </tbody>
 </table>
-<p>Podemos acceder a cada caracter usando su índice entre corchetes a continuación de la cadena:</p>
+<p>Podemos acceder a cada carácter usando su índice entre corchetes a continuación de la cadena:</p>
 <ul>
-<li><code>s[i]</code>: Devuelve el caracter con índice <code>i</code> en la cadena <code>s</code>.</li>
+<li><code>s[i]</code>: Devuelve el carácter con índice <code>i</code> en la cadena <code>s</code>.</li>
 </ul>
 <div class="sourceCode" id="cb17"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> c <span class="op">=</span> <span class="st">"julia"</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="st">"julia"</span></span>
@@ -1271,8 +1271,8 @@
 </section>
 <section class="slide level2">
 
-<h3 id="acceso-a-caracteres-unicode">Acceso a caracteres Unicode</h3>
-<p>Sin embargo, como Julia permite caracteres <a href="https://en.wikipedia.org/wiki/List_of_Unicode_characters">Unicode</a>, el índice de un caracter en una cadena, no siempre se corresponde con su posición en la cadena. Ello es debido a que la codificación UTF-8 no utiliza el mismo número de bytes para representar los caracteres Unicode. Mientras que los caracteres habituales del código ASCII (letras romanas y números árabes) solo necesitan un byte, otros caracteres como los símbolos matemáticos requieren más.</p>
+<h3 id="acceso-a-carácteres-unicode">Acceso a carácteres Unicode</h3>
+<p>Sin embargo, como Julia permite carácteres <a href="https://en.wikipedia.org/wiki/List_of_Unicode_characters">Unicode</a>, el índice de un carácter en una cadena, no siempre se corresponde con su posición en la cadena. Ello es debido a que la codificación UTF-8 no utiliza el mismo número de bytes para representar los carácteres Unicode. Mientras que los carácteres habituales del código ASCII (letras romanas y números árabes) solo necesitan un byte, otros carácteres como los símbolos matemáticos requieren más.</p>
 <table>
 <tbody>
 <tr class="odd">
@@ -1296,7 +1296,7 @@
 </section>
 <section class="slide level2">
 
-<h3 id="ejemplo-de-acceso-a-caracteres-unicode">Ejemplo de acceso a caracteres Unicode</h3>
+<h3 id="ejemplo-de-acceso-a-carácteres-unicode">Ejemplo de acceso a carácteres Unicode</h3>
 <div class="sourceCode" id="cb18"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> c <span class="op">=</span> <span class="st">"∀x ∃y"</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="st">"∀x ∃y"</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1321,10 +1321,10 @@
 <h3 id="acceso-a-índices-en-cadenas">Acceso a índices en cadenas</h3>
 <p>Las siguientes funciones permiten acceder a los índices de una cadena:</p>
 <ul>
-<li><code>firsindex(c)</code>: Devuelve el índice del primer caracter de la cadena <code>c</code>.</li>
-<li><code>lastindex(c)</code>: Devuelve el índice del primer caracter de la cadena <code>c</code>.</li>
-<li><code>nextind(c, i)</code>: Devuelve el índice del caracter de la cadena <code>c</code> que sigue al caracter con índice <code>i</code>.</li>
-<li><code>prevind(c, i)</code>: Devuelve el índice del caracter de la cadena <code>c</code> que sigue al caracter con índice <code>i</code>.</li>
+<li><code>firsindex(c)</code>: Devuelve el índice del primer carácter de la cadena <code>c</code>.</li>
+<li><code>lastindex(c)</code>: Devuelve el índice del primer carácter de la cadena <code>c</code>.</li>
+<li><code>nextind(c, i)</code>: Devuelve el índice del carácter de la cadena <code>c</code> que sigue al carácter con índice <code>i</code>.</li>
+<li><code>prevind(c, i)</code>: Devuelve el índice del carácter de la cadena <code>c</code> que sigue al carácter con índice <code>i</code>.</li>
 </ul>
 </section>
 <section class="slide level2">
@@ -1350,11 +1350,11 @@
 <h3 id="subcadenas">Subcadenas</h3>
 <p>Para obtener subcadenas se usan también los corchetes indicando los índices de inicio y fin separados por <code>:</code>.</p>
 <ul>
-<li><code>s[i:j]</code>: Devuelve la subcadena que va desde el índice <code>i</code> al índice <code>j</code>, ambos incluídos.</li>
+<li><code>s[i:j]</code>: Devuelve la subcadena que va desde el índice <code>i</code> al índice <code>j</code>, ambos incluidos.</li>
 </ul>
-<p>Tambíen se pueden obtener subcadenas con la siguiente función:</p>
+<p>También se pueden obtener subcadenas con la siguiente función:</p>
 <ul>
-<li><code>SubString(s, i, j)</code>: Devuelve la subcadena que va desde el índice <code>i</code> al índice <code>j</code>, ambos incluídos.</li>
+<li><code>SubString(s, i, j)</code>: Devuelve la subcadena que va desde el índice <code>i</code> al índice <code>j</code>, ambos incluidos.</li>
 </ul>
 <div class="sourceCode" id="cb20"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> c <span class="op">=</span> <span class="st">"julia"</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="st">"julia"</span></span>
@@ -1401,7 +1401,7 @@
 
 <h3 id="otras-operaciones-comunes-con-cadenas">Otras operaciones comunes con cadenas</h3>
 <ul>
-<li><code>length(c)</code>: Devuelve el número de caracteres de la cadena <code>c</code>.</li>
+<li><code>length(c)</code>: Devuelve el número de carácteres de la cadena <code>c</code>.</li>
 <li><code>findfirst(a, c)</code>: Devuelve el índice de la primera ocurrencia de la cadena <code>a</code> en la cadena <code>c</code>. Si <code>a</code> no es una subcadena de <code>c</code> devuelve nada (tipo <code>Nothing</code>).</li>
 <li><code>findlast(a, c)</code>: Devuelve el índice de la última ocurrencia de la cadena <code>a</code> en la cadena <code>c</code>. Si <code>a</code> no es una subcadena de <code>c</code> devuelve nada (tipo <code>Nothing</code>).</li>
 <li><code>findnext(a, c, i)</code>: Devuelve el índice de la primera ocurrencia de la cadena <code>a</code> en la cadena <code>c</code> posterior al índice <code>i</code>.</li>
@@ -1446,6 +1446,145 @@
 <span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">uppercase</span>(c)</span>
 <span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="st">"HOLA JULIA"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section></section>
+<section>
+<section id="estructuras-de-control" class="title-slide slide level1 center">
+<h1>Estructuras de control</h1>
+
+</section>
+<section id="condicionales" class="slide level2">
+<h2>Condicionales</h2>
+<blockquote>
+<p><code>if</code> <em>condición 1</em><br>
+&nbsp;&nbsp;&nbsp;<em>bloque código 1</em><br>
+<code>elseif</code> <em>condición 2</em><br>
+&nbsp;&nbsp;&nbsp;<em>bloque código 2</em><br>
+…<br>
+<code>else</code><br>
+&nbsp;&nbsp;&nbsp;<em>bloque código n</em><br>
+<code>end</code></p>
+</blockquote>
+<p>La indentación de los bloques de código no es necesaria, pero es una buena práctica.</p>
+</section>
+<section class="slide level2">
+
+<h3 id="ejemplo-de-condicional">Ejemplo de condicional</h3>
+<div class="sourceCode" id="cb24"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> x <span class="op">=</span> <span class="op">-</span><span class="fl">1</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="op">-</span><span class="fl">1</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="cf">if</span> x <span class="op">&gt;</span> <span class="fl">0</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>       signo <span class="op">=</span> <span class="st">"positivo"</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>       <span class="cf">elseif</span> x <span class="op">&lt;</span> <span class="fl">0</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>       signo <span class="op">=</span> <span class="st">"negativo"</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>       <span class="cf">else</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>       signo <span class="op">=</span> <span class="st">"nulo"</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>       <span class="cf">end</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="st">"negativo"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<h3 id="operador-condicional">Operador condicional</h3>
+<p>Una forma abreviada de la estructura condicional es el operador condicional.</p>
+<blockquote>
+<p><em>condición</em> <code>?</code> <em>bloque true</em> <code>:</code> <em>bloque false</em></p>
+</blockquote>
+<p>Este operador ejecuta el primer bloque de código si la condición es <code>true</code> y el segundo en caso contrario.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> x <span class="op">&gt;</span> <span class="fl">0</span> ? signo <span class="op">=</span> <span class="st">"positivo"</span> <span class="op">:</span> signo <span class="op">=</span> <span class="st">"negativo"</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="st">"negativo"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="bucles" class="slide level2">
+<h2>Bucles</h2>
+</section>
+<section id="bucles-iterativos" class="slide level2">
+<h2>Bucles iterativos</h2>
+<blockquote>
+<p><code>for</code> <em>iterador</em> <code>in</code> <em>secuencia</em><br>
+&nbsp;&nbsp;&nbsp;<em>bloque código</em><br>
+<code>end</code></p>
+</blockquote>
+<p>Ejecuta el bloque de código tantas veces como elementos tenga la <em>secuencia</em>. En cada iteración el <em>iterador</em> toma como valor el siguiente elemento de la <em>secuencia</em>.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> c <span class="op">=</span> <span class="st">"Julia"</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="st">"Julia"</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="cf">for</span> i <span class="kw">in</span> c</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>          <span class="fu">println</span>(i)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>       <span class="cf">end</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>J</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>u</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>l</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>i</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<h3 id="bucles-iterativos-con-rangos">Bucles iterativos con rangos</h3>
+<p>En muchas ocasiones la secuencia que se recorre en un bucle iterativo se genera mediante un rango, que es una secuencia de números igualmente espaciados. Existen distintas funciones para generar rangos:</p>
+<ul>
+<li><code>i:j</code>: Genera la secuenciad de números desde <code>i</code> hasta <code>j</code>.</li>
+<li><code>i:j:k</code>: Genera la secuencia de números desde <code>i</code> hasta <code>k</code> dando saltos de <code>j</code>.</li>
+<li><code>StepRange(i, j, k)</code>: Genera la secuencia de números desde <code>i</code> hasta <code>k</code> dando saltos de <code>j</code>.</li>
+<li><code>range(i, j, n)</code>: Genera una secuencia de <code>n</code> números desde <code>i</code> hasta <code>j</code>.</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="ejemplo-de-bucles-iterativos-con-rangos">Ejemplo de bucles iterativos con rangos</h3>
+<div class="sourceCode" id="cb27"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">:</span><span class="fl">10</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>          <span class="fu">println</span>(i)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>       <span class="cf">end</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fl">1</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fl">3</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="fl">5</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="fl">7</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="fl">9</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="fu">range</span>(<span class="fl">0</span>, <span class="fl">10</span>, <span class="fl">5</span>)</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>          <span class="fu">println</span>(i)</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>       <span class="cf">end</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="fl">0.0</span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="fl">2.5</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="fl">5.0</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="fl">7.5</span></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="fl">10.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="bucles-condicionales" class="slide level2">
+<h2>Bucles condicionales</h2>
+<blockquote>
+<p><code>while</code> <em>condición</em><br>
+&nbsp;&nbsp;&nbsp;<em>bloque código</em><br>
+<code>end</code></p>
+</blockquote>
+<p>Repite la ejecución del bloque de código mientras que la <em>condición</em> sea cierta.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> x <span class="op">=</span> <span class="fl">3</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fl">3</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="cf">while</span> x <span class="op">&gt;=</span> <span class="fl">0</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>          <span class="fu">println</span>(x)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>          x <span class="op">-=</span> <span class="fl">1</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>       <span class="cf">end</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="fl">3</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="fl">2</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="fl">1</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="fl">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<h3 id="interrupción-y-salto-de-bucles">Interrupción y salto de bucles</h3>
+<p>La instrucción <code>break</code> provoca inmediatamente la finalización de un bucle tanto iterativo como condicional.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> x<span class="op">=</span><span class="fl">3</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fl">3</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="cf">while</span> <span class="cn">true</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>          <span class="cf">if</span> x <span class="op">&lt;</span> <span class="fl">0</span> </span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>             <span class="cf">break</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>          <span class="cf">end</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>          <span class="fu">println</span>(x)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>          x <span class="op">-=</span> <span class="fl">1</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>       <span class="cf">end</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="fl">3</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="fl">2</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="fl">1</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="fl">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 <img src="img/logos/logo-julia.svg" class="slide-logo r-stretch"><div class="footer footer-default">
 <p><a href="https://aprendeconalf.es/introduccion-julia" class="uri">https://aprendeconalf.es/introduccion-julia</a></p>

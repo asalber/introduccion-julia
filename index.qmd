@@ -20,7 +20,7 @@ execute:
 
 ## ¿Por qué Julia?
 
-[Julia](https://julialang.org/) es otro lenguaje de programación más, orientado a cálculo científicio el análisis de datos similar a Python, R o Matlab.
+[Julia](https://julialang.org/) es otro lenguaje de programación más, orientado a cálculo científico el análisis de datos similar a Python, R o Matlab.
 
 ::: {.fragment .r-stack}
 _¿De veras necesitamos aprender otro lenguaje más?_
@@ -205,7 +205,7 @@ NaN
 
 ## Tipos de datos alfanuméricos
 
-- Caracteres: `Char`. Se representan entre comillas simples.
+- carácteres: `Char`. Se representan entre comillas simples.
 - Cadenas: `String`. Se representan entre comillas dobles.
 
 ```julia
@@ -267,7 +267,7 @@ x::Int64
 
 ## Nombres de variables
 
-Julia reconoce la codificación Unicode (UTF-8), lo que permite utilizar caracteres con tildes, letras griegas, símbolos matemáticos y hasta emoticonos en los nombres de variables o funciones. Para ello se utilizan [códigos especiales](https://docs.julialang.org/en/v1/manual/unicode-input/) (en muchos casos son los mismos que en $\LaTeX$), pulsando después la tecla de tabulación.
+Julia reconoce la codificación Unicode (UTF-8), lo que permite utilizar carácteres con tildes, letras griegas, símbolos matemáticos y hasta emoticonos en los nombres de variables o funciones. Para ello se utilizan [códigos especiales](https://docs.julialang.org/en/v1/manual/unicode-input/) (en muchos casos son los mismos que en $\LaTeX$), pulsando después la tecla de tabulación.
 
 ```julia
 julia> α = 1
@@ -368,7 +368,7 @@ julia> round(2.786, digits = 2)
 | Función                  | Descripción                                                                                               |
 |:------------------------- |:--------------------------------------------------------------------------------------------------------- |
 | `div(x,y)`, `x÷y` | Cociente de la división entera                                                         |
-| `fld(x,y)`        | Cociente de la división entera redodeado hacia abajo               |
+| `fld(x,y)`        | Cociente de la división entera redondeado hacia abajo               |
 | `cld(x,y)`        | Cociente de la división entera redondeado hacia arriba                                                         |
 | `rem(x,y)`, `x%y` | Resto de la división entera. Se cumple `x == div(x,y)*y + rem(x,y)`                                       |
 | `mod(x,y)`        | Módulo con respecto a `y`. Se cumple `x == fld(x,y)*y + mod(x,y)`                                        |
@@ -491,8 +491,8 @@ julia> log2(2^3)
 | `sind(x)`  | Seno del ángulo `x` en grados                                                          |
 | `cos(x)`         | Coseno del ángulo `x` en radianes                                       |
 | `cosd(x)`         | Coseno del ángulo `x` en grados                                                  |
-| `tan(x)`       | Tangente del ańgulo `x` en radianes                                                  |
-| `tand(x)`       | Tangente del ańgulo `x` en grados                                                  |
+| `tan(x)`       | Tangente del ángulo `x` en radianes                                                  |
+| `tand(x)`       | Tangente del ángulo `x` en grados                                                  |
 | `sec(x)`        | Secante del ángulo `x` en radianes                                                 |
 | `csc(x)`        | Cosecante del ángulo `x` en radianes                                                 |
 | `cot(x)`       | Cotangente del ángulo `x` en radianes                                                  |
@@ -570,7 +570,7 @@ De mayor a menor prioridad.
 
 | Categoría       | Operadores                                                                                      | Asociatividad              |
 |:-------------- |:------------------------------------------------------------------------------------------------- |:-------------------------- |
-| Exponeciación | `^`                                                                                               | Derecha                      |
+| Exponenciación | `^`                                                                                               | Derecha                      |
 | Unarios          | `+ - √`                                                                                           | Derecha                |
 | Fracciones     | `//`                                                                                              | Izquierda                       |
 | Multiplicación | `* / % & \ ÷`                                                                                     | Izquierda                |
@@ -580,18 +580,18 @@ De mayor a menor prioridad.
 
 ## Operaciones con cadenas
 
-Las cadenas son secuenicas de caracteres alfanuméricos del tipo `char` entre dobles comillas.
+Las cadenas son secuencias de carácteres alfanuméricos del tipo `char` entre dobles comillas.
 
-Cada caracter tiene asociado un índice entero. El primer caracter de la cadena tiene índice 1. 
+Cada carácter tiene asociado un índice entero. El primer carácter de la cadena tiene índice 1. 
 
 | | | | | | |
 |:-|:-:|:-:|:-:|:-:|:-:|
 |Índice | 1 | 2 | 3 | 4 | 5 |
 |Cadena | j | u | l | i | a |
 
-Podemos acceder a cada caracter usando su índice entre corchetes a continuación de la cadena:
+Podemos acceder a cada carácter usando su índice entre corchetes a continuación de la cadena:
 
-- `s[i]`: Devuelve el caracter con índice `i` en la cadena `s`.
+- `s[i]`: Devuelve el carácter con índice `i` en la cadena `s`.
 
 ```julia
 julia> c = "julia"
@@ -603,9 +603,9 @@ julia> c[2]
 
 ---
 
-### Acceso a caracteres Unicode
+### Acceso a carácteres Unicode
 
-Sin embargo, como Julia permite caracteres [Unicode](https://en.wikipedia.org/wiki/List_of_Unicode_characters), el índice de un caracter en una cadena, no siempre se corresponde con su posición en la cadena. Ello es debido a que la codificación UTF-8 no utiliza el mismo número de bytes para representar los caracteres Unicode. Mientras que los caracteres habituales del código ASCII (letras romanas y números árabes) solo necesitan un byte, otros caracteres como los símbolos matemáticos requieren más.
+Sin embargo, como Julia permite carácteres [Unicode](https://en.wikipedia.org/wiki/List_of_Unicode_characters), el índice de un carácter en una cadena, no siempre se corresponde con su posición en la cadena. Ello es debido a que la codificación UTF-8 no utiliza el mismo número de bytes para representar los carácteres Unicode. Mientras que los carácteres habituales del código ASCII (letras romanas y números árabes) solo necesitan un byte, otros carácteres como los símbolos matemáticos requieren más.
 
 | | | | | | |
 |:-|:-:|:-:|:-:|:-:|:-:|
@@ -614,7 +614,7 @@ Sin embargo, como Julia permite caracteres [Unicode](https://en.wikipedia.org/wi
 
 ---
 
-### Ejemplo de acceso a caracteres Unicode
+### Ejemplo de acceso a carácteres Unicode
 
 ```julia
 julia> c = "∀x ∃y"
@@ -643,10 +643,10 @@ Stacktrace:
 
 Las siguientes funciones permiten acceder a los índices de una cadena:
 
-- `firsindex(c)`: Devuelve el índice del primer caracter de la cadena `c`.
-- `lastindex(c)`: Devuelve el índice del primer caracter de la cadena `c`.
-- `nextind(c, i)`: Devuelve el índice del caracter de la cadena `c` que sigue al caracter con índice `i`.
-- `prevind(c, i)`: Devuelve el índice del caracter de la cadena `c` que sigue al caracter con índice `i`.
+- `firsindex(c)`: Devuelve el índice del primer carácter de la cadena `c`.
+- `lastindex(c)`: Devuelve el índice del primer carácter de la cadena `c`.
+- `nextind(c, i)`: Devuelve el índice del carácter de la cadena `c` que sigue al carácter con índice `i`.
+- `prevind(c, i)`: Devuelve el índice del carácter de la cadena `c` que sigue al carácter con índice `i`.
 
 ---
 
@@ -675,11 +675,11 @@ julia> prevind(c, lastindex(c))
 
 Para obtener subcadenas se usan también los corchetes indicando los índices de inicio y fin separados por `:`.
 
-- `s[i:j]`: Devuelve la subcadena que va desde el índice `i` al índice `j`, ambos incluídos.
+- `s[i:j]`: Devuelve la subcadena que va desde el índice `i` al índice `j`, ambos incluidos.
 
-Tambíen se pueden obtener subcadenas con la siguiente función:
+También se pueden obtener subcadenas con la siguiente función:
 
-- `SubString(s, i, j)`: Devuelve la subcadena que va desde el índice `i` al índice `j`, ambos incluídos.
+- `SubString(s, i, j)`: Devuelve la subcadena que va desde el índice `i` al índice `j`, ambos incluidos.
 
 ```julia
 julia> c = "julia"
@@ -735,7 +735,7 @@ julia> "Hola $s"
 
 ### Otras operaciones comunes con cadenas
 
-- `length(c)`: Devuelve el número de caracteres de la cadena `c`.
+- `length(c)`: Devuelve el número de carácteres de la cadena `c`.
 - `findfirst(a, c)`: Devuelve el índice de la primera ocurrencia de la cadena `a` en la cadena `c`. Si `a` no es una subcadena de `c` devuelve nada (tipo `Nothing`).
 - `findlast(a, c)`: Devuelve el índice de la última ocurrencia de la cadena `a` en la cadena `c`. Si `a` no es una subcadena de `c` devuelve nada (tipo `Nothing`).
 - `findnext(a, c, i)`: Devuelve el índice de la primera ocurrencia de la cadena `a` en la cadena `c` posterior al índice `i`.
@@ -782,4 +782,173 @@ julia> uppercase(c)
 "HOLA JULIA"
 ```
 
+# Estructuras de control
+
+## Condicionales
+
+> `if` _condición 1_  
+  &nbsp;&nbsp;&nbsp;_bloque código 1_  
+  `elseif` _condición 2_  
+  &nbsp;&nbsp;&nbsp;_bloque código 2_  
+  ...  
+  `else`  
+  &nbsp;&nbsp;&nbsp;_bloque código n_  
+  `end`
+
+La indentación de los bloques de código no es necesaria, pero es una buena práctica.
+
+---
+
+### Ejemplo de condicional
+
+```julia
+julia> x = -1
+-1
+
+julia> if x > 0
+       signo = "positivo"
+       elseif x < 0
+       signo = "negativo"
+       else
+       signo = "nulo"
+       end
+"negativo"
+```
+---
+
+### Operador condicional
+
+Una forma abreviada de la estructura condicional es el operador condicional. 
+
+> _condición_ `?` _bloque true_ `:` _bloque false_
+
+Este operador ejecuta el primer bloque de código si la condición es `true` y el segundo en caso contrario.
+
+```julia
+julia> x > 0 ? signo = "positivo" : signo = "negativo"
+"negativo"
+```
+
+## Bucles
+
+## Bucles iterativos
+
+> `for` _iterador_ `in` _secuencia_  
+  &nbsp;&nbsp;&nbsp;_bloque código_  
+  `end`
+
+Ejecuta el bloque de código tantas veces como elementos tenga la _secuencia_. En cada iteración el _iterador_ toma como valor el siguiente elemento de la _secuencia_.  
+
+```julia
+julia> c = "Julia"
+"Julia"
+
+julia> for i in c
+          println(i)
+       end
+J
+u
+l
+i
+a
+```
+
+---
+
+### Bucles iterativos con rangos
+
+En muchas ocasiones la secuencia que se recorre en un bucle iterativo se genera mediante un rango, que es una secuencia de números igualmente espaciados. Existen distintas funciones para generar rangos:
+
+- `i:j`: Genera la secuenciad de números desde `i` hasta `j`.
+- `i:j:k`: Genera la secuencia de números desde `i` hasta `k` dando saltos de `j`.
+- `StepRange(i, j, k)`: Genera la secuencia de números desde `i` hasta `k` dando saltos de `j`.
+- `range(i, j, n)`: Genera una secuencia de `n` números desde `i` hasta `j`.
+
+---
+
+### Ejemplo de bucles iterativos con rangos
+
+```julia
+julia> for i in 1:2:10
+          println(i)
+       end
+1
+3
+5
+7
+9
+
+julia> for i in range(0, 10, 5)
+          println(i)
+       end
+0.0
+2.5
+5.0
+7.5
+10.0
+```
+
+## Bucles condicionales
+
+> `while` _condición_  
+  &nbsp;&nbsp;&nbsp;_bloque código_  
+  `end`
+
+Repite la ejecución del bloque de código mientras que la _condición_ sea cierta.
+
+```julia
+julia> x = 3
+3
+
+julia> while x >= 0
+          println(x)
+          x -= 1
+       end
+3
+2
+1
+0
+```
+---
+
+### Interrupción de bucles
+
+La instrucción `break` provoca inmediatamente la finalización de un bucle tanto iterativo como condicional.
+
+```julia
+julia> x=3
+3
+
+julia> while true
+          if x < 0 
+             break
+          end
+          println(x)
+          x -= 1
+       end
+3
+2
+1
+0
+```
+
+---
+
+### Salto de bucles
+
+La instrucción `continue` provoca la finalización del bloque de código de un bucle y pasa inmediatamente a la siguiente iteración.
+
+```julia
+julia> for i in 1:10
+          if i % 2 == 0
+             continue
+          end
+          println(i)
+       end
+1
+3
+5
+7
+9
+```
 
