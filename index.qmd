@@ -988,6 +988,8 @@ julia> for i in 1:10
 Colecciones de datos con distinta estructura y semántica.
 
 - Arrays
+  - Vectores
+  - Matrices
 - Tuplas
 - Diccionarios
 
@@ -1038,6 +1040,7 @@ Los arrays pueden estructurar sus elementos en múltiples dimensiones. Dependien
 
 - `zeros(dim)`: Devuelve un array de la dimensiones indicadas por la tupla `dim` con todos sus elementos ceros.
 - `ones(dim)`: Devuelve un array de la dimensiones indicadas por la tupla `dim` con todos sus elementos unos.
+- `fill(a, dim)`: Devuelve un array de la dimensiones indicadas por la tupla `dim` con todos sus elementos iguales `a`.
 - `rand(dim)`: Devuelve un array de la dimensiones indicadas por la tupla `dim` con todos sus elementos números aleatorios entre 0 y 1.
 - `trues(dim)`: Devuelve un array de la dimensiones indicadas por la tupla `dim` con todos sus elementos `true`.
 - `falses(dim)`: Devuelve un array de la dimensiones indicadas por la tupla `dim` con todos sus elementos `false`.
@@ -1058,6 +1061,55 @@ julia> rand(3,2)  # Matriz de tamaño 3 x 2
  0.1469    0.891839
  0.953462  0.395681
  0.819468  0.720606
+
+julia> fill(π, 2, 2)
+2×2 Matrix{Irrational{:π}}:
+ π  π
+ π  π
+```
+
+---
+
+### Redimiensionado de arrays
+
+La siguientes funciones permiten cambiar las dimensiones de un array, reestructurando sus elementos:
+
+- `rehape(A, dim)`: Devuelve el array que resulta de redimiensionar el array `A` con las dimensiones indicadas por la tupla `dim`.
+- `permutedims(A)`: Devuelve el array de resulta de trasponer el array `A`.
+
+:::{.callout-warning}
+El array resultante debe tener los mismos elementos que el array original, por lo que si las dimensiones no son compatibles se produce un error.
+:::
+
+---
+
+### Ejemplo de redimensionado de arrays
+
+```julia
+julia> v = [1, 2, 3, 4, 5, 6]
+6-element Vector{Int64}:
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+
+julia> reshape(v, 2, 3)
+2×3 Matrix{Int64}:
+ 1  3  5
+ 2  4  6
+
+julia> reshape(v, 3, 2)
+3×2 Matrix{Int64}:
+ 1  4
+ 2  5
+ 3  6
+
+julia> permutedims(reshape(v, 3, 2))
+2×3 Matrix{Int64}:
+ 1  2  3
+ 4  5  6
 ```
 
 ## Vectores
@@ -1134,8 +1186,8 @@ Stacktrace:
 
 Es posible extraer varios elementos de un vector a la vez indicando los índices mediante un rango o un vector de enteros.
 
-- `v[i:j]`: Devuelve un vector con los elementos desde el índice `i` al `j`.
-- `v[u]`: Devuelve un vector con los elementos correspondientes a los índices del vector `u`.
+- `v[i:j]`: Devuelve un vector con los elementos del vector `v` desde el índice `i` al `j`.
+- `v[u]`: Devuelve un vector con los elementos del vector `v` correspondientes a los índices del vector `u`.
 
 ```julia
 julia> v = [2, 4, 6, 8];
@@ -1235,8 +1287,10 @@ julia> for i in eachindex(v)  # Recorrido por índice
 
 ### Operaciones con vectores numéricos
 
-- `minimum(v)`: Devuelve el menor de los elementos del vector `v`.
-- `maximum(v)`: Devuelve el mayor de los elementos del vector `v`.
+- `minimum(v)`: Devuelve el menor elemento del vector `v`.
+- `maximum(v)`: Devuelve el mayor elemento del vector `v`.
+- `argmin(v)`: Devuelve el índice del menor elemento del vector `v`.
+- `argmax(v)`: Devuelve el índice del mayor elemento del vector `v`.
 - `sum(v)`: Devuelve la suma de los elementos del vector `v`.
 - `prod(v)`: Devuelve el producto de los elementos del vector `v`.
 - `unique(v)`: Devuelve un vector con los elementos de `v` sin repetir.
@@ -1246,6 +1300,9 @@ julia> v = [4, 2, 3];
 
 julia> maximum(v)
 4
+
+julia> argmax(v)
+1
 
 julia> sum(v)
 9
@@ -1321,7 +1378,7 @@ La extensión de funciones también funciona con operadores, poniendo el punto d
 
 ---
 
-### Ejemplo de extensión de funciones
+### Ejemplo de extensión de funciones a vectores
 
 ```julia
 julia> v = [1, 4, 9];
@@ -1433,20 +1490,376 @@ julia> u / norm(u)  # Vector unitario
 
 ## Matrices
 
+Las matrices son arrays de dos dimensiones (filas x columnas).
 
+Se construyen escribiendo sus elementos entre corchetes, separando los elementos por espacio y las filas por punto y coma `;`.
+
+```julia
+julia> A = [1 2 3; 4 5 6]
+2×3 Matrix{Int64}:
+ 1  2  3
+ 4  5  6
+
+julia> length(A)
+6
+
+julia> eltype(A)
+Int64
+
+julia> ndims(A)
+2
+
+julia> size(A)
+(2, 3)
+```
+
+---
+
+### Acceso a los elementos de una matriz
+
+El acceso a los elementos de una matriz es mediante _índices_. Cada elemento de la matriz tiene asociado un par de índices enteros que se corresponde la fila y la columna que ocupa. 
+
+- `A[i, j]`: Devuelve el elemento de la matriz `A` con índice de fila `i` e índice de columna `j`.
+
+:::{.callout-warning}
+Si se proporciona algún índice no válido se produce un error.
+:::
+
+También se puede acceder a los elementos de una matriz mediante un único índice. En ese caso se obtiene el elemento con ese índice en el vector que resulta de concatenar los elementos de la matriz por columnas. 
+
+---
+
+### Ejemplo de acceso a los elementos de una matriz
+
+```julia
+julia> A = reshape(1:6, 2, 3)
+2×3 reshape(::UnitRange{Int64}, 2, 3) with eltype Int64:
+ 1  3  5
+ 2  4  6
+
+julia> A[2, 1]
+2
+
+julia> A[4]
+4
+```
+---
+
+### Acceso a múltiples elementos de una matriz
+
+Es posible extraer varios elementos de una matriz a la vez indicando los índices de las filas y las columnas mediante un rango o un vector de enteros.
+
+- `A[i:j, k:l]`: Devuelve una matriz con los elementos desde el índice de fila `i` al `j` y el índice de columna `k` al `l` de la matriz `A`.
+- `A[u, w]`: Devuelve una matriz con los elementos correspondientes a los índices de fila del vector `u` y los índices de columna del vector `w` de la matriz `A`.
+
+---
+
+## Ejemplo de acceso a múltiples elementos de una matriz
+
+```julia
+julia> A = reshape(1:9, 3, :)
+3×3 reshape(::UnitRange{Int64}, 3, 3) with eltype Int64:
+ 1  4  7
+ 2  5  8
+ 3  6  9
+
+julia> A[1:2, 2:3]
+2×2 Matrix{Int64}:
+ 4  7
+ 5  8
+
+julia> A[[1, 3], [3, 1]]
+2×2 Matrix{Int64}:
+ 7  1
+ 9  3
+
+julia> A[2, :]  # Segundo vector fila
+3-element Vector{Int64}:
+ 2
+ 5
+ 8
+```
+
+---
+
+### Modificación de los elementos de una matriz
+
+También es posible modificar una matriz asignando nuevos elementos mediante los índices de fila y columna.
+
+- `A[i, j] = a`: Añade el elemento `a` a la matriz `A` con el índice de fila `i` y el índice de columna `j`.
+
+```julia
+julia> A = zeros(2, 3)
+2×3 Matrix{Float64}:
+ 0.0  0.0  0.0
+ 0.0  0.0  0.0
+
+julia> A[2,3] = 1
+1
+
+julia> A
+2×3 Matrix{Float64}:
+ 0.0  0.0  0.0
+ 0.0  0.0  1.0
+```
+
+---
+
+### Concatenación de matrices
+
+Dos o más matrices pueden concatenarse horizontal o verticalmente siempre que sus dimensiones sean compatibles.
+
+- `[A B]`: Devuelve la matriz que resulta de concatenar horizontalmente las matrices `A` y `B`. Ambas matrices deben tener el mismo número de filas.
+- `[A; B]`: Devuelve la matriz que resulta de concatenar verticalmente las matrices `A` y `B`. Ambas matrices deben tener el mismo número de columnas.
+
+---
+
+### Ejemplo de concatenación de matrices
+
+```julia
+julia> A = zeros(2, 2)
+2×2 Matrix{Float64}:
+ 0.0  0.0
+ 0.0  0.0
+
+julia> B = ones(2, 1)
+2×1 Matrix{Float64}:
+ 1.0
+ 1.0
+
+julia> C = ones(1, 3)
+1×3 Matrix{Float64}:
+ 1.0  1.0  1.0
+
+julia> D = [A B]
+2×3 Matrix{Float64}:
+ 0.0  0.0  1.0
+ 0.0  0.0  1.0
+
+julia> [D ; C]
+3×3 Matrix{Float64}:
+ 0.0  0.0  1.0
+ 0.0  0.0  1.0
+ 1.0  1.0  1.0
+```
+
+---
+
+### Concatenación de vectores
+
+También es posible concatenar varios vectores horizontalmente o verticalmente para formar una matriz. 
+
+- `hcat(v...)`: Devuelve la matriz que resulta de concatenar horizontalmente los vectores del vector `v`.
+- `vcat(v...)`: Devuelve la matriz que resulta de concatenar verticalmente los vectores del vector `v`.
+
+---
+
+### Ejemplo de concatenación de vectores
+
+```julia
+julia> v = [[1, 2, 3], [4, 5, 6]]
+2-element Vector{Vector{Int64}}:
+ [1, 2, 3]
+ [4, 5, 6]
+
+julia> hcat(v...)
+3×2 Matrix{Int64}:
+ 1  4
+ 2  5
+ 3  6
+
+julia> v = [[1 2 3], [4 5 6]]
+2-element Vector{Matrix{Int64}}:
+ [1 2 3]
+ [4 5 6]
+
+julia> vcat(v...)
+2×3 Matrix{Int64}:
+ 1  2  3
+ 4  5  6
+```
+
+### Recorrido de matrices
+
+Una operación habitual es recorrer los elementos de una matriz para hacer una operación con ellos. El recorrido se suele hacer con dos bucles iterativos anidados.
+
+```julia
+julia> A = [1 2 3; 4 5 6]
+2×3 Matrix{Int64}:
+ 1  2  3
+ 4  5  6
+
+julia> for i = 1:size(A, 1), j = 1:size(A, 2)  # Recorrido por filas
+         println(A[i, j])
+       end
+1
+2
+3
+4
+5
+6
+
+julia> for j = 1:size(A, 2), i = 1:size(A, 1)  # Recorrido por columnas
+         println(A[i, j])
+       end
+1
+4
+2
+5
+3
+6
+```
+
+---
+
+### Operaciones con matrices numéricas
+
+- `minimum(A)`: Devuelve el menor elemento de la matriz `A`.
+- `maximum(A)`: Devuelve el mayor elemento de la matriz `A`.
+- `argmin(A)`: Devuelve los índices de fila y columna del menor elemento de la matriz `A`.
+- `argmax(A)`: Devuelve los índices de fila y columna del mayor elemento de la matriz `A`.
+- `sum(A)`: Devuelve la suma de los elementos de la matriz `A`.
+- `prod(A)`: Devuelve el producto de los elementos de la matriz `A`.
+
+```julia
+julia> A = [1 2 3; 4 5 6]
+2×3 Matrix{Int64}:
+ 1  2  3
+ 4  5  6
+
+julia> minimum(A)
+1
+
+julia> argmax(A)
+CartesianIndex(2, 3)
+
+julia> sum(A)
+21
+
+julia> prod(A)
+720
+```
+
+---
+
+### Extensión de funciones a matrices
+
+Al igual que para vectores, se puede aplicar una una función a todos los elementos de una matriz. Para ello basta con añadir un punto entre el nombre de la función y el paréntesis de los argumentos.
+
+- `f.(A)`: Devuelve la matriz que resulta de aplicar la función `f` a cada uno de los elementos de la matriz `A`. 
+
+:::{.callout-warning}
+En la llamada a la función hay que pasarle com argumentos tantos vectores como parámetros tenga la función. Si las matrices son de distinto tamaño, se reciclan las de menor tamaño.
+:::
+
+La extensión de funciones también funciona con operadores, poniendo el punto delante del operador.
+
+---
+
+### Ejemplo de extensión de funciones a matrices
+
+```julia
+julia> A = [1 2 3; 4 5 6]
+2×3 Matrix{Int64}:
+ 1  2  3
+ 4  5  6
+
+julia> sqrt.(A)
+2×3 Matrix{Float64}:
+ 1.0  1.41421  1.73205
+ 2.0  2.23607  2.44949
+
+julia> A .+ 1
+2×3 Matrix{Int64}:
+ 2  3  4
+ 5  6  7
+```
+
+---
+
+### Filtrado de matrices
+
+Otra operación bastante común son los filtros de vectores. Se puede filtrar un vector a partir de un vector de booleanos del mismo tamaño. 
+
+- `v[u]`: Devuelve el vector con los elementos que tienen el mismo índice que los valores `true` del vector booleano `u`.
+
+Esto permite aplicar filtros a partir de condiciones que devuelvan un vector de booleanos.
+
+---
+
+### Ejemplo de filtrado de matrices
+
+```julia
+julia> v = [1, 2, 3, 4];
+
+julia> v[[true, false, true, false]]
+2-element Vector{Int64}:
+ 1
+ 3
+
+julia> v .% 2 .== 0  # Condición
+4-element BitVector:
+ 0
+ 1
+ 0
+ 1
+
+julia> v[v .% 2 .== 0]  # Filtro de números pares
+2-element Vector{Int64}:
+ 2
+ 4
+```
+
+---
+
+### Álgebra lineal con matrices
+
+- `u` + `v`: Devuelve el vector que resulta de la suma de los vetores `u` y `v`.
+- `u` - `v`: Devuelve el vector que resulta de la resta de los vetores `u` y `v`.
+- `a * v`: De vuelve el vector que resulta de multiplicar el vector `v` por el escalar `a`.
+- `v'`: Devuelve el vector que resulta de trasponer el vector `v`. Si `v` es un vector fila, `v'` es un vector columna y viceversa.
+
+Con el paquete [`LinearAlgebra`](https://docs.julialang.org/en/v1/stdlib/LinearAlgebra/) también están disponibles las siguientes funciones:
+
+- `dot(u, v)`: Devuelve el producto escalar de los vectores `u` y `v`.
+- `norm(v)`: Devuelve la norma (módulo) del vector `v`.
+
+---
+
+### Ejemplo de álgebra lineal con vectores
+
+```julia
+julia> u = [1, 2, 3]; v = [1, 0, 2];
+
+julia> u + v
+3-element Vector{Int64}:
+ 2
+ 2
+ 5
+
+julia> 2u
+3-element Vector{Int64}:
+ 2
+ 4
+ 6
+
+julia> dot(u, v)  # Producto escalar
+7
+
+julia> u'v  # Producto escalar
+7
+
+julia> norm(v)  # Norma o módulo
+2.23606797749979
+
+julia> u / norm(u)  # Vector unitario
+3-element Vector{Float64}:
+ 0.2672612419124244
+ 0.5345224838248488
+ 0.8017837257372732
+```
 
 ---
 
 ### Copia de arrays
-
-
-
-
-
-
-
-
-
-
-
 
