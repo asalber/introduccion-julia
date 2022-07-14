@@ -1112,6 +1112,40 @@ julia> permutedims(reshape(v, 3, 2))
  4  5  6
 ```
 
+---
+
+### Comprensión de arrays
+
+Una potente técnica de creación de arrays es la comprensión de arrays, que consiste en generar los elementos del array a partir de uno o varios iteradores.
+
+- `[exp for i = ite]`: Devuelve el vector cuyos elementos resultan de evaluar a expresión `exp` para cada valor `i` del iterador `ite`.
+
+- `[exp for i = ite if cond]`: Devuelve el vector cuyos elementos resultan de evaluar a expresión `exp` para cada valor `i` del iterador `ite` que cumpla la condición `cond`.
+
+Se pueden utilizar varios iteradores para crear arrays de varias dimensiones. 
+
+---
+
+```julia
+julia> [i^2 for i = 1:4]
+4-element Vector{Int64}:
+  1
+  4
+  9
+ 16
+
+julia> [i^2 for i = 1:4 if i % 2 == 0]
+2-element Vector{Int64}:
+  4
+ 16
+
+julia> [i+j for i = 1:2, j = 3:4]
+2×2 Matrix{Int64}:
+ 4  5
+ 5  6
+```
+
+
 ## Vectores
 
 Los vectores son arrays de una dimensión.
@@ -1777,89 +1811,477 @@ julia> A .+ 1
 
 ---
 
-### Filtrado de matrices
+### Álgebra lineal con matrices
 
-Otra operación bastante común son los filtros de vectores. Se puede filtrar un vector a partir de un vector de booleanos del mismo tamaño. 
-
-- `v[u]`: Devuelve el vector con los elementos que tienen el mismo índice que los valores `true` del vector booleano `u`.
-
-Esto permite aplicar filtros a partir de condiciones que devuelvan un vector de booleanos.
+- `A` + `B`: Devuelve la matriz que resulta de la suma de las matrices `A` y `B`. Ambas matrices deben tener las mismas dimensiones.
+- `A` - `B`: Devuelve la matriz que resulta de la resta de las matrices `A` y `B`. Ambas matrices deben tener las mismas dimensiones.
+- `a * A`: Devuelve la matriz que resulta de multiplicar la matriz `A` por el escalar `a`.
+- `A * B`: Devuelve la matriz producto de las matrices `A` y `B`. El número de columnas de `A` debe coincidir con el número de filas de `B`.
+- `A'`: Devuelve la matriz traspuesta de la matriz `A`.
+- `transpose(A)`: Devuelve la matriz traspuesta de la matriz `A`.
 
 ---
 
-### Ejemplo de filtrado de matrices
+### Ejemplo de álgebra lineal con matrices
 
 ```julia
-julia> v = [1, 2, 3, 4];
+julia> A = [1 2 3; 4 5 6]
+2×3 Matrix{Int64}:
+ 1  2  3
+ 4  5  6
 
-julia> v[[true, false, true, false]]
-2-element Vector{Int64}:
- 1
- 3
+julia> B = [1 1 1; 2 2 2]
+2×3 Matrix{Int64}:
+ 1  1  1
+ 2  2  2
 
-julia> v .% 2 .== 0  # Condición
-4-element BitVector:
- 0
+julia> A + B
+2×3 Matrix{Int64}:
+ 2  3  4
+ 6  7  8
+
+julia> C = A'
+3×2 adjoint(::Matrix{Int64}) with eltype Int64:
+ 1  4
+ 2  5
+ 3  6
+
+julia> A * C
+2×2 Matrix{Int64}:
+ 14  32
+ 32  77
+
+julia> C * A
+3×3 Matrix{Int64}:
+ 17  22  27
+ 22  29  36
+ 27  36  45
+
+```
+
+### Álgebra lineal con matrices
+
+El paquete [`LinearAlgebra`](https://docs.julialang.org/en/v1/stdlib/LinearAlgebra/) define las siguientes funciones:
+
+- `Matrix(I, n, n)`. Devuelve la matriz identidad de dimensión `n`.
+- `diag(A)`: Devuelve un vector con los elementos de la diagonal principal de la matriz `A`.
+- `norm(A)`: Devuelve la norma de Frobenius de la matriz `A`.
+- `tr(A)`: Devuelve la traza de la matriz cuadrada `A`.
+- `det(A)`: Devuelve el determinante de la matriz cuadrada `A`.
+- `inv(A)`: Devuelve la matriz inversa de la matriz cuadrada `A`.
+- `A \ B`: Devuelve el vector `x` solución del sistema de ecuaciones $Ax = B$, donde `A` es una matriz cuadrada y `B` es un vector del mismo tamaño que el número de filas o columnas de `A`.
+
+---
+
+### Ejemplo de álgebra lineal con matrices
+
+```julia
+julia> Matrix(I, 3, 3)
+3×3 Matrix{Bool}:
+ 1  0  0
+ 0  1  0
+ 0  0  1
+
+julia> A = [1 2 3; 0 1 0; 1 0 1]
+3×3 Matrix{Int64}:
+ 1  2  3
+ 0  1  0
+ 1  0  1
+
+julia> diag(A)
+3-element Vector{Int64}:
  1
- 0
+ 1
  1
 
-julia> v[v .% 2 .== 0]  # Filtro de números pares
-2-element Vector{Int64}:
- 2
- 4
+julia> norm(A)
+4.123105625617661
+
+julia> tr(A)
+3
+
+julia> det(A)
+-2.0
+
+julia> inv(A)
+3×3 Matrix{Float64}:
+ -0.5   1.0   1.5
+  0.0   1.0   0.0
+  0.5  -1.0  -0.5
+
+julia> B = [10, 2, 4]
+3-element Vector{Int64}:
+ 10
+  2
+  4
+
+julia> A \ B  # Solución del sistema Ax = B
+3-element Vector{Float64}:
+ 3.0
+ 2.0
+ 1.0
 ```
 
 ---
 
 ### Álgebra lineal con matrices
 
-- `u` + `v`: Devuelve el vector que resulta de la suma de los vetores `u` y `v`.
-- `u` - `v`: Devuelve el vector que resulta de la resta de los vetores `u` y `v`.
-- `a * v`: De vuelve el vector que resulta de multiplicar el vector `v` por el escalar `a`.
-- `v'`: Devuelve el vector que resulta de trasponer el vector `v`. Si `v` es un vector fila, `v'` es un vector columna y viceversa.
+Otras funciones más avanzadas del paque `LinearAlgebra` son:
 
-Con el paquete [`LinearAlgebra`](https://docs.julialang.org/en/v1/stdlib/LinearAlgebra/) también están disponibles las siguientes funciones:
-
-- `dot(u, v)`: Devuelve el producto escalar de los vectores `u` y `v`.
-- `norm(v)`: Devuelve la norma (módulo) del vector `v`.
+- `eigvals(A)`: Devuelve un vector con los autovalores de la matriz `A`. 
+- `eigvecs(A)`: Devuelve la matriz con los autovectore de la matriz `A`.
+- `factorize(A)`: Devuelve las matrices resultantes de la factorización de la matriz `A`. La factorización dependerá de las propiedades de `A` (ver [tipos de factorización](https://docs.julialang.org/en/v1/stdlib/LinearAlgebra/#man-linalg-factorizations))
 
 ---
 
-### Ejemplo de álgebra lineal con vectores
+### Ejemplos de Álgebra lineal con matrices
 
 ```julia
-julia> u = [1, 2, 3]; v = [1, 0, 2];
+julia> A = [1 2; 3 1]
+2×2 Matrix{Int64}:
+ 1  2
+ 3  1
 
-julia> u + v
-3-element Vector{Int64}:
- 2
- 2
- 5
+julia> eigvals(A)
+2-element Vector{Float64}:
+ -1.4494897427831779
+  3.4494897427831783
 
-julia> 2u
-3-element Vector{Int64}:
- 2
- 4
- 6
+julia> eigvecs(A)
+2×2 Matrix{Float64}:
+ -0.632456  0.632456
+  0.774597  0.774597
 
-julia> dot(u, v)  # Producto escalar
-7
+julia> B = [1 2; 2 1]
+2×2 Matrix{Int64}:
+ 1  2
+ 2  1
 
-julia> u'v  # Producto escalar
-7
-
-julia> norm(v)  # Norma o módulo
-2.23606797749979
-
-julia> u / norm(u)  # Vector unitario
-3-element Vector{Float64}:
- 0.2672612419124244
- 0.5345224838248488
- 0.8017837257372732
+julia> factorize(B)
+LU{Float64, Tridiagonal{Float64, Vector{Float64}}}
+L factor:
+2×2 Matrix{Float64}:
+ 1.0  0.0
+ 0.5  1.0
+U factor:
+2×2 Matrix{Float64}:
+ 2.0  1.0
+ 0.0  1.5
 ```
 
 ---
 
-### Copia de arrays
+### Copia de tipos de datos compuestas
 
+En Julia cuando se asigna una variable de un tipo de datos compuesto a otra variable, no se hace una copia de la estructura de datos referenciada por la primera variable, sino que se la nueva variable apunta a la misma dirección de memoria de la estructura de datos (copia por referencia). El resultado son dos variables que apuntan a la misma estructura de datos y cualquier cambio en una de ellas se verá reflejado en la otra. 
+
+Para hacer copias por valor de un tipo de datos compuesto debe usarse explícitamente la siguiente función:
+
+- `b = copy(a)`: Crea una copia de la estructura de datos referencia por `a` y asigna su referencia a `b`.
+
+---
+
+### Ejemplo de copia de tipos de datos compuestos
+
+```julia
+julia> v = [1, 2, 3];
+
+julia> u = copy(v);  # Copia por valor
+
+julia> u[2] = 0;
+
+julia> u
+3-element Vector{Int64}:
+ 1
+ 0
+ 3
+
+julia> v
+3-element Vector{Int64}:
+ 1
+ 2
+ 3
+
+julia> u = v;  # Copia por referencia
+
+julia> u[2]=0;
+
+julia> v
+3-element Vector{Int64}:
+ 1
+ 0
+ 3
+```
+
+## Tuplas
+
+Una tupla es una colección ordenada de tamaño fijo que puede contenere elementos de distintos tipos. 
+
+Generalmente se usan para pasar parámetros o devolver valores de funciones.
+
+Se crean escribiendo sus elementos separados por comas entre paréntesis.
+
+:::{.callout-warning}
+Las tuplas son inmutables, es decir, una vez creadas no pueden cambiarse sus elementos.
+:::
+
+```julia
+julia> ()  # Tupla vacía
+()
+
+julia> (1, "enero", 2020) 
+(1, "enero", 2020)
+
+julia> t = (1, "enero", 2020)
+(1, "enero", 2020)
+
+julia> typeof(t)
+Tuple{Int64, String, Int64}
+```
+
+---
+
+### Tuplas con nombres
+
+Es posible asignar un nombre a cada uno de los elementos de la tupla. Para ello cada elemento de la tupla con nombre debe escribirse con la sintaxis `nombre = valor`.
+
+```julia
+ulia> t = (día = 1, mes = "enero", año =  2020)
+(día = 1, mes = "enero", año = 2020)
+
+julia> typeof(t)
+NamedTuple{(:día, :mes, :año), Tuple{Int64, String, Int64}}
+```
+
+:::{.callout-warning}
+No puede haber dos elementos con el mismo nombre en una tupla.
+:::
+
+La ventaja de usar tuplas con nombres es que podemos acceder a sus elementos por nombre, además de por índice.
+
+---
+
+### Acceso a los elementos de una tupla
+
+Como las tuplas tienen orden, podemos acceder a sus elementos mediante índices, al igual que con los arrays de una dimensión. 
+
+- `t[i]`: Devuelve el elemento con íncide `i` de la tupla `t`.
+
+Si la tupla tiene nombres también es posible acceder a sus elementos mediante los nombres.
+
+- `t.x`: Devuelve el elemento con nombre `x` de la tupla `t`.
+
+```julia
+julia> t = (día = 1, mes = "enero", año =  2020)
+(día = 1, mes = "enero", año = 2020)
+
+julia> t[2]
+"enero"
+
+julia> t.año
+2020
+
+julia> 
+```
+
+---
+
+### Asignación múltiple de tuplas
+
+Es posible asignar los elementos de una tupla a distintas variables en una sola asignación.
+
+`x, y, ... = t`: Asigna a las variables `x`, `y`, etc los elementos de la tupla `t` en orden. Si el número de variables es menor que el tamaño de la tupla, los últimos elementos quedan sin asignar.
+
+`x, y... = t`: Asigna el primer elemento de la tupla `t` a la variable `x` y la tupla con los elementos restantes a la variable `y`.
+
+---
+
+### Ejemplo de asignación múltipe de tuplas
+
+```julia
+julia> t = (1, "enero", 2020)
+(1, "enero", 2020)
+
+julia> d, m, a = t
+(1, "enero", 2020)
+
+julia> d
+1
+
+julia> m
+"enero"
+
+julia> a
+2020
+
+julia> d, ma... = t 
+(1, "enero", 2020)
+
+julia> d
+1
+
+julia> ma
+("enero", 2020)
+```
+
+## Diccionarios
+
+Un diccionario es una colección asociativa sin orden cuyos elementos son pares formados por una _clave_ y un _valor_ asociado a la clave. 
+
+Se parecen a las tuplas con nombre, pero, a diferencia de estas, son mutables, es decir, su contenido se puede alterar.
+
+Se construyen con la siguiente función:
+
+- `Dic(k1 = v1, ...)`: Crea un diccionario con los pares indicados en formato `clave = valor`.
+
+:::{.callout-warning}
+En un diccionario no pueden existir dos pares con la misma clave, de modo que si se repite una clave se sobreescribe el par anterior.
+:::
+
+---
+
+### Ejemplo de diccionarios
+
+```julia
+julia> Dict()  # Diccionario vacío
+Dict{Any, Any}()
+
+julia> d = Dict("ES" => "Euro", "US" => "Dollar", "CN" => "Yuan")
+Dict{String, String} with 3 entries:
+  "CN" => "Yuan"
+  "ES" => "Euro"
+  "US" => "Dollar"
+
+julia> typeof(d)
+Dict{String, String}
+```
+
+---
+
+### Acceso a los elementos de un diccionario
+
+Para acceder a los valores de un diccionario se utilizan sus claves asociadas entre corchetes.
+
+- `d[k]`: Devuelve el valor asociado a la clave `k` en el diccionario `d`.
+
+:::{.callout-warning}
+Si la clave no existe en el diccionario se produce un error.
+:::
+
+Para evitar errores es conveniente usar alguna de las siguientes funciones:
+
+- `haskey(d, k)`: Devuelve `true` la clave `k` está en diccionario `d` y `false` en caso contrario.
+- `get(d, k, v)`: Devuelve el valor asociado a la clave `k` en el diccionario `d` o el valor `v` si la clave `k` no existe.
+- `get!(d, k, v)`: Devuelve el valor asociado a la clave `k` en el diccionario `d`. Si la clave `k` no existe en el diccionario `d` añade el par con la clave `k` y el valor `v` y devuelve el valor `v`.
+
+---
+
+### Ejemplo de acceso a los elementos de un diccionario
+
+```julia
+julia> d = Dict("ES" => "Euro", "US" => "Dollar", "CN" => "Yuan")
+Dict{String, String} with 3 entries:
+  "CN" => "Yuan"
+  "ES" => "Euro"
+  "US" => "Dollar"
+
+julia> d["ES"]
+"Euro"
+
+julia> d["JP"]
+ERROR: KeyError: key "JP" not found
+Stacktrace:
+ [1] getindex(h::Dict{String, String}, key::String)
+   @ Base ./dict.jl:481
+ [2] top-level scope
+   @ REPL[22]:1
+
+julia> get(d, "JP", "Dollar")
+"Dollar"
+
+julia> get!(d, "JP", "Yen")
+"Yen"
+
+julia> d
+Dict{String, String} with 4 entries:
+  "CN" => "Yuan"
+  "ES" => "Euro"
+  "JP" => "Yen"
+  "US" => "Dollar"
+```
+
+---
+
+### Recorrido de las claves y valores de un diccionario
+
+Las siguientes funciones permiten obtener todas las claves, valores y pares de un diccionario.
+
+- `keys(d)`: Devuelve un iterador con las claves del diccionario `d`.
+- `values(d)`: Devuelve un iterador con las claves del diccionario `d`.
+
+Estos iteradores permiten recorrer facilmente los pares de un diccionario.
+
+---
+
+### Ejemplo de recorrido de las claves y valores de un diccionario
+
+```julia
+julia> d = Dict("ES" => "Euro", "US" => "Dollar", "CN" => "Yuan")
+Dict{String, String} with 3 entries:
+  "CN" => "Yuan"
+  "ES" => "Euro"
+  "US" => "Dollar"
+
+julia> keys(d)
+KeySet for a Dict{String, String} with 3 entries. Keys:
+  "CN"
+  "ES"
+  "US"
+
+julia> values(d)
+ValueIterator for a Dict{String, String} with 3 entries. Values:
+  "Yuan"
+  "Euro"
+  "Dollar"
+
+julia> for k = keys(d)
+         println("$k = $(d[k])")
+       end
+CN = Yuan
+ES = Euro
+US = Dollar
+
+julia> for (k, v) = d
+       println("$k = $v")
+       end
+CN = Yuan
+ES = Euro
+US = Dollar
+```
+
+---
+
+### Añadir elementos a un diccionario
+
+Se pueden añadir pares nuevos a un diccionario de la siguiente manera:
+
+- `d[k] = v`: Añade el par con clave `k` y valor `v` al diccionario `d`. Si la clave `k` ya existía en el diccionario `d`, cambia su valor asociaco por `v`.
+
+- `push!(d, k => v)`: Añade el par con clave `k` y valor asociado `v` al diccionario `d`.
+
+```julia
+julia> d = Dict("ES" => "Euro", "US" => "Dollar")
+Dict{String, String} with 2 entries:
+  "ES" => "Euro"
+  "US" => "Dollar"
+
+julia> d["CN"] = "Yuan"
+"Yuan"
+
+julia> push!(d, "JP" => "Yen")
+Dict{String, String} with 4 entries:
+  "CN" => "Yuan"
+  "ES" => "Euro"
+  "JP" => "Yen"
+  "US" => "Dollar"
+```
