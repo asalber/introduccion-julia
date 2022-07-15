@@ -1638,6 +1638,7 @@
 </ul></li>
 <li>Tuplas</li>
 <li>Diccionarios</li>
+<li>Conjuntos</li>
 </ul>
 </section>
 <section id="arrays" class="slide level2">
@@ -2709,7 +2710,7 @@
 <h2>Diccionarios</h2>
 <p>Un diccionario es una colección asociativa sin orden cuyos elementos son pares formados por una <em>clave</em> y un <em>valor</em> asociado a la clave.</p>
 <p>Se parecen a las tuplas con nombre, pero, a diferencia de estas, son mutables, es decir, su contenido se puede alterar.</p>
-<p>Se construyen con la siguiente función:</p>
+<p>Se construyen con la siguiente constructor:</p>
 <ul>
 <li><code>Dic(k1 = v1, ...)</code>: Crea un diccionario con los pares indicados en formato <code>clave = valor</code>.</li>
 </ul>
@@ -2738,6 +2739,35 @@
 <span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">typeof</span>(d)</span>
 <span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a><span class="dt">Dict</span>{<span class="dt">String</span>, <span class="dt">String</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<h3 id="comprensión-de-diccionarios">Comprensión de diccionarios</h3>
+<p>Al igual que para arrays se puede usar la técnica de compresión para generar diccionarios a partir de uno o varios iteradores.</p>
+<ul>
+<li><p><code>Dict(kexp =&gt; vexp for i = ite)</code>: Devuelve el diccionario cuyos pares están formados por la claves y valores resultan de evaluar las expresiones <code>kexp</code> y <code>vexp</code> respectivamente, para cada valor <code>i</code> del iterador <code>ite</code>.</p></li>
+<li><p><code>Dict(kexp =&gt; vexp for i = ite if cond)</code>: Devuelve el diccionario cuyos pares están formados por la claves y valores resultan de evaluar las expresiones <code>kexp</code> y <code>vexp</code> respectivamente, para cada valor <code>i</code> del iterador <code>ite</code> que cumpla condición <code>cond</code>.</p></li>
+</ul>
+<p>Se pueden utilizar más de un iterador después de la palabra reservada <code>for</code>.</p>
+</section>
+<section class="slide level2">
+
+<h3 id="ejemplo-de-comprensión-de-diccionarios">Ejemplo de comprensión de diccionarios</h3>
+<div class="sourceCode" id="cb65"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">Dict</span>(i <span class="op">=&gt;</span> i<span class="op">^</span><span class="fl">2</span> <span class="cf">for</span> i <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>)</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Dict</span>{<span class="dt">Int64</span>, <span class="dt">Int64</span>} with <span class="fl">4</span> entries<span class="op">:</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="fl">4</span> <span class="op">=&gt;</span> <span class="fl">16</span></span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>  <span class="fl">2</span> <span class="op">=&gt;</span> <span class="fl">4</span></span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>  <span class="fl">3</span> <span class="op">=&gt;</span> <span class="fl">9</span></span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>  <span class="fl">1</span> <span class="op">=&gt;</span> <span class="fl">1</span></span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">Dict</span>(i <span class="op">=&gt;</span> i<span class="op">^</span><span class="fl">2</span> <span class="cf">for</span> i <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span> <span class="cf">if</span> i <span class="op">%</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span>)</span>
+<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a><span class="dt">Dict</span>{<span class="dt">Int64</span>, <span class="dt">Int64</span>} with <span class="fl">2</span> entries<span class="op">:</span></span>
+<span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a>  <span class="fl">4</span> <span class="op">=&gt;</span> <span class="fl">16</span></span>
+<span id="cb65-11"><a href="#cb65-11" aria-hidden="true" tabindex="-1"></a>  <span class="fl">2</span> <span class="op">=&gt;</span> <span class="fl">4</span></span>
+<span id="cb65-12"><a href="#cb65-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-13"><a href="#cb65-13" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">Dict</span>((i, j) <span class="op">=&gt;</span> i <span class="op">+</span> j <span class="cf">for</span> i <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, j <span class="op">=</span> <span class="fl">3</span><span class="op">:</span><span class="fl">4</span>)</span>
+<span id="cb65-14"><a href="#cb65-14" aria-hidden="true" tabindex="-1"></a><span class="dt">Dict</span>{<span class="dt">Tuple</span>{<span class="dt">Int64</span>, <span class="dt">Int64</span>}, <span class="dt">Int64</span>} with <span class="fl">4</span> entries<span class="op">:</span></span>
+<span id="cb65-15"><a href="#cb65-15" aria-hidden="true" tabindex="-1"></a>  (<span class="fl">2</span>, <span class="fl">4</span>) <span class="op">=&gt;</span> <span class="fl">6</span></span>
+<span id="cb65-16"><a href="#cb65-16" aria-hidden="true" tabindex="-1"></a>  (<span class="fl">1</span>, <span class="fl">3</span>) <span class="op">=&gt;</span> <span class="fl">4</span></span>
+<span id="cb65-17"><a href="#cb65-17" aria-hidden="true" tabindex="-1"></a>  (<span class="fl">1</span>, <span class="fl">4</span>) <span class="op">=&gt;</span> <span class="fl">5</span></span>
+<span id="cb65-18"><a href="#cb65-18" aria-hidden="true" tabindex="-1"></a>  (<span class="fl">2</span>, <span class="fl">3</span>) <span class="op">=&gt;</span> <span class="fl">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section class="slide level2">
 
@@ -2766,35 +2796,35 @@
 <section class="slide level2">
 
 <h3 id="ejemplo-de-acceso-a-los-elementos-de-un-diccionario">Ejemplo de acceso a los elementos de un diccionario</h3>
-<div class="sourceCode" id="cb65"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> d <span class="op">=</span> <span class="fu">Dict</span>(<span class="st">"ES"</span> <span class="op">=&gt;</span> <span class="st">"Euro"</span>, <span class="st">"US"</span> <span class="op">=&gt;</span> <span class="st">"Dollar"</span>, <span class="st">"CN"</span> <span class="op">=&gt;</span> <span class="st">"Yuan"</span>)</span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Dict</span>{<span class="dt">String</span>, <span class="dt">String</span>} with <span class="fl">3</span> entries<span class="op">:</span></span>
-<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CN"</span> <span class="op">=&gt;</span> <span class="st">"Yuan"</span></span>
-<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ES"</span> <span class="op">=&gt;</span> <span class="st">"Euro"</span></span>
-<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"US"</span> <span class="op">=&gt;</span> <span class="st">"Dollar"</span></span>
-<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> d[<span class="st">"ES"</span>]</span>
-<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a><span class="st">"Euro"</span></span>
-<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> d[<span class="st">"JP"</span>]</span>
-<span id="cb65-11"><a href="#cb65-11" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> <span class="dt">KeyError</span><span class="op">:</span> key <span class="st">"JP"</span> not found</span>
-<span id="cb65-12"><a href="#cb65-12" aria-hidden="true" tabindex="-1"></a>Stacktrace<span class="op">:</span></span>
-<span id="cb65-13"><a href="#cb65-13" aria-hidden="true" tabindex="-1"></a> [<span class="fl">1</span>] <span class="fu">getindex</span>(h<span class="op">::</span><span class="dt">Dict{String, String}</span>, key<span class="op">::</span><span class="dt">String</span>)</span>
-<span id="cb65-14"><a href="#cb65-14" aria-hidden="true" tabindex="-1"></a>   @ <span class="bu">Base</span> <span class="op">./</span>dict.jl<span class="op">:</span><span class="fl">481</span></span>
-<span id="cb65-15"><a href="#cb65-15" aria-hidden="true" tabindex="-1"></a> [<span class="fl">2</span>] top<span class="op">-</span>level scope</span>
-<span id="cb65-16"><a href="#cb65-16" aria-hidden="true" tabindex="-1"></a>   @ <span class="bu">REPL</span>[<span class="fl">22</span>]<span class="op">:</span><span class="fl">1</span></span>
-<span id="cb65-17"><a href="#cb65-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-18"><a href="#cb65-18" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">get</span>(d, <span class="st">"JP"</span>, <span class="st">"Dollar"</span>)</span>
-<span id="cb65-19"><a href="#cb65-19" aria-hidden="true" tabindex="-1"></a><span class="st">"Dollar"</span></span>
-<span id="cb65-20"><a href="#cb65-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-21"><a href="#cb65-21" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">get!</span>(d, <span class="st">"JP"</span>, <span class="st">"Yen"</span>)</span>
-<span id="cb65-22"><a href="#cb65-22" aria-hidden="true" tabindex="-1"></a><span class="st">"Yen"</span></span>
-<span id="cb65-23"><a href="#cb65-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-24"><a href="#cb65-24" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> d</span>
-<span id="cb65-25"><a href="#cb65-25" aria-hidden="true" tabindex="-1"></a><span class="dt">Dict</span>{<span class="dt">String</span>, <span class="dt">String</span>} with <span class="fl">4</span> entries<span class="op">:</span></span>
-<span id="cb65-26"><a href="#cb65-26" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CN"</span> <span class="op">=&gt;</span> <span class="st">"Yuan"</span></span>
-<span id="cb65-27"><a href="#cb65-27" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ES"</span> <span class="op">=&gt;</span> <span class="st">"Euro"</span></span>
-<span id="cb65-28"><a href="#cb65-28" aria-hidden="true" tabindex="-1"></a>  <span class="st">"JP"</span> <span class="op">=&gt;</span> <span class="st">"Yen"</span></span>
-<span id="cb65-29"><a href="#cb65-29" aria-hidden="true" tabindex="-1"></a>  <span class="st">"US"</span> <span class="op">=&gt;</span> <span class="st">"Dollar"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> d <span class="op">=</span> <span class="fu">Dict</span>(<span class="st">"ES"</span> <span class="op">=&gt;</span> <span class="st">"Euro"</span>, <span class="st">"US"</span> <span class="op">=&gt;</span> <span class="st">"Dollar"</span>, <span class="st">"CN"</span> <span class="op">=&gt;</span> <span class="st">"Yuan"</span>)</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Dict</span>{<span class="dt">String</span>, <span class="dt">String</span>} with <span class="fl">3</span> entries<span class="op">:</span></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CN"</span> <span class="op">=&gt;</span> <span class="st">"Yuan"</span></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ES"</span> <span class="op">=&gt;</span> <span class="st">"Euro"</span></span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"US"</span> <span class="op">=&gt;</span> <span class="st">"Dollar"</span></span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> d[<span class="st">"ES"</span>]</span>
+<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a><span class="st">"Euro"</span></span>
+<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> d[<span class="st">"JP"</span>]</span>
+<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> <span class="dt">KeyError</span><span class="op">:</span> key <span class="st">"JP"</span> not found</span>
+<span id="cb66-12"><a href="#cb66-12" aria-hidden="true" tabindex="-1"></a>Stacktrace<span class="op">:</span></span>
+<span id="cb66-13"><a href="#cb66-13" aria-hidden="true" tabindex="-1"></a> [<span class="fl">1</span>] <span class="fu">getindex</span>(h<span class="op">::</span><span class="dt">Dict{String, String}</span>, key<span class="op">::</span><span class="dt">String</span>)</span>
+<span id="cb66-14"><a href="#cb66-14" aria-hidden="true" tabindex="-1"></a>   @ <span class="bu">Base</span> <span class="op">./</span>dict.jl<span class="op">:</span><span class="fl">481</span></span>
+<span id="cb66-15"><a href="#cb66-15" aria-hidden="true" tabindex="-1"></a> [<span class="fl">2</span>] top<span class="op">-</span>level scope</span>
+<span id="cb66-16"><a href="#cb66-16" aria-hidden="true" tabindex="-1"></a>   @ <span class="bu">REPL</span>[<span class="fl">22</span>]<span class="op">:</span><span class="fl">1</span></span>
+<span id="cb66-17"><a href="#cb66-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-18"><a href="#cb66-18" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">get</span>(d, <span class="st">"JP"</span>, <span class="st">"Dollar"</span>)</span>
+<span id="cb66-19"><a href="#cb66-19" aria-hidden="true" tabindex="-1"></a><span class="st">"Dollar"</span></span>
+<span id="cb66-20"><a href="#cb66-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-21"><a href="#cb66-21" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">get!</span>(d, <span class="st">"JP"</span>, <span class="st">"Yen"</span>)</span>
+<span id="cb66-22"><a href="#cb66-22" aria-hidden="true" tabindex="-1"></a><span class="st">"Yen"</span></span>
+<span id="cb66-23"><a href="#cb66-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-24"><a href="#cb66-24" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> d</span>
+<span id="cb66-25"><a href="#cb66-25" aria-hidden="true" tabindex="-1"></a><span class="dt">Dict</span>{<span class="dt">String</span>, <span class="dt">String</span>} with <span class="fl">4</span> entries<span class="op">:</span></span>
+<span id="cb66-26"><a href="#cb66-26" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CN"</span> <span class="op">=&gt;</span> <span class="st">"Yuan"</span></span>
+<span id="cb66-27"><a href="#cb66-27" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ES"</span> <span class="op">=&gt;</span> <span class="st">"Euro"</span></span>
+<span id="cb66-28"><a href="#cb66-28" aria-hidden="true" tabindex="-1"></a>  <span class="st">"JP"</span> <span class="op">=&gt;</span> <span class="st">"Yen"</span></span>
+<span id="cb66-29"><a href="#cb66-29" aria-hidden="true" tabindex="-1"></a>  <span class="st">"US"</span> <span class="op">=&gt;</span> <span class="st">"Dollar"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section class="slide level2">
 
@@ -2809,38 +2839,272 @@
 <section class="slide level2">
 
 <h3 id="ejemplo-de-recorrido-de-las-claves-y-valores-de-un-diccionario">Ejemplo de recorrido de las claves y valores de un diccionario</h3>
-<div class="sourceCode" id="cb66"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> d <span class="op">=</span> <span class="fu">Dict</span>(<span class="st">"ES"</span> <span class="op">=&gt;</span> <span class="st">"Euro"</span>, <span class="st">"US"</span> <span class="op">=&gt;</span> <span class="st">"Dollar"</span>, <span class="st">"CN"</span> <span class="op">=&gt;</span> <span class="st">"Yuan"</span>)</span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Dict</span>{<span class="dt">String</span>, <span class="dt">String</span>} with <span class="fl">3</span> entries<span class="op">:</span></span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CN"</span> <span class="op">=&gt;</span> <span class="st">"Yuan"</span></span>
-<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ES"</span> <span class="op">=&gt;</span> <span class="st">"Euro"</span></span>
-<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"US"</span> <span class="op">=&gt;</span> <span class="st">"Dollar"</span></span>
-<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">keys</span>(d)</span>
-<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a>KeySet <span class="cf">for</span> a <span class="dt">Dict</span>{<span class="dt">String</span>, <span class="dt">String</span>} with <span class="fl">3</span> entries. Keys<span class="op">:</span></span>
-<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CN"</span></span>
-<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ES"</span></span>
-<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"US"</span></span>
-<span id="cb66-12"><a href="#cb66-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-13"><a href="#cb66-13" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">values</span>(d)</span>
-<span id="cb66-14"><a href="#cb66-14" aria-hidden="true" tabindex="-1"></a>ValueIterator <span class="cf">for</span> a <span class="dt">Dict</span>{<span class="dt">String</span>, <span class="dt">String</span>} with <span class="fl">3</span> entries. Values<span class="op">:</span></span>
-<span id="cb66-15"><a href="#cb66-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Yuan"</span></span>
-<span id="cb66-16"><a href="#cb66-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Euro"</span></span>
-<span id="cb66-17"><a href="#cb66-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Dollar"</span></span>
-<span id="cb66-18"><a href="#cb66-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-19"><a href="#cb66-19" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="cf">for</span> i <span class="op">=</span> <span class="fu">keys</span>(d)</span>
-<span id="cb66-20"><a href="#cb66-20" aria-hidden="true" tabindex="-1"></a>         <span class="fu">println</span>(<span class="st">"</span><span class="sc">$</span>i<span class="st"> = </span><span class="sc">$</span>(d[i])<span class="st">"</span>)</span>
-<span id="cb66-21"><a href="#cb66-21" aria-hidden="true" tabindex="-1"></a>       <span class="cf">end</span></span>
-<span id="cb66-22"><a href="#cb66-22" aria-hidden="true" tabindex="-1"></a>CN <span class="op">=</span> Yuan</span>
-<span id="cb66-23"><a href="#cb66-23" aria-hidden="true" tabindex="-1"></a>ES <span class="op">=</span> Euro</span>
-<span id="cb66-24"><a href="#cb66-24" aria-hidden="true" tabindex="-1"></a>US <span class="op">=</span> Dollar</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> d <span class="op">=</span> <span class="fu">Dict</span>(<span class="st">"ES"</span> <span class="op">=&gt;</span> <span class="st">"Euro"</span>, <span class="st">"US"</span> <span class="op">=&gt;</span> <span class="st">"Dollar"</span>, <span class="st">"CN"</span> <span class="op">=&gt;</span> <span class="st">"Yuan"</span>)</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Dict</span>{<span class="dt">String</span>, <span class="dt">String</span>} with <span class="fl">3</span> entries<span class="op">:</span></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CN"</span> <span class="op">=&gt;</span> <span class="st">"Yuan"</span></span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ES"</span> <span class="op">=&gt;</span> <span class="st">"Euro"</span></span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"US"</span> <span class="op">=&gt;</span> <span class="st">"Dollar"</span></span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">keys</span>(d)</span>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a>KeySet <span class="cf">for</span> a <span class="dt">Dict</span>{<span class="dt">String</span>, <span class="dt">String</span>} with <span class="fl">3</span> entries. Keys<span class="op">:</span></span>
+<span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CN"</span></span>
+<span id="cb67-10"><a href="#cb67-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ES"</span></span>
+<span id="cb67-11"><a href="#cb67-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"US"</span></span>
+<span id="cb67-12"><a href="#cb67-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-13"><a href="#cb67-13" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">values</span>(d)</span>
+<span id="cb67-14"><a href="#cb67-14" aria-hidden="true" tabindex="-1"></a>ValueIterator <span class="cf">for</span> a <span class="dt">Dict</span>{<span class="dt">String</span>, <span class="dt">String</span>} with <span class="fl">3</span> entries. Values<span class="op">:</span></span>
+<span id="cb67-15"><a href="#cb67-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Yuan"</span></span>
+<span id="cb67-16"><a href="#cb67-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Euro"</span></span>
+<span id="cb67-17"><a href="#cb67-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Dollar"</span></span>
+<span id="cb67-18"><a href="#cb67-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-19"><a href="#cb67-19" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="cf">for</span> k <span class="op">=</span> <span class="fu">keys</span>(d)</span>
+<span id="cb67-20"><a href="#cb67-20" aria-hidden="true" tabindex="-1"></a>         <span class="fu">println</span>(<span class="st">"</span><span class="sc">$</span>k<span class="st"> = </span><span class="sc">$</span>(d[k])<span class="st">"</span>)</span>
+<span id="cb67-21"><a href="#cb67-21" aria-hidden="true" tabindex="-1"></a>       <span class="cf">end</span></span>
+<span id="cb67-22"><a href="#cb67-22" aria-hidden="true" tabindex="-1"></a>CN <span class="op">=</span> Yuan</span>
+<span id="cb67-23"><a href="#cb67-23" aria-hidden="true" tabindex="-1"></a>ES <span class="op">=</span> Euro</span>
+<span id="cb67-24"><a href="#cb67-24" aria-hidden="true" tabindex="-1"></a>US <span class="op">=</span> Dollar</span>
+<span id="cb67-25"><a href="#cb67-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-26"><a href="#cb67-26" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="cf">for</span> (k, v) <span class="op">=</span> d</span>
+<span id="cb67-27"><a href="#cb67-27" aria-hidden="true" tabindex="-1"></a>       <span class="fu">println</span>(<span class="st">"</span><span class="sc">$</span>k<span class="st"> = </span><span class="sc">$</span>v<span class="st">"</span>)</span>
+<span id="cb67-28"><a href="#cb67-28" aria-hidden="true" tabindex="-1"></a>       <span class="cf">end</span></span>
+<span id="cb67-29"><a href="#cb67-29" aria-hidden="true" tabindex="-1"></a>CN <span class="op">=</span> Yuan</span>
+<span id="cb67-30"><a href="#cb67-30" aria-hidden="true" tabindex="-1"></a>ES <span class="op">=</span> Euro</span>
+<span id="cb67-31"><a href="#cb67-31" aria-hidden="true" tabindex="-1"></a>US <span class="op">=</span> Dollar</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section class="slide level2">
 
 <h3 id="añadir-elementos-a-un-diccionario">Añadir elementos a un diccionario</h3>
 <p>Se pueden añadir pares nuevos a un diccionario de la siguiente manera:</p>
 <ul>
-<li><code>d[k] = v</code>: Añade el par con clave <code>k</code> y valor <code>v</code> al diccionario <code>d</code>. Si la clave <code>k</code> ya existía en el diccionario <code>d</code>, cambia su valor asociaco por <code>v</code>.</li>
+<li><p><code>d[k] = v</code>: Añade el par con clave <code>k</code> y valor <code>v</code> al diccionario <code>d</code>. Si la clave <code>k</code> ya existía en el diccionario <code>d</code>, cambia su valor asociaco por <code>v</code>.</p></li>
+<li><p><code>push!(d, k =&gt; v)</code>: Añade el par con clave <code>k</code> y valor asociado <code>v</code> al diccionario <code>d</code>.</p></li>
 </ul>
+<div class="sourceCode" id="cb68"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> d <span class="op">=</span> <span class="fu">Dict</span>(<span class="st">"ES"</span> <span class="op">=&gt;</span> <span class="st">"Euro"</span>, <span class="st">"US"</span> <span class="op">=&gt;</span> <span class="st">"Dollar"</span>)</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Dict</span>{<span class="dt">String</span>, <span class="dt">String</span>} with <span class="fl">2</span> entries<span class="op">:</span></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ES"</span> <span class="op">=&gt;</span> <span class="st">"Euro"</span></span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"US"</span> <span class="op">=&gt;</span> <span class="st">"Dollar"</span></span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> d[<span class="st">"CN"</span>] <span class="op">=</span> <span class="st">"Yuan"</span></span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a><span class="st">"Yuan"</span></span>
+<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">push!</span>(d, <span class="st">"JP"</span> <span class="op">=&gt;</span> <span class="st">"Yen"</span>)</span>
+<span id="cb68-10"><a href="#cb68-10" aria-hidden="true" tabindex="-1"></a><span class="dt">Dict</span>{<span class="dt">String</span>, <span class="dt">String</span>} with <span class="fl">4</span> entries<span class="op">:</span></span>
+<span id="cb68-11"><a href="#cb68-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CN"</span> <span class="op">=&gt;</span> <span class="st">"Yuan"</span></span>
+<span id="cb68-12"><a href="#cb68-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ES"</span> <span class="op">=&gt;</span> <span class="st">"Euro"</span></span>
+<span id="cb68-13"><a href="#cb68-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"JP"</span> <span class="op">=&gt;</span> <span class="st">"Yen"</span></span>
+<span id="cb68-14"><a href="#cb68-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"US"</span> <span class="op">=&gt;</span> <span class="st">"Dollar"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<h3 id="eliminar-elementos-de-un-diccionario">Eliminar elementos de un diccionario</h3>
+<p>Para eliminar un par de un diccionario se utiliza la siguiente función:</p>
+<ul>
+<li><code>delete!(d, k)</code>: Elimina el par cuya clave es <code>k</code> del diccionario <code>d</code>.</li>
+</ul>
+<div class="sourceCode" id="cb69"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> d <span class="op">=</span> <span class="fu">Dict</span>(<span class="st">"ES"</span> <span class="op">=&gt;</span> <span class="st">"Euro"</span>, <span class="st">"US"</span> <span class="op">=&gt;</span> <span class="st">"Dollar"</span>, <span class="st">"CN"</span> <span class="op">=&gt;</span> <span class="st">"Yuan"</span>)</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Dict</span>{<span class="dt">String</span>, <span class="dt">String</span>} with <span class="fl">3</span> entries<span class="op">:</span></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CN"</span> <span class="op">=&gt;</span> <span class="st">"Yuan"</span></span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ES"</span> <span class="op">=&gt;</span> <span class="st">"Euro"</span></span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"US"</span> <span class="op">=&gt;</span> <span class="st">"Dollar"</span></span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">delete!</span>(d, <span class="st">"US"</span>)</span>
+<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a><span class="dt">Dict</span>{<span class="dt">String</span>, <span class="dt">String</span>} with <span class="fl">2</span> entries<span class="op">:</span></span>
+<span id="cb69-9"><a href="#cb69-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CN"</span> <span class="op">=&gt;</span> <span class="st">"Yuan"</span></span>
+<span id="cb69-10"><a href="#cb69-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ES"</span> <span class="op">=&gt;</span> <span class="st">"Euro"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="conjuntos" class="slide level2">
+<h2>Conjuntos</h2>
+<p>Un conjunto es una colección de elementos del mismo tipo sin orden y sin repeticiones.</p>
+<p>Se construyen con la siguiente constructor:</p>
+<ul>
+<li><code>Set(a)</code>: Crea un conjunto con los elementos del array <code>a</code>.</li>
+</ul>
+<p>Al igual que para arrays el tipo se infiere automáticamente a partir de los tipos de sus elementos. Si los elementos son de distintos tipos se convierten al tipo más específico de la jerarquía de tipos del que los tipos de los elementos son subtipos.</p>
+<div class="callout callout-warning callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>Un conjunto no puede tener elementos repetidos, por lo que si el array contiene elementos repetidos solo se incluyen una vez.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="ejemplo-de-construcción-de-conjuntos">Ejemplo de construcción de conjuntos</h3>
+<div class="sourceCode" id="cb70"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">Set</span>()</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Set</span><span class="dt">{Any}</span>()</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> c <span class="op">=</span> <span class="fu">Set</span>([<span class="fl">1</span>, <span class="st">"2"</span>, <span class="fl">3</span>])</span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a><span class="dt">Set</span>{<span class="dt">Any</span>} with <span class="fl">3</span> elements<span class="op">:</span></span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"2"</span></span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>  <span class="fl">3</span></span>
+<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>  <span class="fl">1</span></span>
+<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-10"><a href="#cb70-10" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">typeof</span>(c)</span>
+<span id="cb70-11"><a href="#cb70-11" aria-hidden="true" tabindex="-1"></a><span class="dt">Set</span>{<span class="dt">Any</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<h3 id="añadir-elementos-a-un-conjunto">Añadir elementos a un conjunto</h3>
+<p>Para añadir elementos a un conjunto se utiliza la siguiente función:</p>
+<ul>
+<li><code>push!(c, e)</code>: Añade el elemento <code>e</code> al conjunto <code>c</code>.</li>
+</ul>
+<div class="callout callout-warning callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>Si el elemento que se quiere añadir es de distinto tipo que los elemento del conjunto y no puede convertirse a este tipo, se produce un error.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="ejemplo-de-añadir-elementos-a-un-conjunto">Ejemplo de añadir elementos a un conjunto</h3>
+<div class="sourceCode" id="cb71"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>ulia<span class="op">&gt;</span> c <span class="op">=</span> <span class="fu">Set</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">3</span>)</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Set</span>{<span class="dt">Int64</span>} with <span class="fl">3</span> elements<span class="op">:</span></span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>  <span class="fl">2</span></span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>  <span class="fl">3</span></span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>  <span class="fl">1</span></span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">push!</span>(c, <span class="fl">4</span>)</span>
+<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a><span class="dt">Set</span>{<span class="dt">Int64</span>} with <span class="fl">4</span> elements<span class="op">:</span></span>
+<span id="cb71-9"><a href="#cb71-9" aria-hidden="true" tabindex="-1"></a>  <span class="fl">4</span></span>
+<span id="cb71-10"><a href="#cb71-10" aria-hidden="true" tabindex="-1"></a>  <span class="fl">2</span></span>
+<span id="cb71-11"><a href="#cb71-11" aria-hidden="true" tabindex="-1"></a>  <span class="fl">3</span></span>
+<span id="cb71-12"><a href="#cb71-12" aria-hidden="true" tabindex="-1"></a>  <span class="fl">1</span></span>
+<span id="cb71-13"><a href="#cb71-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-14"><a href="#cb71-14" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">push!</span>(c, <span class="st">"cinco"</span>)</span>
+<span id="cb71-15"><a href="#cb71-15" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> <span class="dt">MethodError</span><span class="op">:</span> Cannot <span class="ss">`convert`</span> an object of <span class="kw">type</span> <span class="dt">String</span> to an object of <span class="kw">type</span> <span class="dt">Int64</span></span>
+<span id="cb71-16"><a href="#cb71-16" aria-hidden="true" tabindex="-1"></a>Closest candidates are<span class="op">:</span></span>
+<span id="cb71-17"><a href="#cb71-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">convert</span>(<span class="op">::</span><span class="dt">Type{T}</span>, <span class="op">::</span><span class="dt">T</span>) <span class="kw">where</span> T<span class="op">&lt;:</span><span class="dt">Number </span>at <span class="op">/</span>usr<span class="op">/</span>share<span class="op">/</span>julia<span class="op">/</span>base<span class="op">/</span>number.jl<span class="op">:</span><span class="fl">6</span></span>
+<span id="cb71-18"><a href="#cb71-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">convert</span>(<span class="op">::</span><span class="dt">Type{T}</span>, <span class="op">::</span><span class="dt">Number</span>) <span class="kw">where</span> T<span class="op">&lt;:</span><span class="dt">Number </span>at <span class="op">/</span>usr<span class="op">/</span>share<span class="op">/</span>julia<span class="op">/</span>base<span class="op">/</span>number.jl<span class="op">:</span><span class="fl">7</span></span>
+<span id="cb71-19"><a href="#cb71-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">convert</span>(<span class="op">::</span><span class="dt">Type{T}</span>, <span class="op">::</span><span class="dt">Base.TwicePrecision</span>) <span class="kw">where</span> T<span class="op">&lt;:</span><span class="dt">Number </span>at <span class="op">/</span>usr<span class="op">/</span>share<span class="op">/</span>julia<span class="op">/</span>base<span class="op">/</span>twiceprecision.jl<span class="op">:</span><span class="fl">262</span></span>
+<span id="cb71-20"><a href="#cb71-20" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<h3 id="eliminar-elementos-de-un-conjunto">Eliminar elementos de un conjunto</h3>
+<p>Para eleminiar elementos de un conjunto se utiliza la siguiente función:</p>
+<ul>
+<li><code>delete!(c, e)</code>: Elimina el elemento <code>e</code> del conjunto <code>c</code>.</li>
+</ul>
+<div class="sourceCode" id="cb72"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> c <span class="op">=</span> <span class="fu">Set</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">3</span>)</span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Set</span>{<span class="dt">Int64</span>} with <span class="fl">3</span> elements<span class="op">:</span></span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="fl">2</span></span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>  <span class="fl">3</span></span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>  <span class="fl">1</span></span>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">delete!</span>(c, <span class="fl">2</span>)</span>
+<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a><span class="dt">Set</span>{<span class="dt">Int64</span>} with <span class="fl">2</span> elements<span class="op">:</span></span>
+<span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a>  <span class="fl">3</span></span>
+<span id="cb72-10"><a href="#cb72-10" aria-hidden="true" tabindex="-1"></a>  <span class="fl">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<h3 id="recorrido-de-los-elementos-de-un-conjunto">Recorrido de los elementos de un conjunto</h3>
+<p>Un conjunto puede utilizarse también como un iterador para recorrer sus elementos.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> c <span class="op">=</span> <span class="fu">Set</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">3</span>)</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Set</span>{<span class="dt">Int64</span>} with <span class="fl">3</span> elements<span class="op">:</span></span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>  <span class="fl">2</span></span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>  <span class="fl">3</span></span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>  <span class="fl">1</span></span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="cf">for</span> i <span class="op">=</span> c</span>
+<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a>         <span class="fu">println</span>(i)</span>
+<span id="cb73-9"><a href="#cb73-9" aria-hidden="true" tabindex="-1"></a>       <span class="cf">end</span></span>
+<span id="cb73-10"><a href="#cb73-10" aria-hidden="true" tabindex="-1"></a><span class="fl">2</span></span>
+<span id="cb73-11"><a href="#cb73-11" aria-hidden="true" tabindex="-1"></a><span class="fl">3</span></span>
+<span id="cb73-12"><a href="#cb73-12" aria-hidden="true" tabindex="-1"></a><span class="fl">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<h3 id="pertenencia-e-inclusión-de-conjuntos">Pertenencia e inclusión de conjuntos</h3>
+<ul>
+<li><code>in(e, c)</code>, <code>e ∈ c</code> : Devuelve <code>true</code> si el elemento <code>e</code> pertenece al conjunto <code>c</code> y <code>false</code> en caso contrario.</li>
+<li><code>e ∉ c</code>: Devuelve <code>true</code> si el elemento <code>e</code> no pertenece al conjunto <code>c</code> y <code>false</code> en caso contrario.</li>
+<li><code>issubset(a, b)</code>, <code>a ⊆ b</code>: Devuelve <code>true</code> si todos los elementos de <code>a</code> pertenecen a <code>b</code> y <code>false</code> en caso contrario.</li>
+<li><code>a ⊈ b</code>: Deuvelve <code>true</code> si hay algún elemento de <code>a</code> que no pertenece a <code>b</code>.</li>
+<li><code>a ⊊ b</code>: Devuelve <code>true</code> si el conjunto <code>a</code> está contenido estrictamente en el conjunto <code>b</code>, es decir, todos los elementos de <code>a</code> pertenecen a <code>b</code> pero <code>a</code> y <code>b</code> son distintos.</li>
+<li><code>isdisjoint(a, b)</code>: Devuelve <code>true</code> si los conjuntos <code>a</code> y <code>b</code> no tienen elementos en común y <code>false</code> en caso contrario.</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="ejemplos-de-pertenencia-e-inclusión-de-conjuntos">Ejemplos de pertenencia e inclusión de conjuntos</h3>
+<div class="sourceCode" id="cb74"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> a <span class="op">=</span> <span class="fu">Set</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">3</span>);</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">in</span>(<span class="fl">2</span>, a)</span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a><span class="cn">true</span></span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fl">3</span> <span class="op">∉</span> a</span>
+<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a><span class="cn">false</span></span>
+<span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-9"><a href="#cb74-9" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> b <span class="op">=</span> <span class="fu">Set</span>([<span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">1</span>]);</span>
+<span id="cb74-10"><a href="#cb74-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-11"><a href="#cb74-11" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> a <span class="op">⊊</span> b</span>
+<span id="cb74-12"><a href="#cb74-12" aria-hidden="true" tabindex="-1"></a><span class="cn">false</span></span>
+<span id="cb74-13"><a href="#cb74-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-14"><a href="#cb74-14" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> a <span class="op">⊆</span> b</span>
+<span id="cb74-15"><a href="#cb74-15" aria-hidden="true" tabindex="-1"></a><span class="cn">true</span></span>
+<span id="cb74-16"><a href="#cb74-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-17"><a href="#cb74-17" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">isdisjoint</span>(a, b)</span>
+<span id="cb74-18"><a href="#cb74-18" aria-hidden="true" tabindex="-1"></a><span class="cn">false</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<h3 id="álgebra-de-conjuntos">Álgebra de conjuntos</h3>
+<ul>
+<li><code>union(a, b)</code>, <code>a ∪ b</code>: Devuelve el conjunto unión de los conjuntos <code>a</code> y <code>b</code>.</li>
+<li><code>intersect(a, b)</code>, <code>a ∩ b</code>: Devuelve el conjunto intersección de los conjuntos <code>a</code> y <code>b</code>.</li>
+<li><code>setdiff(a, b)</code>: Devuelve el conjunto diferencia del conjunto <code>a</code> y <code>b</code>.</li>
+<li><code>symdiff(a, b)</code>: Devuelve el conjunto diferencia simétrica de los conjuntos <code>a</code> y <code>b</code>.</li>
+</ul>
+<p>Existen versiones de estas funciones acabadas en <code>!</code> que sobreescriben el conjunto dado como primer argumento con el resultado de la operación.</p>
+</section>
+<section class="slide level2">
+
+<h3 id="ejemplo-de-álgebra-de-conjuntos">Ejemplo de álgebra de conjuntos</h3>
+<div class="sourceCode" id="cb75"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> a <span class="op">=</span> <span class="fu">Set</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">3</span>)</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Set</span>{<span class="dt">Int64</span>} with <span class="fl">3</span> elements<span class="op">:</span></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>  <span class="fl">2</span></span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>  <span class="fl">3</span></span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>  <span class="fl">1</span></span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> b <span class="op">=</span> <span class="fu">Set</span>(<span class="fl">2</span><span class="op">:</span><span class="fl">2</span><span class="op">:</span><span class="fl">6</span>)</span>
+<span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a><span class="dt">Set</span>{<span class="dt">Int64</span>} with <span class="fl">3</span> elements<span class="op">:</span></span>
+<span id="cb75-9"><a href="#cb75-9" aria-hidden="true" tabindex="-1"></a>  <span class="fl">4</span></span>
+<span id="cb75-10"><a href="#cb75-10" aria-hidden="true" tabindex="-1"></a>  <span class="fl">6</span></span>
+<span id="cb75-11"><a href="#cb75-11" aria-hidden="true" tabindex="-1"></a>  <span class="fl">2</span></span>
+<span id="cb75-12"><a href="#cb75-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-13"><a href="#cb75-13" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">union</span>(a, b)</span>
+<span id="cb75-14"><a href="#cb75-14" aria-hidden="true" tabindex="-1"></a><span class="dt">Set</span>{<span class="dt">Int64</span>} with <span class="fl">5</span> elements<span class="op">:</span></span>
+<span id="cb75-15"><a href="#cb75-15" aria-hidden="true" tabindex="-1"></a>  <span class="fl">4</span></span>
+<span id="cb75-16"><a href="#cb75-16" aria-hidden="true" tabindex="-1"></a>  <span class="fl">6</span></span>
+<span id="cb75-17"><a href="#cb75-17" aria-hidden="true" tabindex="-1"></a>  <span class="fl">2</span></span>
+<span id="cb75-18"><a href="#cb75-18" aria-hidden="true" tabindex="-1"></a>  <span class="fl">3</span></span>
+<span id="cb75-19"><a href="#cb75-19" aria-hidden="true" tabindex="-1"></a>  <span class="fl">1</span></span>
+<span id="cb75-20"><a href="#cb75-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-21"><a href="#cb75-21" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">intersect</span>(a, b)</span>
+<span id="cb75-22"><a href="#cb75-22" aria-hidden="true" tabindex="-1"></a><span class="dt">Set</span>{<span class="dt">Int64</span>} with <span class="fl">1</span> element<span class="op">:</span></span>
+<span id="cb75-23"><a href="#cb75-23" aria-hidden="true" tabindex="-1"></a>  <span class="fl">2</span></span>
+<span id="cb75-24"><a href="#cb75-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-25"><a href="#cb75-25" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">setdiff</span>(a, b)</span>
+<span id="cb75-26"><a href="#cb75-26" aria-hidden="true" tabindex="-1"></a><span class="dt">Set</span>{<span class="dt">Int64</span>} with <span class="fl">2</span> elements<span class="op">:</span></span>
+<span id="cb75-27"><a href="#cb75-27" aria-hidden="true" tabindex="-1"></a>  <span class="fl">3</span></span>
+<span id="cb75-28"><a href="#cb75-28" aria-hidden="true" tabindex="-1"></a>  <span class="fl">1</span></span>
+<span id="cb75-29"><a href="#cb75-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-30"><a href="#cb75-30" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">symdiff</span>(a, b) <span class="op">==</span> <span class="fu">setdiff</span>(a <span class="op">∪</span> b, a <span class="op">∩</span> b)</span>
+<span id="cb75-31"><a href="#cb75-31" aria-hidden="true" tabindex="-1"></a><span class="cn">true</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
 
 <img src="img/logos/logo-julia.svg" class="slide-logo r-stretch"><div class="footer footer-default">
 <p><a href="https://aprendeconalf.es/introduccion-julia" class="uri">https://aprendeconalf.es/introduccion-julia</a></p>

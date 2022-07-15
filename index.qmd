@@ -992,6 +992,7 @@ Colecciones de datos con distinta estructura y semántica.
   - Matrices
 - Tuplas
 - Diccionarios
+- Conjuntos
 
 ## Arrays 
 
@@ -2130,7 +2131,7 @@ Un diccionario es una colección asociativa sin orden cuyos elementos son pares 
 
 Se parecen a las tuplas con nombre, pero, a diferencia de estas, son mutables, es decir, su contenido se puede alterar.
 
-Se construyen con la siguiente función:
+Se construyen con la siguiente constructor:
 
 - `Dic(k1 = v1, ...)`: Crea un diccionario con los pares indicados en formato `clave = valor`.
 
@@ -2154,6 +2155,41 @@ Dict{String, String} with 3 entries:
 
 julia> typeof(d)
 Dict{String, String}
+```
+
+### Comprensión de diccionarios
+
+Al igual que para arrays se puede usar la técnica de compresión para generar diccionarios a partir de uno o varios iteradores.
+
+- `Dict(kexp => vexp for i = ite)`: Devuelve el diccionario cuyos pares están formados por la claves y valores resultan de evaluar las expresiones `kexp` y `vexp` respectivamente, para cada valor `i` del iterador `ite`.
+
+- `Dict(kexp => vexp for i = ite if cond)`: Devuelve el diccionario cuyos pares están formados por la claves y valores resultan de evaluar las expresiones `kexp` y `vexp` respectivamente, para cada valor `i` del iterador `ite` que cumpla condición `cond`.
+
+Se pueden utilizar más de un iterador después de la palabra reservada `for`.
+
+---
+
+### Ejemplo de comprensión de diccionarios
+
+```julia
+julia> Dict(i => i^2 for i = 1:4)
+Dict{Int64, Int64} with 4 entries:
+  4 => 16
+  2 => 4
+  3 => 9
+  1 => 1
+
+julia> Dict(i => i^2 for i = 1:4 if i % 2 == 0)
+Dict{Int64, Int64} with 2 entries:
+  4 => 16
+  2 => 4
+
+julia> Dict((i, j) => i + j for i = 1:2, j = 3:4)
+Dict{Tuple{Int64, Int64}, Int64} with 4 entries:
+  (2, 4) => 6
+  (1, 3) => 4
+  (1, 4) => 5
+  (2, 3) => 5
 ```
 
 ---
@@ -2285,3 +2321,230 @@ Dict{String, String} with 4 entries:
   "JP" => "Yen"
   "US" => "Dollar"
 ```
+
+---
+
+### Eliminar elementos de un diccionario
+
+Para eliminar un par de un diccionario se utiliza la siguiente función:
+
+- `delete!(d, k)`: Elimina el par cuya clave es `k` del diccionario `d`.
+
+```julia
+julia> d = Dict("ES" => "Euro", "US" => "Dollar", "CN" => "Yuan")
+Dict{String, String} with 3 entries:
+  "CN" => "Yuan"
+  "ES" => "Euro"
+  "US" => "Dollar"
+
+julia> delete!(d, "US")
+Dict{String, String} with 2 entries:
+  "CN" => "Yuan"
+  "ES" => "Euro"
+```
+
+--- 
+
+## Conjuntos
+
+Un conjunto es una colección de elementos del mismo tipo sin orden y sin repeticiones.
+
+Se construyen con la siguiente constructor:
+
+- `Set(a)`: Crea un conjunto con los elementos del array `a`.
+
+Al igual que para arrays el tipo se infiere automáticamente a partir de los tipos de sus elementos. Si los elementos son de distintos tipos se convierten al tipo más específico de la jerarquía de tipos del que los tipos de los elementos son subtipos.
+
+:::{.callout-warning}
+Un conjunto no puede tener elementos repetidos, por lo que si el array contiene elementos repetidos solo se incluyen una vez.
+:::
+
+---
+
+### Ejemplo de construcción de conjuntos
+
+```julia
+julia> Set()
+Set{Any}()
+
+julia> c = Set([1, "2", 3])
+Set{Any} with 3 elements:
+  "2"
+  3
+  1
+
+julia> typeof(c)
+Set{Any}
+```
+
+---
+
+### Añadir elementos a un conjunto
+
+Para añadir elementos a un conjunto se utiliza la siguiente función:
+
+- `push!(c, e)`: Añade el elemento `e` al conjunto `c`.
+
+:::{.callout-warning}
+Si el elemento que se quiere añadir es de distinto tipo que los elemento del conjunto y no puede convertirse a este tipo, se produce un error.
+:::
+
+---
+
+### Ejemplo de añadir elementos a un conjunto
+
+```julia
+ulia> c = Set(1:3)
+Set{Int64} with 3 elements:
+  2
+  3
+  1
+
+julia> push!(c, 4)
+Set{Int64} with 4 elements:
+  4
+  2
+  3
+  1
+
+julia> push!(c, "cinco")
+ERROR: MethodError: Cannot `convert` an object of type String to an object of type Int64
+Closest candidates are:
+  convert(::Type{T}, ::T) where T<:Number at /usr/share/julia/base/number.jl:6
+  convert(::Type{T}, ::Number) where T<:Number at /usr/share/julia/base/number.jl:7
+  convert(::Type{T}, ::Base.TwicePrecision) where T<:Number at /usr/share/julia/base/twiceprecision.jl:262
+  ...
+```
+
+---
+
+### Eliminar elementos de un conjunto
+
+Para eleminiar elementos de un conjunto se utiliza la siguiente función: 
+
+- `delete!(c, e)`: Elimina el elemento `e` del conjunto `c`.
+
+```julia
+julia> c = Set(1:3)
+Set{Int64} with 3 elements:
+  2
+  3
+  1
+
+julia> delete!(c, 2)
+Set{Int64} with 2 elements:
+  3
+  1
+```
+
+---
+
+### Recorrido de los elementos de un conjunto
+
+Un conjunto puede utilizarse también como un iterador para recorrer sus elementos.
+
+```julia
+julia> c = Set(1:3)
+Set{Int64} with 3 elements:
+  2
+  3
+  1
+
+julia> for i = c
+         println(i)
+       end
+2
+3
+1
+```
+
+---
+
+### Pertenencia e inclusión de conjuntos
+
+- `in(e, c)`, `e ∈ c` : Devuelve `true` si el elemento `e` pertenece al conjunto `c` y `false` en caso contrario.
+- `e ∉ c`: Devuelve `true` si el elemento `e` no  pertenece al conjunto `c` y `false` en caso contrario.
+- `issubset(a, b)`, `a ⊆ b`: Devuelve `true` si todos los elementos de `a` pertenecen a `b` y `false` en caso contrario.
+- `a ⊈ b`: Deuvelve `true` si hay algún elemento de `a` que no pertenece a `b`.
+- `a ⊊ b`: Devuelve `true` si el conjunto `a` está contenido estrictamente en el conjunto `b`, es decir, todos los elementos de `a` pertenecen a `b` pero `a` y `b` son distintos.
+- `isdisjoint(a, b)`: Devuelve `true` si los conjuntos `a` y `b` no tienen elementos en común y `false` en caso contrario.
+
+---
+
+### Ejemplos de pertenencia e inclusión de conjuntos
+
+```julia
+julia> a = Set(1:3);
+
+julia> in(2, a)
+true
+
+julia> 3 ∉ a
+false
+
+julia> b = Set([3, 2, 1]);
+
+julia> a ⊊ b
+false
+
+julia> a ⊆ b
+true
+
+julia> isdisjoint(a, b)
+false
+```
+
+---
+
+### Álgebra de conjuntos
+
+- `union(a, b)`, `a ∪ b`: Devuelve el conjunto unión de los conjuntos `a` y `b`.
+- `intersect(a, b)`, `a ∩ b`: Devuelve el conjunto intersección de los conjuntos `a` y `b`.
+- `setdiff(a, b)`: Devuelve el conjunto diferencia del conjunto `a` y `b`.
+- `symdiff(a, b)`: Devuelve el conjunto diferencia simétrica de los conjuntos `a` y `b`.
+
+
+Existen versiones de estas funciones acabadas en `!` que sobreescriben el conjunto dado como primer argumento con el resultado de la operación.
+
+---
+
+### Ejemplo de álgebra de conjuntos
+
+```julia
+julia> a = Set(1:3)
+Set{Int64} with 3 elements:
+  2
+  3
+  1
+
+julia> b = Set(2:2:6)
+Set{Int64} with 3 elements:
+  4
+  6
+  2
+
+julia> union(a, b)
+Set{Int64} with 5 elements:
+  4
+  6
+  2
+  3
+  1
+
+julia> intersect(a, b)
+Set{Int64} with 1 element:
+  2
+
+julia> setdiff(a, b)
+Set{Int64} with 2 elements:
+  3
+  1
+
+julia> symdiff(a, b) == setdiff(a ∪ b, a ∩ b)
+true
+```
+
+---
+
+
+
