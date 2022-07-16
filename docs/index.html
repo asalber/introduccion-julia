@@ -3105,6 +3105,500 @@
 </section>
 <section class="slide level2">
 
+</section></section>
+<section>
+<section id="funciones" class="title-slide slide level1 center">
+<h1>Funciones</h1>
+<p>Una función asocia un nombre a un bloque de código de manera que cada vez que se invoca a la función se ejecuta el bloque de código asociado.</p>
+<p>Para crear una función se utiliza la siguiente sintaxis</p>
+<blockquote>
+<p><code>function</code> <em>nombre</em><code>(</code><em>parámetros</em><code>)</code><br>
+&nbsp;&nbsp;&nbsp;bloque de código<br>
+<code>end</code></p>
+</blockquote>
+<div class="callout callout-note callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>La indentación del bloque de código no es necesaria pero es una buena práctica.</p>
+</div>
+</div>
+</div>
+<p>Para invocar una función basta con escribir su nombre y pasarle entre paréntesis los valores de los parámetros (<em>argumentos</em>) separados por comas.</p>
+</section>
+<section class="slide level2">
+
+<h3 id="ejemplo-de-creación-de-funciones">Ejemplo de creación de funciones</h3>
+<div class="sourceCode" id="cb76"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="kw">function</span> <span class="fu">saludo</span>()  <span class="co"># Función sin parámetros</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>         <span class="fu">println</span>(<span class="st">"¡Bienvenido!"</span>)</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>       <span class="kw">end</span></span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>saludo (generic <span class="kw">function</span> with <span class="fl">1</span> method)</span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">saludo</span>()</span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a>¡Bienvenido!</span>
+<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">typeof</span>(saludo)</span>
+<span id="cb76-10"><a href="#cb76-10" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(saludo) (singleton <span class="kw">type</span> of <span class="kw">function</span> saludo, subtype of <span class="dt">Function</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="parámetros-y-argumentos-de-una-función" class="slide level2">
+<h2>Parámetros y argumentos de una función</h2>
+<p>Una función puede recibir valores cuando se invoca a través de unas variables conocidas como <em>parámetros</em> que se definen entre paréntesis y separados por comas en la declaración de la función. En el cuerpo de la función se pueden usar estos parámetros como si fuesen variables.</p>
+<p>Los valores que se pasan a la función en una llamada o invocación concreta de ella se conocen como <em>argumentos</em> y se asocian a los parámetros de la declaración de la función.</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="kw">function</span> <span class="fu">calificacion</span>(nota)  <span class="co"># Función con un parámetro</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>         <span class="cf">if</span> nota <span class="op">&lt;</span> <span class="fl">5</span></span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>           <span class="fu">println</span>(<span class="st">"Suspenso"</span>)</span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>         <span class="cf">else</span></span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a>           <span class="fu">println</span>(<span class="st">"Aprobado"</span>)</span>
+<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a>         <span class="cf">end</span></span>
+<span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a>       <span class="kw">end</span></span>
+<span id="cb77-8"><a href="#cb77-8" aria-hidden="true" tabindex="-1"></a>calificacion (generic <span class="kw">function</span> with <span class="fl">1</span> method)</span>
+<span id="cb77-9"><a href="#cb77-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-10"><a href="#cb77-10" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">calificacion</span>(<span class="fl">7</span>)</span>
+<span id="cb77-11"><a href="#cb77-11" aria-hidden="true" tabindex="-1"></a>Aprobado</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<h3 id="paso-de-argumentos-a-una-función">Paso de argumentos a una función</h3>
+<p>Los argumentos se pueden pasar de dos formas:</p>
+<ul>
+<li><strong>Argumentos posicionales</strong>: Se asocian a los parámetros de la función en el mismo orden que aparecen en la definición de la función.</li>
+<li><strong>Argumentos nominales</strong>: Se indica explícitamente el nombre del parámetro al que se asocia un argumento de la forma <code>parametro = argumento</code>.</li>
+</ul>
+<p>Cuando una función tiente parámetros posicionales y como nominales, los posicionales deben indicarse primero y los nominales después, separando ambos tipos de parámetros por punto y coma <code>;</code>.</p>
+</section>
+<section class="slide level2">
+
+<h3 id="ejemplo-de-paso-de-argumentos-a-una-función">Ejemplo de paso de argumentos a una función</h3>
+<div class="sourceCode" id="cb78"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="kw">function</span> <span class="fu">saludo</span>(nombre, apellidos; ciudad)</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">println</span>(<span class="st">"¡Hola </span><span class="sc">$</span>nombre<span class="st"> </span><span class="sc">$</span>apellidos<span class="st">, bienvenido a </span><span class="sc">$</span>(ciudad)<span class="st">!"</span>)</span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>       <span class="kw">end</span></span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>saludo (generic <span class="kw">function</span> with <span class="fl">1</span> method)</span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">saludo</span>(<span class="st">"Alfredo"</span>, <span class="st">"Sánchez"</span>, ciudad <span class="op">=</span> <span class="st">"Madrid"</span>)</span>
+<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a>¡Hola Alfredo Sánchez, bienvenido a Madrid!</span>
+<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-9"><a href="#cb78-9" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">saludo</span>(<span class="st">"Alfredo"</span>, ciudad <span class="op">=</span> <span class="st">"Madrid"</span>,  <span class="st">"Sánchez"</span>)</span>
+<span id="cb78-10"><a href="#cb78-10" aria-hidden="true" tabindex="-1"></a>¡Hola Alfredo Sánchez, bienvenido a Madrid!</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<h3 id="argumentos-por-defecto">Argumentos por defecto</h3>
+<p>En la definición de una función se puede asignar a cada parámetro un argumento por defecto, de manera que si se invoca la función sin proporcionar ningún argumento para ese parámetro, se utiliza el argumento por defecto.</p>
+<p>El valor por defecto de un parámetro se indica con la siguiente sintaxis <code>parámetro = valor</code>.</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="kw">function</span> <span class="fu">saludo</span>(nombre, apellidos, ciudad <span class="op">=</span> <span class="st">"Madrid"</span>)</span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>         <span class="fu">println</span>(<span class="st">"¡Hola </span><span class="sc">$</span>nombre<span class="st"> </span><span class="sc">$</span>apellidos<span class="st">, bienvenido a </span><span class="sc">$</span>(ciudad)<span class="st">!"</span>)</span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>       <span class="kw">end</span></span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>saludo (generic <span class="kw">function</span> with <span class="fl">2</span> methods)</span>
+<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-6"><a href="#cb79-6" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">saludo</span>(<span class="st">"Alfredo"</span>, <span class="st">"Sánchez"</span>)</span>
+<span id="cb79-7"><a href="#cb79-7" aria-hidden="true" tabindex="-1"></a>¡Hola Alfredo Sánchez, bienvenido a Madrid!</span>
+<span id="cb79-8"><a href="#cb79-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-9"><a href="#cb79-9" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">saludo</span>(<span class="st">"Pepito"</span>, <span class="st">"Grillo"</span>, <span class="st">"Barcelona"</span>)</span>
+<span id="cb79-10"><a href="#cb79-10" aria-hidden="true" tabindex="-1"></a>¡Hola Pepito Grillo, bienvenido a Barcelona!</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<h3 id="funciones-con-un-número-variable-de-argumentos">Funciones con un número variable de argumentos</h3>
+<p>Julia permite definir funciones que pueden llamarse con un número variable de argumentos. Para que una función pueda recibir un número variable de argumentos hay que poner tres puntos suspensivos <code>...</code> al final de último parámetro posicional.</p>
+<p>Cuando se llame a la función los argumentos se irán asociando a los parámetros posicionales en orden y el último parámetro se asociará a una tupla con el resto de argumentos en la llamada.</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="kw">function</span> <span class="fu">media</span>(x<span class="op">...</span>)</span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">println</span>(<span class="st">"Media de "</span>, x)</span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">sum</span>(x) <span class="op">/</span> <span class="fu">length</span>(x)</span>
+<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>       <span class="kw">end</span></span>
+<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a>media (generic <span class="kw">function</span> with <span class="fl">1</span> method)</span>
+<span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-7"><a href="#cb80-7" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">media</span>(<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>)</span>
+<span id="cb80-8"><a href="#cb80-8" aria-hidden="true" tabindex="-1"></a>Media de (<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>)</span>
+<span id="cb80-9"><a href="#cb80-9" aria-hidden="true" tabindex="-1"></a><span class="fl">2.5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<h3 id="parámetros-con-tipo">Parámetros con tipo</h3>
+<p>Aunque Julia es un lenguaje de tipado dinámico también permite fijar el tipo de los parámetros de una una función. Esto permite definir diferentes variantes (<em>métodos</em>) de una misma función dependiendo del tipo de los argumentos, así como detectar errores cuando se llama a la función con argumentos de distinto tipo.</p>
+<p>Para indicar el tipo de los parámetros de una función se utiliza la sintaxis <code>parametro::tipo</code>.</p>
+<div class="callout callout-warning callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>Conviene no restringir demasiado el tipo de los parámetros de una función. Se debe elegir el tipo más general en la jerarquía de tipos para el que tiene sentido la función.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="ejemplo-de-parámetros-con-tipo">Ejemplo de parámetros con tipo</h3>
+<div class="sourceCode" id="cb81"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="kw">function</span> <span class="fu">sumar</span>(x<span class="op">::</span><span class="dt">Number</span>, y<span class="op">::</span><span class="dt">Number</span>)</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>       x <span class="op">+</span> y</span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>       <span class="kw">end</span></span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>sumar (generic <span class="kw">function</span> with <span class="fl">1</span> method)</span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="kw">function</span> <span class="fu">sumar</span>(x<span class="op">::</span><span class="dt">String</span>, y<span class="op">::</span><span class="dt">String</span>)</span>
+<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>       x <span class="op">*</span> y</span>
+<span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a>       <span class="kw">end</span></span>
+<span id="cb81-9"><a href="#cb81-9" aria-hidden="true" tabindex="-1"></a>sumar (generic <span class="kw">function</span> with <span class="fl">2</span> methods)</span>
+<span id="cb81-10"><a href="#cb81-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-11"><a href="#cb81-11" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">sumar</span>(<span class="fl">1</span>, <span class="fl">2</span>)</span>
+<span id="cb81-12"><a href="#cb81-12" aria-hidden="true" tabindex="-1"></a><span class="fl">3</span></span>
+<span id="cb81-13"><a href="#cb81-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-14"><a href="#cb81-14" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">sumar</span>(<span class="fl">1.5</span>, <span class="fl">2.5</span>)</span>
+<span id="cb81-15"><a href="#cb81-15" aria-hidden="true" tabindex="-1"></a><span class="fl">4.0</span></span>
+<span id="cb81-16"><a href="#cb81-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-17"><a href="#cb81-17" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">sumar</span>(<span class="st">"Hola"</span>, <span class="st">"Julia"</span>)</span>
+<span id="cb81-18"><a href="#cb81-18" aria-hidden="true" tabindex="-1"></a><span class="st">"HolaJulia"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<h3 id="paso-de-argumentos-por-asignación">Paso de argumentos por asignación</h3>
+<p>En Julia los argumentos se pasan a una función por asignación, es decir, se asignan a los parámetros de la función como si fuesen variables locales. De este modo, cuando los argumentos son objetos mutables (arrays, diccionarios, etc.) se pasa al parámetro una referencia al objeto, de manera que cualquier cambio que se haga en la función mediante el parámetro asociado afectará al objeto original y serán visibles fuera de ella.</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="kw">function</span> <span class="fu">matricular</span>(curso, asignatura)</span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">push!</span>(curso, asignatura)</span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>       <span class="kw">end</span></span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>matricular (generic <span class="kw">function</span> with <span class="fl">1</span> method)</span>
+<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> primer_curso <span class="op">=</span> [];</span>
+<span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">matricular</span>(primer_curso, <span class="st">"Álgebra Lineal"</span>);</span>
+<span id="cb82-9"><a href="#cb82-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-10"><a href="#cb82-10" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">matricular</span>(primer_curso, <span class="st">"Programación"</span>);</span>
+<span id="cb82-11"><a href="#cb82-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-12"><a href="#cb82-12" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> primer_curso</span>
+<span id="cb82-13"><a href="#cb82-13" aria-hidden="true" tabindex="-1"></a><span class="fl">2</span><span class="op">-</span>element <span class="dt">Vector</span>{<span class="dt">Any</span>}<span class="op">:</span></span>
+<span id="cb82-14"><a href="#cb82-14" aria-hidden="true" tabindex="-1"></a> <span class="st">"Álgebra Lineal"</span></span>
+<span id="cb82-15"><a href="#cb82-15" aria-hidden="true" tabindex="-1"></a> <span class="st">"Programación"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<h3 id="ámbito-de-los-parámetros-de-una-función">Ámbito de los parámetros de una función</h3>
+<p>Los parámetros y las variables declaradas dentro de una función son de <em>ámbito local</em>, mientras que las variable definidas fuera de funciones son de ámbito <em>ámbito global</em>.</p>
+<p>Tanto los parámetros como las variables del ámbito local de una función sólo están accesibles durante la ejecución de la función. Es decir, cuando termina la ejecución de la función estas variables desaparecen y no son accesibles desde fuera de la función.</p>
+<p>Si en el ámbito local de una función existe una variable que también existe en el ámbito global, durante la ejecución de la función la variable global queda eclipsada por la variable local y no es accesible hasta que finaliza la ejecución de la función.</p>
+</section>
+<section class="slide level2">
+
+<h3 id="ejemplo-del-ámbito-de-los-parámetros-de-una-función">Ejemplo del ámbito de los parámetros de una función</h3>
+<div class="sourceCode" id="cb83"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> lenguaje <span class="op">=</span> <span class="st">"Python"</span>;</span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="kw">function</span> <span class="fu">saludo</span>(nombre)</span>
+<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>       lenguaje <span class="op">=</span> <span class="st">"Julia"</span></span>
+<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">println</span>(<span class="st">"¡Hola </span><span class="sc">$</span>(nombre)<span class="st">, bienvenido a </span><span class="sc">$</span>(lenguaje)<span class="st">!"</span>)</span>
+<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a>       <span class="kw">end</span></span>
+<span id="cb83-7"><a href="#cb83-7" aria-hidden="true" tabindex="-1"></a>saludo (generic <span class="kw">function</span> with <span class="fl">3</span> methods)</span>
+<span id="cb83-8"><a href="#cb83-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-9"><a href="#cb83-9" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">saludo</span>(<span class="st">"Alf"</span>)</span>
+<span id="cb83-10"><a href="#cb83-10" aria-hidden="true" tabindex="-1"></a>¡Hola Alf, bienvenido a Julia!</span>
+<span id="cb83-11"><a href="#cb83-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-12"><a href="#cb83-12" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> lenguaje</span>
+<span id="cb83-13"><a href="#cb83-13" aria-hidden="true" tabindex="-1"></a><span class="st">"Python"</span></span>
+<span id="cb83-14"><a href="#cb83-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-15"><a href="#cb83-15" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> nombre</span>
+<span id="cb83-16"><a href="#cb83-16" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> <span class="dt">UndefVarError</span><span class="op">:</span> nombre not defined</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="retorno-de-una-función" class="slide level2">
+<h2>Retorno de una función</h2>
+<p>Una función devuelve siempre el valor de la última expresión evaluada en su cuerpo. Sin embargo, puede devolverse cualquier otro valor indicándolo detrás de la palabra reservada <code>return</code>. Cuando el flujo de ejecución de la función alcanza esta palabra, la ejecución de la función termina y se devuelve el valor que la acompaña.</p>
+<p>Si una función no devuelve ningún valor se puede escribir la palabra <code>return</code> sin nada más.</p>
+<p>Cuando se desea devolver más de un valor se puede pueden indicar separados por comas y la función devolverá la tupla formada por esos valores.</p>
+</section>
+<section class="slide level2">
+
+<h3 id="ejemplo-de-retorno-de-una-función">Ejemplo de retorno de una función</h3>
+<div class="sourceCode" id="cb84"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="kw">function</span> <span class="fu">area_triangulo</span>(base, altura)</span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>         <span class="cf">return</span> base <span class="op">*</span> altura <span class="op">/</span> <span class="fl">2</span>  <span class="co"># Devuelve un valor</span></span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>       <span class="kw">end</span></span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>area_triangulo (generic <span class="kw">function</span> with <span class="fl">1</span> method)</span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">area_triangulo</span>(<span class="fl">3</span>, <span class="fl">4</span>)</span>
+<span id="cb84-7"><a href="#cb84-7" aria-hidden="true" tabindex="-1"></a><span class="fl">6.0</span></span>
+<span id="cb84-8"><a href="#cb84-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-9"><a href="#cb84-9" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="kw">function</span> <span class="fu">area_perimetro_circulo</span>(r)</span>
+<span id="cb84-10"><a href="#cb84-10" aria-hidden="true" tabindex="-1"></a>         <span class="cf">return</span> <span class="cn">π</span> <span class="op">*</span> r <span class="op">^</span> <span class="fl">2</span>, <span class="fl">2</span>π <span class="op">*</span> r  <span class="co"># Devuelve dos valores </span></span>
+<span id="cb84-11"><a href="#cb84-11" aria-hidden="true" tabindex="-1"></a>       <span class="kw">end</span></span>
+<span id="cb84-12"><a href="#cb84-12" aria-hidden="true" tabindex="-1"></a>area_perimetro_circulo (generic <span class="kw">function</span> with <span class="fl">1</span> method)</span>
+<span id="cb84-13"><a href="#cb84-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-14"><a href="#cb84-14" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">area_perimetro_circulo</span>(<span class="fl">1</span>)</span>
+<span id="cb84-15"><a href="#cb84-15" aria-hidden="true" tabindex="-1"></a>(<span class="fl">3.141592653589793</span>, <span class="fl">6.283185307179586</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="funciones-compactas" class="slide level2">
+<h2>Funciones compactas</h2>
+<p>Cuando el cuerpo de una función es una única expresión se puede definir la función de forma mucho más compacta de la siguiente manera:</p>
+<blockquote>
+<p><code>nombre(</code><em>parametros</em><code>)</code> <code>=</code> <em>expresión</em></p>
+</blockquote>
+<p>El valor que devuelve la función es el resultado de evaluar la expresión.</p>
+<p>Esta forma de definir funciones es muy habitual para funciones matemáticas.</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">area_triangulo</span>(b, a) <span class="op">=</span> b <span class="op">*</span> a <span class="op">/</span> <span class="fl">2</span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>area_triangulo (generic <span class="kw">function</span> with <span class="fl">1</span> method)</span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">area_triangulo</span>(<span class="fl">3</span>, <span class="fl">4</span>)</span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a><span class="fl">6.0</span></span>
+<span id="cb85-6"><a href="#cb85-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-7"><a href="#cb85-7" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">valor_absoluto</span>(x) <span class="op">=</span> x <span class="op">&lt;</span> <span class="fl">0</span> ? <span class="op">-</span>x <span class="op">:</span> x</span>
+<span id="cb85-8"><a href="#cb85-8" aria-hidden="true" tabindex="-1"></a>valor_absoluto (generic <span class="kw">function</span> with <span class="fl">1</span> method)</span>
+<span id="cb85-9"><a href="#cb85-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-10"><a href="#cb85-10" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">valor_absoluto</span>(<span class="op">-</span><span class="fl">1</span>)</span>
+<span id="cb85-11"><a href="#cb85-11" aria-hidden="true" tabindex="-1"></a><span class="fl">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="funciones-como-objetos" class="slide level2">
+<h2>Funciones como objetos</h2>
+<p>En Julia las funciones son objetos como el resto de tipos de datos, de manera que es posible asignar una función a una variable y luego utilizar la variable para hacer la llamada a la función, pasar una función como argumento de otra función, o que una función devuelva otra función.</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">suma</span>(x, y) <span class="op">=</span> x <span class="op">+</span> y</span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>suma (generic <span class="kw">function</span> with <span class="fl">1</span> method)</span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> adicion <span class="op">=</span> suma</span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>suma (generic <span class="kw">function</span> with <span class="fl">1</span> method)</span>
+<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-7"><a href="#cb86-7" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">adicion</span>(<span class="fl">1</span>, <span class="fl">2</span>)</span>
+<span id="cb86-8"><a href="#cb86-8" aria-hidden="true" tabindex="-1"></a><span class="fl">3</span></span>
+<span id="cb86-9"><a href="#cb86-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-10"><a href="#cb86-10" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">calculadora</span>(operador, x, y) <span class="op">=</span> <span class="fu">operador</span>(x, y) </span>
+<span id="cb86-11"><a href="#cb86-11" aria-hidden="true" tabindex="-1"></a>calculadora (generic <span class="kw">function</span> with <span class="fl">1</span> method)</span>
+<span id="cb86-12"><a href="#cb86-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-13"><a href="#cb86-13" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">calculadora</span>(suma, <span class="fl">1</span>, <span class="fl">2</span>)</span>
+<span id="cb86-14"><a href="#cb86-14" aria-hidden="true" tabindex="-1"></a><span class="fl">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="funciones-anónimas" class="slide level2">
+<h2>Funciones anónimas</h2>
+<p>Julia permite también definir funciones sin nombre. Para ello se utiliza la siguiente sintaxis.</p>
+<blockquote>
+<p><code>(</code><em>parametros</em><code>)</code> <code>-&gt;</code> <em>expresión</em></p>
+</blockquote>
+<p>El principal uso de las funciones anónimas es para pasarlas como argumentos de otras funciones.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>ulia<span class="op">&gt;</span> <span class="fu">calculadora</span>(operador, x, y) <span class="op">=</span> <span class="fu">operador</span>(x, y) </span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>calculadora (generic <span class="kw">function</span> with <span class="fl">1</span> method)</span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">calculadora</span>((x, y) <span class="op">-&gt;</span> x <span class="op">+</span> y, <span class="fl">1</span>, <span class="fl">2</span>)</span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a><span class="fl">3</span></span>
+<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-7"><a href="#cb87-7" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">calculadora</span>((x, y) <span class="op">-&gt;</span> x <span class="op">-</span> y, <span class="fl">1</span>, <span class="fl">2</span>)</span>
+<span id="cb87-8"><a href="#cb87-8" aria-hidden="true" tabindex="-1"></a><span class="op">-</span><span class="fl">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="funciones-asociadas-a-operadores" class="slide level2">
+<h2>Funciones asociadas a operadores</h2>
+<p>En Julia los operadores tienen asociadas funciones que son llamadas por el intérprete cuando se evalúa una expresión con operadores.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">+</span>(<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>)  <span class="co"># Equivalente a 1 + 2 + 3</span></span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="fl">6</span></span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> ∑ <span class="op">=</span> <span class="op">+</span></span>
+<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a><span class="op">+</span> (generic <span class="kw">function</span> with <span class="fl">208</span> methods)</span>
+<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">∑</span>(<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>)</span>
+<span id="cb88-8"><a href="#cb88-8" aria-hidden="true" tabindex="-1"></a><span class="fl">6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="funciones-recursivas" class="slide level2">
+<h2>Funciones recursivas</h2>
+<p>Una función recursiva es una función que en su cuerpo contiene alguna llama a si misma.</p>
+<p>La recursión es una práctica común en la mayoría de los lenguajes de programación ya que permite resolver las tareas recursivas de manera más natural.</p>
+<p>Para garantizar el final de una función recursiva, las sucesivas llamadas tienen que reducir el grado de complejidad del problema, hasta que este pueda resolverse directamente sin necesidad de volver a llamar a la función.</p>
+<div class="callout callout-caution callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>La recursión es una técnica que suele ser poco eficiente computacionalmente y conviene evitarla siempre que sea posible.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="ejemplo-de-funciones-recursivas">Ejemplo de funciones recursivas</h3>
+<div class="sourceCode" id="cb89"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="kw">function</span> <span class="fu">factorial</span>(n<span class="op">::</span><span class="dt">Integer</span>)</span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>         <span class="cf">if</span> n <span class="op">&lt;=</span> <span class="fl">1</span></span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>           <span class="cf">return</span> <span class="fl">1</span></span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>         <span class="cf">else</span></span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>           <span class="cf">return</span> n <span class="op">*</span> <span class="fu">factorial</span>(n<span class="op">-</span><span class="fl">1</span>)</span>
+<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a>         <span class="cf">end</span></span>
+<span id="cb89-7"><a href="#cb89-7" aria-hidden="true" tabindex="-1"></a>       <span class="kw">end</span></span>
+<span id="cb89-8"><a href="#cb89-8" aria-hidden="true" tabindex="-1"></a>factorial (generic <span class="kw">function</span> with <span class="fl">1</span> method)</span>
+<span id="cb89-9"><a href="#cb89-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-10"><a href="#cb89-10" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">factorial</span>(<span class="fl">4</span>)</span>
+<span id="cb89-11"><a href="#cb89-11" aria-hidden="true" tabindex="-1"></a><span class="fl">24</span></span>
+<span id="cb89-12"><a href="#cb89-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-13"><a href="#cb89-13" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">fib</span>(n<span class="op">::</span><span class="dt">Integer</span>) <span class="op">=</span> n <span class="op">≤</span> <span class="fl">2</span> ? <span class="fl">1</span> <span class="op">:</span> <span class="fu">fib</span>(n <span class="op">-</span> <span class="fl">1</span>) <span class="op">+</span> <span class="fu">fib</span>(n <span class="op">-</span> <span class="fl">2</span>)</span>
+<span id="cb89-14"><a href="#cb89-14" aria-hidden="true" tabindex="-1"></a>fib (generic <span class="kw">function</span> with <span class="fl">1</span> method)</span>
+<span id="cb89-15"><a href="#cb89-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-16"><a href="#cb89-16" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">fib</span>(<span class="fl">10</span>)</span>
+<span id="cb89-17"><a href="#cb89-17" aria-hidden="true" tabindex="-1"></a><span class="fl">55</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<!-- TODO: Comentarios de funciones -->
+</section></section>
+<section>
+<section id="representación-gráfica" class="title-slide slide level1 center">
+<h1>Representación gráfica</h1>
+
+</section>
+<section id="paquetes-para-la-representación-gráfica" class="slide level2">
+<h2>Paquetes para la representación gráfica</h2>
+<p>Existen múltiples paquetes para la representación gráfica en Julia. Los más usados son:</p>
+<ul>
+<li><a href="https://docs.juliaplots.org/">Plots.js</a>. Es el paquete más usado y con más posibilidades gráficas. Sirve de interfaz para otras librerías gráficas como <a href="https://matplotlib.org/">Matplotlib</a> o <a href="https://plotly.com/">Plot.ly</a>. Es bastante sencillo de utilizar. Su principal desventaja es que es bastante lento.</li>
+<li><a href="http://gadflyjl.org/">GadFly.js</a>. Es un paquete que genera gráficos interactivos por medio de librerías de Javascript basadas en la <a href="https://www.cs.uic.edu/~wilkinson/TheGrammarOfGraphics/GOG.html">gramática de gráficos</a> (usada también por el paquete ggplot2 de R) similares a Plot.ly. Es mucho más rápido que Plots.js pero es menos completo que este.</li>
+<li><a href="https://www.queryverse.org/VegaLite.jl">VegaLite.js</a>. Es un paquete que genera gráficos estáticos por medio de las librerías de Javascript de la gramática de gráficos <a href="https://vega.github.io/">Vega</a>. Dispone de muchas más opciones de personalización de gráficos que GadFly.jl.</li>
+</ul>
+</section>
+<section id="gráfica-de-una-función-con-plot.jl" class="slide level2">
+<h2>Gráfica de una función con Plot.jl</h2>
+<ul>
+<li><code>plot(f, min, max)</code>: Dibuja la gráfica de la función de una variable <code>f</code> para argumentos desde <code>xmin</code> a <code>xmax</code>.</li>
+</ul>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots</span></span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(x) <span class="op">=</span> <span class="fu">exp</span>(<span class="op">-</span>x<span class="op">^</span><span class="fl">2</span> <span class="op">/</span> <span class="fl">2</span>)</span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(f, <span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="index_files/figure-revealjs/cell-2-output-1.svg" class="r-stretch"></section>
+<section id="gráfica-interactiva-de-una-función-con-plot.jl-via-plot.ly" class="slide level2">
+<h2>Gráfica interactiva de una función con Plot.jl via Plot.ly</h2>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots</span></span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="co">#plotly()  # Usar la librería Plot.ly como back-end</span></span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(x) <span class="op">=</span> <span class="fu">exp</span>(<span class="op">-</span>x<span class="op">^</span><span class="fl">2</span> <span class="op">/</span> <span class="fl">2</span>)</span>
+<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(f, <span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="index_files/figure-revealjs/cell-3-output-1.svg" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 id="gráficas-de-varias-funciones-con-plot.jl">Gráficas de varias funciones con Plot.jl</h3>
+<ul>
+<li><code>plot!(f, xmin, xmax)</code>: Añade la gráfica de la función de una variable <code>f</code> para argumentos desde <code>xmin</code> a <code>xmax</code> al último gráfico realizado.</li>
+</ul>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots</span></span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(x) <span class="op">=</span> <span class="fu">sin</span>(x)</span>
+<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a><span class="fu">g</span>(x) <span class="op">=</span> <span class="fu">cos</span>(x)</span>
+<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(f, <span class="op">-</span><span class="fl">0</span>, <span class="fl">2</span>π)</span>
+<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="index_files/figure-revealjs/cell-4-output-1.svg" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 id="añadir-puntos-a-una-gráfica">Añadir puntos a una gráfica</h3>
+<ul>
+<li><code>scatter(x, y)</code>: Dibuja los puntos con coordenadas x en el vector <code>x</code> y coordenadas y en el vector <code>y</code>.</li>
+</ul>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots</span></span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(x) <span class="op">=</span> <span class="fu">sin</span>(x)</span>
+<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a><span class="fu">g</span>(x) <span class="op">=</span> <span class="fu">cos</span>(x)</span>
+<span id="cb93-5"><a href="#cb93-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(f, <span class="op">-</span><span class="fl">0</span>, <span class="fl">2</span>π)</span>
+<span id="cb93-6"><a href="#cb93-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(g)</span>
+<span id="cb93-7"><a href="#cb93-7" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="cn">π</span><span class="op">/</span><span class="fl">4</span>, <span class="fl">5</span>π<span class="op">/</span><span class="fl">4</span>]</span>
+<span id="cb93-8"><a href="#cb93-8" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="fu">sin</span>.(x)</span>
+<span id="cb93-9"><a href="#cb93-9" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter!</span>(x, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="index_files/figure-revealjs/cell-5-output-1.svg" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 id="ventana-de-graficación">Ventana de graficación</h3>
+<p>Es posible restringir el área de graficación (rango de valores de los ejes) de una función añadiendo los parámetros <code>xlims =(xmin, xmax)</code> para establecer el rango del eje x o <code>ylims = (ymin, ymax)</code> para establecer el rango del eje y.</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots</span></span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(x) <span class="op">=</span> <span class="fl">1</span> <span class="op">/</span> x</span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(f, <span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span>, ylims <span class="op">=</span> (<span class="op">-</span><span class="fl">10</span>, <span class="fl">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="index_files/figure-revealjs/cell-6-output-1.svg" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 id="restringir-la-gráfica-al-dominio">Restringir la gráfica al dominio</h3>
+<p>Cuando una función no está definida para algún valor del rango de valores del eje x dado, la gráfica muestra una línea recta desde el punto de la gráfica anterior hasta el punto siguiente al punto donde la función no existe.</p>
+<p>Este comportamiento no es deseable puesto que si la función no existe en un punto no debería existir gráfica para ese punto.</p>
+<p>La siguiente función del paquete <code>MATH229</code> se encarga de evitar esto.</p>
+<ul>
+<li><code>rangeclamp(f)</code>: Devuelve una función idéntica a la función <code>f</code> excepto para los puntos donde la función no existe o es infinito que devuevle <code>NaN</code>.</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="ejemplo-de-restringir-la-gráfica-al-dominio">Ejemplo de restringir la gráfica al dominio</h3>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots</span></span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">MTH229</span></span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(x) <span class="op">=</span> <span class="fl">1</span> <span class="op">/</span> x</span>
+<span id="cb95-5"><a href="#cb95-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">rangeclamp</span>(f), <span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="index_files/figure-revealjs/cell-7-output-1.svg" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 id="gráficas-paramétricas">Gráficas paramétricas</h3>
+<p>La función <code>plot</code> también permite dibujar gráficas de funciones paramétricas pasándole las funciones de las coordenadas x e y.</p>
+<ul>
+<li><code>plot(f, g, min, max)</code>: Dibuja la gráfica de la función paramétrica <span class="math inline">\((f(t), g(t))\)</span> para valores del parámetro <code>t</code> entre <code>min</code> y <code>max</code>.</li>
+</ul>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots</span></span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(x) <span class="op">=</span> <span class="fu">sin</span>(x)</span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a><span class="fu">g</span>(x) <span class="op">=</span> <span class="fu">sin</span>(<span class="fl">2</span>x)</span>
+<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(f, g, <span class="fl">0</span>, <span class="fl">2</span>π)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="index_files/figure-revealjs/cell-8-output-1.svg" class="r-stretch"></section>
+<section id="personalización-de-gráficos" class="slide level2">
+<h2>Personalización de gráficos</h2>
+<p>Los siguientes parámetros pueden añadirse a la función <code>plot</code> para modificar el aspecto de los gráficos.</p>
+<ul>
+<li><code>title</code>: Añade un título principal al gráfico.</li>
+<li><code>xlab</code>: Añade un título al eje x.</li>
+<li><code>ylab</code>: Añade un título al eje y.</li>
+<li><code>color</code>: Establece el color de la gráfica.</li>
+<li><code>linewidth</code>: Establece el grosor de la línea de la gráfica.</li>
+<li><code>linestyle</code>: Establece el estilo de la línea de la gráfica.</li>
+<li><code>aspect_ratio</code>: Establece la relación de aspecto entre la escala de los ejes.</li>
+<li><code>legend</code>: Activa o desactiva la leyenda del gráfico.</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="ejemplo-de-personalización-de-gráficos">Ejemplo de personalización de gráficos</h3>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots</span></span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(x) <span class="op">=</span> <span class="fu">sin</span>(x)</span>
+<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(f, <span class="op">-</span><span class="cn">π</span>, <span class="cn">π</span>, title <span class="op">=</span> <span class="st">"Gráfica del seno"</span>,  xlab <span class="op">=</span> <span class="st">"x"</span>, ylab <span class="op">=</span> <span class="st">"f(x) = sen(x)"</span>,</span>
+<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a>  color <span class="op">=</span> <span class="st">"green"</span>, linewidth <span class="op">=</span> <span class="fl">3</span>, linestyle <span class="op">=</span> <span class="op">:</span>dash, aspec_ratio <span class="op">=</span> <span class="op">:</span>equal, legend <span class="op">=</span> <span class="cn">false</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="index_files/figure-revealjs/cell-9-output-1.svg" class="r-stretch"></section>
+<section id="gráficos-en-el-espacio-real" class="slide level2">
+<h2>Gráficos en el espacio real</h2>
+<p>Para dibujar superficies en el espacio real se utiliza la función</p>
+<p><code>surface(x, y, f)</code>: Dibuja la superficie de la función <span class="math inline">\(f(x,y)\)</span> en el rango de valores <code>x</code> del eje x e <code>y</code> del eje y.</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots</span></span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pyplot</span>()</span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fu">range</span>(<span class="fl">1</span>, stop<span class="op">=</span><span class="fl">10</span>, length<span class="op">=</span><span class="fl">100</span>)</span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x</span>
+<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(x,y) <span class="op">=</span> <span class="fu">sin</span>(x) <span class="op">+</span> <span class="fu">cos</span>(y)</span>
+<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, f, st<span class="op">=:</span>surface)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="index_files/figure-revealjs/cell-10-output-1.svg" class="r-stretch"></section></section>
+<section>
+<section id="aplicaciones" class="title-slide slide level1 center">
+<h1>Aplicaciones</h1>
+
+</section>
+<section id="teoría-de-grafos" class="slide level2">
+<h2>Teoría de grafos</h2>
+<ul>
+<li><a href="https://juliagraphs.org/">JuliaGraphs</a>. Graphs analysis in Julia</li>
+</ul>
 
 <img src="img/logos/logo-julia.svg" class="slide-logo r-stretch"><div class="footer footer-default">
 <p><a href="https://aprendeconalf.es/introduccion-julia" class="uri">https://aprendeconalf.es/introduccion-julia</a></p>

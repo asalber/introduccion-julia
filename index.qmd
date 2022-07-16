@@ -2546,5 +2546,544 @@ true
 
 ---
 
+# Funciones
+
+Una función asocia un nombre a un bloque de código de manera que cada vez que se invoca a la función se ejecuta el bloque de código asociado.
+
+Para crear una función se utiliza la siguiente sintaxis
+
+> `function` _nombre_`(`_parámetros_`)`  
+    &nbsp;&nbsp;&nbsp;bloque de código  
+  `end`
+
+
+:::{.callout-note}
+La indentación del bloque de código no es necesaria pero es una buena práctica.
+:::
+
+Para invocar una función basta con escribir su nombre y pasarle entre paréntesis los valores de los parámetros (_argumentos_) separados por comas.
+
+---
+
+### Ejemplo de creación de funciones
+
+```julia
+julia> function saludo()  # Función sin parámetros
+         println("¡Bienvenido!")
+       end
+saludo (generic function with 1 method)
+
+julia> saludo()
+¡Bienvenido!
+
+julia> typeof(saludo)
+typeof(saludo) (singleton type of function saludo, subtype of Function)
+```
+
+---
+
+## Parámetros y argumentos de una función
+
+Una función puede recibir valores cuando se invoca a través de unas variables conocidas como _parámetros_ que se definen entre paréntesis y separados por comas en la declaración de la función. En el cuerpo de la función se pueden usar estos parámetros como si fuesen variables.
+
+Los valores que se pasan a la función en una llamada o invocación concreta de ella se conocen como _argumentos_ y se asocian a los parámetros de la declaración de la función.
+
+```julia
+julia> function calificacion(nota)  # Función con un parámetro
+         if nota < 5
+           println("Suspenso")
+         else
+           println("Aprobado")
+         end
+       end
+calificacion (generic function with 1 method)
+
+julia> calificacion(7)
+Aprobado
+```
+
+---
+
+### Paso de argumentos a una función
+
+Los argumentos se pueden pasar de dos formas:
+
+- **Argumentos posicionales**: Se asocian a los parámetros de la función en el mismo orden que aparecen en la definición de la función.
+- **Argumentos nominales**: Se indica explícitamente el nombre del parámetro al que se asocia un argumento de la forma `parametro = argumento`.
+
+Cuando una función tiente parámetros posicionales y como nominales, los posicionales deben indicarse primero y los nominales después, separando ambos tipos de parámetros por punto y coma `;`.
+
+---
+
+### Ejemplo de paso de argumentos a una función
+
+```julia
+julia> function saludo(nombre, apellidos; ciudad)
+       println("¡Hola $nombre $apellidos, bienvenido a $(ciudad)!")
+       end
+saludo (generic function with 1 method)
+
+julia> saludo("Alfredo", "Sánchez", ciudad = "Madrid")
+¡Hola Alfredo Sánchez, bienvenido a Madrid!
+
+julia> saludo("Alfredo", ciudad = "Madrid",  "Sánchez")
+¡Hola Alfredo Sánchez, bienvenido a Madrid!
+```
+
+---
+
+### Argumentos por defecto
+
+En la definición de una función se puede asignar a cada parámetro un argumento por defecto, de manera que si se invoca la función sin proporcionar ningún argumento para ese parámetro, se utiliza el argumento por defecto.
+
+El valor por defecto de un parámetro se indica con la siguiente sintaxis `parámetro = valor`.
+
+```julia
+julia> function saludo(nombre, apellidos, ciudad = "Madrid")
+         println("¡Hola $nombre $apellidos, bienvenido a $(ciudad)!")
+       end
+saludo (generic function with 2 methods)
+
+julia> saludo("Alfredo", "Sánchez")
+¡Hola Alfredo Sánchez, bienvenido a Madrid!
+
+julia> saludo("Pepito", "Grillo", "Barcelona")
+¡Hola Pepito Grillo, bienvenido a Barcelona!
+```
+
+---
+
+### Funciones con un número variable de argumentos
+
+Julia permite definir funciones que pueden llamarse con un número variable de argumentos. Para que una función pueda recibir un número variable de argumentos hay que poner tres puntos suspensivos `...` al final de último parámetro posicional.
+
+Cuando se llame a la función los argumentos se irán asociando a los parámetros posicionales en orden y el último parámetro se asociará a una tupla con el resto de argumentos en la llamada.
+
+```julia
+julia> function media(x...)
+       println("Media de ", x)
+       sum(x) / length(x)
+       end
+media (generic function with 1 method)
+
+julia> media(1, 2, 3, 4)
+Media de (1, 2, 3, 4)
+2.5
+```
+
+---
+
+### Parámetros con tipo
+
+Aunque Julia es un lenguaje de tipado dinámico también permite fijar el tipo de los parámetros de una una función. Esto permite definir diferentes variantes (_métodos_) de una misma función dependiendo del tipo de los argumentos, así como detectar errores cuando se llama a la función con argumentos de distinto tipo.
+
+Para indicar el tipo de los parámetros de una función se utiliza la sintaxis `parametro::tipo`.
+
+:::{.callout-warning}
+Conviene no restringir demasiado el tipo de los parámetros de una función. Se debe elegir el tipo más general en la jerarquía de tipos para el que tiene sentido la función.
+:::
+
+---
+
+### Ejemplo de parámetros con tipo
+
+```julia
+julia> function sumar(x::Number, y::Number)
+       x + y
+       end
+sumar (generic function with 1 method)
+
+julia> function sumar(x::String, y::String)
+       x * y
+       end
+sumar (generic function with 2 methods)
+
+julia> sumar(1, 2)
+3
+
+julia> sumar(1.5, 2.5)
+4.0
+
+julia> sumar("Hola", "Julia")
+"HolaJulia"
+```
+
+---
+
+### Paso de argumentos por asignación
+
+En Julia los argumentos se pasan a una función por asignación, es decir, se asignan a los parámetros de la función como si fuesen variables locales. De este modo, cuando los argumentos son objetos mutables (arrays, diccionarios, etc.) se pasa al parámetro una referencia al objeto, de manera que cualquier cambio que se haga en la función mediante el parámetro asociado afectará al objeto original y serán visibles fuera de ella.
+
+
+```julia
+julia> function matricular(curso, asignatura)
+       push!(curso, asignatura)
+       end
+matricular (generic function with 1 method)
+
+julia> primer_curso = [];
+
+julia> matricular(primer_curso, "Álgebra Lineal");
+
+julia> matricular(primer_curso, "Programación");
+
+julia> primer_curso
+2-element Vector{Any}:
+ "Álgebra Lineal"
+ "Programación"
+```
+
+---
+
+### Ámbito de los parámetros de una función
+
+Los parámetros y las variables declaradas dentro de una función son de _ámbito local_, mientras que las variable definidas fuera de funciones son de ámbito _ámbito global_.
+
+Tanto los parámetros como las variables del ámbito local de una función sólo están accesibles durante la ejecución de la función. Es decir, cuando termina la ejecución de la función estas variables desaparecen y no son accesibles desde fuera de la función.
+
+Si en el ámbito local de una función existe una variable que también existe en el ámbito global, durante la ejecución de la función la variable global queda eclipsada por la variable local y no es accesible hasta que finaliza la ejecución de la función.
+
+---
+
+### Ejemplo del ámbito de los parámetros de una función
+
+```julia
+julia> lenguaje = "Python";
+
+julia> function saludo(nombre)
+       lenguaje = "Julia"
+       println("¡Hola $(nombre), bienvenido a $(lenguaje)!")
+       end
+saludo (generic function with 3 methods)
+
+julia> saludo("Alf")
+¡Hola Alf, bienvenido a Julia!
+
+julia> lenguaje
+"Python"
+
+julia> nombre
+ERROR: UndefVarError: nombre not defined
+```
+
+## Retorno de una función
+
+Una función devuelve siempre el valor de la última expresión evaluada en su cuerpo. Sin embargo, puede devolverse cualquier otro valor indicándolo detrás de la palabra reservada `return`. Cuando el flujo de ejecución de la función alcanza esta palabra, la ejecución de la función termina y se devuelve el valor que la acompaña.
+
+Si una función no devuelve ningún valor se puede escribir la palabra `return` sin nada más. 
+
+Cuando se desea devolver más de un valor se puede pueden indicar separados por comas y la función devolverá la tupla formada por esos valores.
+
+---
+
+### Ejemplo de retorno de una función
+
+```julia
+julia> function area_triangulo(base, altura)
+         return base * altura / 2  # Devuelve un valor
+       end
+area_triangulo (generic function with 1 method)
+
+julia> area_triangulo(3, 4)
+6.0
+
+julia> function area_perimetro_circulo(r)
+         return π * r ^ 2, 2π * r  # Devuelve dos valores 
+       end
+area_perimetro_circulo (generic function with 1 method)
+
+julia> area_perimetro_circulo(1)
+(3.141592653589793, 6.283185307179586)
+```
+
+## Funciones compactas
+
+Cuando el cuerpo de una función es una única expresión se puede definir la función de forma mucho más compacta de la siguiente manera:
+
+> `nombre(`_parametros_`)` `=` _expresión_
+
+El valor que devuelve la función es el resultado de evaluar la expresión.
+
+Esta forma de definir funciones es muy habitual para funciones matemáticas.
+
+```julia
+julia> area_triangulo(b, a) = b * a / 2
+area_triangulo (generic function with 1 method)
+
+julia> area_triangulo(3, 4)
+6.0
+
+julia> valor_absoluto(x) = x < 0 ? -x : x
+valor_absoluto (generic function with 1 method)
+
+julia> valor_absoluto(-1)
+1
+```
+
+## Funciones como objetos
+
+En Julia las funciones son objetos como el resto de tipos de datos, de manera que es posible asignar una función a una variable y luego utilizar la variable para hacer la llamada a la función, pasar una función como argumento de otra función, o que una función devuelva otra función.
+
+```julia
+julia> suma(x, y) = x + y
+suma (generic function with 1 method)
+
+julia> adicion = suma
+suma (generic function with 1 method)
+
+julia> adicion(1, 2)
+3
+
+julia> calculadora(operador, x, y) = operador(x, y) 
+calculadora (generic function with 1 method)
+
+julia> calculadora(suma, 1, 2)
+3
+```
+
+---
+
+## Funciones anónimas
+
+Julia permite también definir funciones sin nombre. Para ello se utiliza la siguiente sintaxis. 
+
+> `(`_parametros_`)` `->` _expresión_
+
+El principal uso de las funciones anónimas es para pasarlas como argumentos de otras funciones. 
+
+```julia
+ulia> calculadora(operador, x, y) = operador(x, y) 
+calculadora (generic function with 1 method)
+
+julia> calculadora((x, y) -> x + y, 1, 2)
+3
+
+julia> calculadora((x, y) -> x - y, 1, 2)
+-1
+```
+
+---
+
+## Funciones asociadas a operadores
+
+En Julia los operadores tienen asociadas funciones que son llamadas por el intérprete cuando se evalúa una expresión con operadores. 
+
+```julia
+julia> +(1, 2, 3)  # Equivalente a 1 + 2 + 3
+6
+
+julia> ∑ = +
++ (generic function with 208 methods)
+
+julia> ∑(1, 2, 3)
+6
+```
+
+## Funciones recursivas
+
+Una función recursiva es una función que en su cuerpo contiene alguna llama a si misma. 
+
+La recursión es una práctica común en la mayoría de los lenguajes de programación ya que permite resolver las tareas recursivas de manera más natural.
+
+Para garantizar el final de una función recursiva, las sucesivas llamadas tienen que reducir el grado de complejidad del problema, hasta que este pueda resolverse directamente sin necesidad de volver a llamar a la función.
+
+:::{.callout-caution}
+La recursión es una técnica que suele ser poco eficiente computacionalmente y conviene evitarla siempre que sea posible.
+:::
+
+---
+
+### Ejemplo de funciones recursivas
+
+```julia
+julia> function factorial(n::Integer)
+         if n <= 1
+           return 1
+         else
+           return n * factorial(n-1)
+         end
+       end
+factorial (generic function with 1 method)
+
+julia> factorial(4)
+24
+
+julia> fib(n::Integer) = n ≤ 2 ? 1 : fib(n - 1) + fib(n - 2)
+fib (generic function with 1 method)
+
+julia> fib(10)
+55
+```
+
+<!-- TODO: Comentarios de funciones -->
+
+# Representación gráfica
+
+## Paquetes para la representación gráfica
+
+Existen múltiples paquetes para la representación gráfica en Julia. Los más usados son:
+
+- [Plots.js](https://docs.juliaplots.org/). Es el paquete más usado y con más posibilidades gráficas. Sirve de interfaz para otras librerías gráficas como [Matplotlib](https://matplotlib.org/) o [Plot.ly](https://plotly.com/). Es bastante sencillo de utilizar. Su principal desventaja es que es bastante lento.
+- [GadFly.js](http://gadflyjl.org/). Es un paquete que genera gráficos interactivos por medio de librerías de Javascript basadas en la [gramática de gráficos](https://www.cs.uic.edu/~wilkinson/TheGrammarOfGraphics/GOG.html) (usada también por el paquete ggplot2 de R) similares a Plot.ly. Es mucho más rápido que Plots.js pero es menos completo que este.
+- [VegaLite.js](https://www.queryverse.org/VegaLite.jl). Es un paquete que genera gráficos estáticos por medio de las librerías de Javascript de la gramática de gráficos [Vega](https://vega.github.io/). Dispone de muchas más opciones de personalización de gráficos que GadFly.jl.
+
+
+## Gráfica de una función con Plot.jl
+
+- `plot(f, min, max)`: Dibuja la gráfica de la función de una variable `f` para argumentos desde `xmin` a `xmax`. 
+
+```{julia}
+using Plots
+
+f(x) = exp(-x^2 / 2)
+plot(f, -3, 3)
+```
+
+## Gráfica interactiva de una función con Plot.jl via Plot.ly
+
+```{julia}
+using Plots
+#plotly()  # Usar la librería Plot.ly como back-end
+
+f(x) = exp(-x^2 / 2)
+plot(f, -3, 3)
+```
+
+---
+
+### Gráficas de varias funciones con Plot.jl
+
+- `plot!(f, xmin, xmax)`: Añade la gráfica de la función de una variable `f` para argumentos desde `xmin` a `xmax` al último gráfico realizado.
+
+```{julia}
+using Plots
+
+f(x) = sin(x)
+g(x) = cos(x)
+plot(f, -0, 2π)
+plot!(g)
+```
+
+---
+
+### Añadir puntos a una gráfica
+
+- `scatter(x, y)`: Dibuja los puntos con coordenadas x en el vector `x` y coordenadas y en el vector `y`.
+
+```{julia}
+using Plots
+
+f(x) = sin(x)
+g(x) = cos(x)
+plot(f, -0, 2π)
+plot!(g)
+x = [π/4, 5π/4]
+y = sin.(x)
+scatter!(x, y)
+```
+
+---
+
+### Ventana de graficación
+
+Es posible restringir el área de graficación (rango de valores de los ejes) de una función añadiendo los parámetros `xlims =(xmin, xmax)` para establecer el rango del eje x o `ylims = (ymin, ymax)` para establecer el rango del eje y. 
+
+```{julia}
+using Plots
+
+f(x) = 1 / x
+plot(f, -1, 1, ylims = (-10, 10))
+```
+
+---
+
+### Restringir la gráfica al dominio
+
+Cuando una función no está definida para algún valor del rango de valores del eje x dado, la gráfica muestra una línea recta desde el punto de la gráfica anterior hasta el punto siguiente al punto donde la función no existe.
+
+Este comportamiento no es deseable puesto que si la función no existe en un punto no debería existir gráfica para ese punto. 
+
+La siguiente función del paquete `MATH229` se encarga de evitar esto.
+
+- `rangeclamp(f)`: Devuelve una función idéntica a la función `f` excepto para los puntos donde la función no existe o es infinito que devuevle `NaN`.
+
+---
+
+### Ejemplo de restringir la gráfica al dominio
+
+```{julia}
+using Plots
+using MTH229
+
+f(x) = 1 / x
+plot(rangeclamp(f), -1, 1)
+```
+
+---
+
+### Gráficas paramétricas
+
+La función `plot` también permite dibujar gráficas de funciones paramétricas pasándole las funciones de las coordenadas x e y. 
+
+- `plot(f, g, min, max)`: Dibuja la gráfica de la función paramétrica $(f(t), g(t))$ para valores del parámetro `t` entre `min` y `max`.
+
+```{julia}
+using Plots
+f(x) = sin(x)
+g(x) = sin(2x)
+plot(f, g, 0, 2π)
+```
+
+## Personalización de gráficos
+
+Los siguientes parámetros pueden añadirse a la función `plot` para modificar el aspecto de los gráficos.
+
+- `title`: Añade un título principal al gráfico.
+- `xlab`: Añade un título al eje x.
+- `ylab`: Añade un título al eje y.
+- `color`: Establece el color de la gráfica.
+- `linewidth`: Establece el grosor de la línea de la gráfica.
+- `linestyle`: Establece el estilo de la línea de la gráfica.
+- `aspect_ratio`: Establece la relación de aspecto entre la escala de los ejes.
+- `legend`: Activa o desactiva la leyenda del gráfico.
+
+---
+
+### Ejemplo de personalización de gráficos
+
+```{julia}
+using Plots
+
+f(x) = sin(x)
+plot(f, -π, π, title = "Gráfica del seno",  xlab = "x", ylab = "f(x) = sen(x)",
+  color = "green", linewidth = 3, linestyle = :dash, aspec_ratio = :equal, legend = false)
+```
+
+## Gráficos en el espacio real
+
+Para dibujar superficies en el espacio real se utiliza la función
+
+`surface(x, y, f)`: Dibuja la superficie de la función $f(x,y)$ en el rango de valores `x` del eje x e `y` del eje y.
+
+```{julia}
+using Plots
+pyplot()
+x = range(1, stop=10, length=100)
+y = x
+f(x,y) = sin(x) + cos(y)
+plot(x, y, f, st=:surface)
+```
+
+
+# Aplicaciones
+
+## Teoría de grafos
+
+- [JuliaGraphs](https://juliagraphs.org/). Graphs analysis in Julia
+
+## Cálculo simbólico
+
+- [Symbolics](https://juliasymbolics.org/) Sistema de Álgebra Computacional (CAS) basado en Julia.
+
 
 
