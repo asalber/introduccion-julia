@@ -1,7 +1,9 @@
-for i in 1:10
-    if i % 2 == 0
-        continue
+function uno(x)
+    x += 1
+    function dos(y)
+        y *= 2
     end
-    println(i)
+    return dos(x)
 end
 
+uno(1)
