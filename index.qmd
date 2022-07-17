@@ -1,6 +1,7 @@
 ---
-title: "Introducción Julia"
+title: "Introducción a Julia"
 subtitle: "Orientada a computación científica y análisis de datos"
+author: "Alfredo Sánchez Alberca<br>[asalber@ceu.es](mailto:asalber@ceu.es)<br>[https://aprendeconalf.es](https://aprendeconalf.es)"
 format: 
     revealjs:
         theme: [dark, custom.scss]
@@ -984,6 +985,8 @@ julia> for i in 1:10
 ```
 
 # Tipos de datos compuestos
+
+## Colecciones de datos
 
 Colecciones de datos con distinta estructura y semántica.
 
@@ -2548,6 +2551,8 @@ true
 
 # Funciones
 
+## Creación de funciones
+
 Una función asocia un nombre a un bloque de código de manera que cada vez que se invoca a la función se ejecuta el bloque de código asociado.
 
 Para crear una función se utiliza la siguiente sintaxis
@@ -2917,18 +2922,38 @@ julia> fib(10)
 
 <!-- TODO: Comentarios de funciones -->
 
-# Representación gráfica
+# Gráficos
 
-## Paquetes para la representación gráfica
+## Paquetes gráficos
 
-Existen múltiples paquetes para la representación gráfica en Julia. Los más usados son:
+Existen muchos paquetes para la representación gráfica en Julia. Los más usados son:
 
-- [Plots.js](https://docs.juliaplots.org/). Es el paquete más usado y con más posibilidades gráficas. Sirve de interfaz para otras librerías gráficas como [Matplotlib](https://matplotlib.org/) o [Plot.ly](https://plotly.com/). Es bastante sencillo de utilizar. Su principal desventaja es que es bastante lento.
-- [GadFly.js](http://gadflyjl.org/). Es un paquete que genera gráficos interactivos por medio de librerías de Javascript basadas en la [gramática de gráficos](https://www.cs.uic.edu/~wilkinson/TheGrammarOfGraphics/GOG.html) (usada también por el paquete ggplot2 de R) similares a Plot.ly. Es mucho más rápido que Plots.js pero es menos completo que este.
-- [VegaLite.js](https://www.queryverse.org/VegaLite.jl). Es un paquete que genera gráficos estáticos por medio de las librerías de Javascript de la gramática de gráficos [Vega](https://vega.github.io/). Dispone de muchas más opciones de personalización de gráficos que GadFly.jl.
+- [Plots.jl](https://docs.juliaplots.org/)
+- [GadFly.jl](http://gadflyjl.org/).
+- [VegaLite.jl](https://www.queryverse.org/VegaLite.jl/stable/)
 
 
-## Gráfica de una función con Plot.jl
+## Gráficos con el paquete Plots.jl
+
+[Plots.js](https://docs.juliaplots.org/) es el paquete más usado por disponer de más posibilidades gráficas y ser bastante sencillo de usar.
+
+Implementa una interfaz para otras librerías gráficas (backends), por lo que en algunas ocasiones puede ser bastante lento al tener que llamar a otras librerías. 
+
+![](img/logos/plotsjl.png)
+
+---
+
+### Backends de Plot.jl
+
+- [GR](https://gr-framework.org/). Es el backend pro defecto. Es bastante rápida y permite tanto gráficos 2D como 3D no interactivos. Se inicializa con la función `gr()`. ([Ver ejemplos](https://docs.juliaplots.org/latest/gallery/gr/))
+- [PlotlyJS](https://plotly.com/). Es más lenta pero permite gráficos 2D y 3D interactivos con un montón de funcionalidades. Se inicializa con la función `plotlyjs()`. ([Ver ejemplos](https://docs.juliaplots.org/latest/gallery/plotlyjs/))
+- [PyPlot](https://matplotlib.org/). Utiliza la librería gráfica Matplotlib de Python por lo que es bastante lenta. Sin embargo, tiene ofrece todas las posibilidades de Matplotlib que es bastante madura. Se inicializa con la función `pyplot()`. ([Ver ejemplos](https://docs.juliaplots.org/latest/gallery/pyplot/))
+- [PGFPlotsX](). Utiliza la librería PGF/TikZ de $\LaTeX$ por lo que genera gráficos de muy alta calidad tanto en 2D como 3D, especialmente para publicaciones.Se inicializa con la función `pgfplotsx()`. ([Ver ejemplos](https://docs.juliaplots.org/latest/gallery/pgfplotsx/))
+- UnicodePlots. Permite dibujar gráficos en la terminal. Los gráficos son de poca calidad pero funciona con gran rapidez. Se inicializa con la función `unicodeplots()`. ([Ver ejemplos](https://docs.juliaplots.org/latest/gallery/unicodeplots/))
+
+---
+
+### Gráfica de una función de una variable
 
 - `plot(f, min, max)`: Dibuja la gráfica de la función de una variable `f` para argumentos desde `xmin` a `xmax`. 
 
@@ -2939,7 +2964,9 @@ f(x) = exp(-x^2 / 2)
 plot(f, -3, 3)
 ```
 
-## Gráfica interactiva de una función con Plot.jl via Plot.ly
+---
+
+### Gráfica interactiva de una función de una variable
 
 ```{julia}
 using Plots
@@ -2951,7 +2978,7 @@ plot(f, -3, 3)
 
 ---
 
-### Gráficas de varias funciones con Plot.jl
+### Gráficas de varias funciones 
 
 - `plot!(f, xmin, xmax)`: Añade la gráfica de la función de una variable `f` para argumentos desde `xmin` a `xmax` al último gráfico realizado.
 
@@ -3034,7 +3061,9 @@ g(x) = sin(2x)
 plot(f, g, 0, 2π)
 ```
 
-## Personalización de gráficos
+---
+
+### Personalización de gráficos
 
 Los siguientes parámetros pueden añadirse a la función `plot` para modificar el aspecto de los gráficos.
 
@@ -3074,15 +3103,374 @@ f(x,y) = sin(x) + cos(y)
 plot(x, y, f, st=:surface)
 ```
 
+## Gráficos con GadFly.jl
+
+[GadFly.js](http://gadflyjl.org/) es un paquete nativo que genera gráficos interactivos 2D y 3D por medio de librerías de Javascript basadas en la [gramática de gráficos](https://www.cs.uic.edu/~wilkinson/TheGrammarOfGraphics/GOG.html) (usada también por el paquete ggplot2 de R).
+
+Al estar implementado en Julia es mucho más rápido que Plots.js pero ofrece menos posibilidades.
+
+![](img/logos/gadfly.svg)
+
+<!-- ---
+
+### Gráfica de una función de una variable
+
+```julia
+using Gadfly
+
+plot([sin, cos], 0, 2pi)
+``` -->
+
+## Gráficos con VegaLite.jl
+
+[VegaLite.jl](https://www.queryverse.org/VegaLite.jl/stable/) es un paquete que genera gráficos estáticos por medio de las librerías de Javascript de la gramática de gráficos [Vega](https://vega.github.io/). 
+
+Dispone de muchas más opciones de personalización de gráficos que GadFly.jl.
+
+![](img/logos/vega-little.png)
+
+<!-- ---
+
+### Gráfica de una función de una variable
+
+```julia
+using VegaLite
+
+@vlplot(
+    width=300,
+    height=150,
+    data={sequence={start=0,stop=12.7,step=0.1,as="x"}},
+    transform=[
+        {calculate="sin(datum.x)", as="sin(x)"},
+        {calculate="cos(datum.x)", as="cos(x)"},
+        {fold=["sin(x)", "cos(x)"]}
+    ],
+    mark=:line,
+    x="x:q",
+    y="value:q",
+    color={"key:n",title=nothing}
+)
+``` -->
+
+# Cálculo simbólico
+
+## Symbolics.jl
+
+`Symbolics.jl` es un paquete que implenta un avanzado Sistema de Álgebra Computacional (CAS) basado en un lenguaje de modelado simbólico. 
+
+Las variables y las expresiones simbólicas pueden utilizarse con la mayoría de las funciones de Julia para cálculo numérico, por lo que se integran a la perfección en el ecosistema de Julia. 
+
+![](img/logos/juliasymbolics.png)
+
+---
+
+### Variables y expresione simbólicas
+
+Para declarar variables simbólicas se utiliza la siguiente macro:
+
+- `variables x y ...`: Declara las variables `x`, `y`, etc. como variables simbólicas.
+
+El tipo de las variables simbólicas es `Num`.
+
+Cualquier expresión en la que interviene una variable simbólica se convierte automáticamente en una expresión simbólica.
+
+---
+
+### Ejemplo de variables y expresiones simbólicas
+
+```julia
+using Symbolics
+
+julia> @variables x y
+2-element Vector{Num}:
+ x
+ y
+
+julia> z = x^2 - y
+x^2 - y
+
+julia> typeof(z)
+Num
+
+julia> A = [x + y 2x; -y y - x]  # Matriz simbólica
+2×2 Matrix{Num}:
+ x + y     2x
+    -y  y - x
+```
+
+---
+
+### Álgebra simbólica
+
+Se pueden realizar operaciones algebráicas con expresiones simbólicas utilizando los mismos operadores del Álgebra numérica.
+
+```julia
+using Symbolics
+
+julia> @variables x y;
+
+julia> (x + 1) + (x + 2)
+3 + 2x
+
+julia> A = [x + y 2x; -y y - x]  # Matriz simbólica
+2×2 Matrix{Num}:
+ x + y     2x
+    -y  y - x
+
+julia> B = [x, y]  # Vector simbólico
+2-element Vector{Num}:
+ x
+ y
+
+julia> A * B  # Producto matricial
+2-element Vector{Num}:
+ x*(x + y) + 2x*y
+  y*(y - x) - x*y
+```
+
+---
+
+### Simplicación de expresiones
+
+Para simplificar expresiones simbólicas se utiliza la siguiente función:
+
+- `simplify(e)`: Devuelve la expresión simbólica que resulta de simplicar la expresión simbólica `e`.
+
+La simplificación utiliza el paquete `SymbolicUtils.jl` que implementa un potente sistema de reescritura de términos.
+
+```julia
+using Symbolics
+
+@variables x y;
+
+julia> simplify(2(x+y))
+2x + 2y
+
+julia> simplify(2(x+y))
+2x + 2y
+
+julia> simplify(sin(x)^2 + cos(x)^2)
+1
+```
+
+---
+
+### Sustitución de variables en expresiones
+
+Para sustituir una variable simbólica en una expresión se utiliza la siguiente función:
+
+- `substitute(e, d)`: Realiza la sustitución de las claves por los valores del diccionario `d` en la expresión simbólica `e`.
+
+```julia
+using Symbolics
+
+@variables x y;
+
+julia> substitute(cos(2x), Dict([x => π])) 
+1.0
+
+julia> substitute(x * y + 2x -y + 2, Dict([x => 1, y => 2]))
+4
+```
+
+---
+
+### Resolución de ecuaciones
+
+Para definir una ecuación se utiliza el símbolo `~` en lugar de la igualdad. 
+
+Para resolver una ecuación se utiliza la siguiente función:
+
+- `Symbolics.solve_for(eq, var)`: Devuelve un vector con los valores de las variables del vector `var` que cumplen la ecuación o sistema de ecuaciones `eq`, siempre que la ecuación tenga solución. 
+
+:::{.callout-warning}
+Actualmente solo funciona para ecuaciones lineales.
+:::
+
+```julia
+using Symbolics
+
+@variables x y;
+
+julia> Symbolics.solve_for(x + y ~ 0, x)
+-y
+
+julia> Symbolics.solve_for([x + y ~ 4, x - y ~ 2], [x, y])
+2-element Vector{Float64}:
+ 3.0
+ 1.0
+```
+
+---
+
+### Cálculo de derivadas
+
+Para calcular la derivada de una función se utiliza la siguiente función:
+
+- `Symbolics.derivative(f, x)`: Devuelve la expresión simbólica de la derivada de la función `f` con respecto a la variable simbólica `x`.
+
+```julia
+using Symbolics
+
+julia> @variables x y;
+
+julia> Symbolics.derivative(exp(x*y), x)
+y*exp(x*y)
+
+julia> Symbolics.derivative(Symbolics.derivative(exp(x*y), x), y)
+x*y*exp(x*y) + exp(x*y)
+```
+
+---
+
+### Cálculo de derivadas con operadores diferenciales 
+
+Para construir un operador differencial ($\frac{d}{dx}$) se utiliza la siguiente función:
+
+- `Differential(x)`: Crea el operador differencial con respecto a la variable simbólica `x`.
+
+Para obtener la función derivada, una vez aplicado el operador diferencial a una función, es necesario aplicar la siguiente función:
+
+- `expand_derivatives(D(f))`: Devuelve la expresión simbólica que corresonde a la derivada de la función `f` con respecto a la variable del operador differencial `D`.
+
+---
+
+### Ejemplo de cálculo de derivadas con operadores diferenciales
+
+```julia
+using Symbolics
+
+@variables x y;
+
+julia> Dx = Differential(x)
+(::Differential) (generic function with 2 methods)
+
+julia> f(x) = sin(x^2)
+f (generic function with 1 method)
+
+julia> f1(x) = Dx(f(x))
+f1 (generic function with 1 method)
+
+julia> expand_derivatives(f1(x))
+2x*cos(x^2)
+
+julia> Dy = Differential(y)
+(::Differential) (generic function with 2 methods)
+
+julia> expand_derivatives(Dx(Dy(cos(x*y))))
+-sin(x*y) - x*y*cos(x*y)
+```
+
+---
+
+### Gradiente y matriz Hessiana de una función de varias variables
+
+Para calcular el vector gradiente de una función de varias variables se utiliza la siguiente función:
+
+- `Symbolics.gradient(f, vars)`: Devuelve el vector gradiente de la función `f` con respecto a las variables del vector `vars`.
+
+Y para calcular la matriz Hessiana se utiliza la siguiente función:
+
+- `Symbolics.hessian(f, vars)`: Devuelve la matriz Hessiana de la función `f` con respecto a las variables del vector `vars`.
+
+---
+
+### Ejemplo de gradiente y matriz hessiana de una función de varias variables
+
+```julia
+using Symbolics
+
+@variables x y;
+
+julia> Symbolics.gradient(exp(x*y), [x, y])
+2-element Vector{Num}:
+ y*exp(x*y)
+ x*exp(x*y)
+
+julia> Symbolics.hessian(exp(x*y), [x, y])
+2×2 Matrix{Num}:
+ (y^2)*exp(x*y)               x*y*exp(x*y) + exp(x*y)
+   x*y*exp(x*y) + exp(x*y)  (x^2)*exp(x*y)
+```
+
+# Análisis de datos
+
+## El paquete DataFrames.jl
+
+El principal paquete para análisis de datos es [`DataFrames.jl`](https://dataframes.juliadata.org/stable/) que proporciona herramientas para trabajar con conjuntos de datos en formato de tabla de forma similiar a pandas en Python o data.frames y dplyr en R.
+
+En conjunción con este paque es frecuente utilizar también alguno de los siguientes paquetes:
+
+- [FreqTables.jl](https://github.com/nalimilan/FreqTables.jl). Funciones para la construcción de tablas de frecuencias.
+- [Statistics.jl](https://docs.julialang.org/en/v1/stdlib/Statistics/). Funciones para los principales estadísticos descriptivos.
+- [HypothesisTests.jl](https://juliastats.org/HypothesisTests.jl/stable/) Funciones para los contrastes de hipótesis paramétricos y no paramétricos más comunes.
+- [GLM.jl](https://juliastats.org/GLM.jl/stable/). Funciones para modelos lineales generales.
+- [MultivariateStats.jl](https://multivariatestatsjl.readthedocs.io/en/stable/index.html). Funciones para análisis multivariante.
+- [MLJ.jl](https://github.com/alan-turing-institute/MLJ.jl). Funciones para los principales algoritmos de aprendizaje automático.
+
+---
+
+### Creación de DataFrames
+
+Para crear un DataFrame su utiliza la siguiente función: 
+
+- `DataFrame(x1=v1, x2=v2, ...)`: Devuelve el DataFrame que formado por las columnas de los vectores `v1`, `v2`, etc, con los nombres `x1`, `x2`, etc, respectivamente.
+
+```julia
+using DataFrames
+
+julia> df = DataFrame(Nombre = ["María", "Luis", "Carmen"], Edad = [22, 18, 20])
+3×2 DataFrame
+ Row │ Nombre  Edad  
+     │ String  Int64 
+─────┼───────────────
+   1 │ María      22
+   2 │ Luis       18
+   3 │ Carmen     20
+```
+
+---
+
+### Creación de DataFrames desde una url
+
+Para crear una DataFrame a partir de un fichero csv en la nube, se utiliza la siguiente función del paquete `CSV.jl`:
+
+- `CSV.read(download(url), DataFrame)`: Devuelve el DataFrame que resulta de importar el fichero csv con la url `url`.
+
+```julia
+using DataFrames, CSV
+
+julia> df = CSV.read(download("https://raw.githubusercontent.com/asalber/manual-python/master/datos/colesteroles.csv"), DataFrame)
+14×6 DataFrame
+ Row │ nombre                           edad   sexo     peso     altura   colesterol 
+     │ String                           Int64  String1  Int64?   String7  Int64?     
+─────┼───────────────────────────────────────────────────────────────────────────────
+   1 │ José Luis Martínez Izquierdo        18  H             85  1,79            182
+   2 │ Rosa Díaz Díaz                      32  M             65  1,73            232
+   3 │ Javier García Sánchez               24  H        missing  1,81            191
+   4 │ Carmen López Pinzón                 35  M             65  1,70            200
+   5 │ Marisa López Collado                46  M             51  1,58            148
+   6 │ Antonio Ruiz Cruz                   68  H             66  1,74            249
+   7 │ Antonio Fernández Ocaña             51  H             62  1,72            276
+   8 │ Pilar Martín González               22  M             60  1,66        missing 
+   9 │ Pedro Gálvez Tenorio                35  H             90  1,94            241
+  10 │ Santiago Reillo Manzano             46  H             75  1,85            280
+  11 │ Macarena Álvarez Luna               53  M             55  1,62            262
+  12 │ José María de la Guía Sanz          58  H             78  1,87            198
+  13 │ Miguel Angel Cuadrado Gutiérrez     27  H            109  1,98            210
+  14 │ Carolina Rubio Moreno               20  M             61  1,77            194
+```
+
 
 # Aplicaciones
 
 ## Teoría de grafos
 
-- [JuliaGraphs](https://juliagraphs.org/). Graphs analysis in Julia
+- [JuliaGraphs](https://juliagraphs.org/). Graphs analysis in Julia.
 
 ## Cálculo simbólico
 
+- [SymPy](https://docs.juliahub.com/SymPy/KzewI/1.0.31/). Sistema de Álgebra Computacional (CAS) basdado en la librería `SymPy` de Python.
 - [Symbolics](https://juliasymbolics.org/) Sistema de Álgebra Computacional (CAS) basado en Julia.
 
 

@@ -9,7 +9,8 @@
 <link href="index_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.0.18">
 
-  <title>Introducción Julia</title>
+  <meta name="author" content="Alfredo Sánchez Alberca asalber@ceu.es https://aprendeconalf.es">
+  <title>Introducción a Julia</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -382,8 +383,9 @@
     <div class="slides">
 
 <section id="title-slide" class="center">
-  <h1 class="title">Introducción Julia</h1>
+  <h1 class="title">Introducción a Julia</h1>
   <p class="subtitle">Orientada a computación científica y análisis de datos</p>
+  <p class="author">Alfredo Sánchez Alberca<br><a href="mailto:asalber@ceu.es">asalber@ceu.es</a><br><a href="https://aprendeconalf.es">https://aprendeconalf.es</a></p>
 </section>
 
 <section>
@@ -1629,6 +1631,10 @@
 <section>
 <section id="tipos-de-datos-compuestos" class="title-slide slide level1 center">
 <h1>Tipos de datos compuestos</h1>
+
+</section>
+<section id="colecciones-de-datos" class="slide level2">
+<h2>Colecciones de datos</h2>
 <p>Colecciones de datos con distinta estructura y semántica.</p>
 <ul>
 <li>Arrays
@@ -3109,6 +3115,10 @@
 <section>
 <section id="funciones" class="title-slide slide level1 center">
 <h1>Funciones</h1>
+
+</section>
+<section id="creación-de-funciones" class="slide level2">
+<h2>Creación de funciones</h2>
 <p>Una función asocia un nombre a un bloque de código de manera que cada vez que se invoca a la función se ejecuta el bloque de código asociado.</p>
 <p>Para crear una función se utiliza la siguiente sintaxis</p>
 <blockquote>
@@ -3428,21 +3438,39 @@
 <!-- TODO: Comentarios de funciones -->
 </section></section>
 <section>
-<section id="representación-gráfica" class="title-slide slide level1 center">
-<h1>Representación gráfica</h1>
+<section id="gráficos" class="title-slide slide level1 center">
+<h1>Gráficos</h1>
 
 </section>
-<section id="paquetes-para-la-representación-gráfica" class="slide level2">
-<h2>Paquetes para la representación gráfica</h2>
-<p>Existen múltiples paquetes para la representación gráfica en Julia. Los más usados son:</p>
+<section id="paquetes-gráficos" class="slide level2">
+<h2>Paquetes gráficos</h2>
+<p>Existen muchos paquetes para la representación gráfica en Julia. Los más usados son:</p>
 <ul>
-<li><a href="https://docs.juliaplots.org/">Plots.js</a>. Es el paquete más usado y con más posibilidades gráficas. Sirve de interfaz para otras librerías gráficas como <a href="https://matplotlib.org/">Matplotlib</a> o <a href="https://plotly.com/">Plot.ly</a>. Es bastante sencillo de utilizar. Su principal desventaja es que es bastante lento.</li>
-<li><a href="http://gadflyjl.org/">GadFly.js</a>. Es un paquete que genera gráficos interactivos por medio de librerías de Javascript basadas en la <a href="https://www.cs.uic.edu/~wilkinson/TheGrammarOfGraphics/GOG.html">gramática de gráficos</a> (usada también por el paquete ggplot2 de R) similares a Plot.ly. Es mucho más rápido que Plots.js pero es menos completo que este.</li>
-<li><a href="https://www.queryverse.org/VegaLite.jl">VegaLite.js</a>. Es un paquete que genera gráficos estáticos por medio de las librerías de Javascript de la gramática de gráficos <a href="https://vega.github.io/">Vega</a>. Dispone de muchas más opciones de personalización de gráficos que GadFly.jl.</li>
+<li><a href="https://docs.juliaplots.org/">Plots.jl</a></li>
+<li><a href="http://gadflyjl.org/">GadFly.jl</a>.</li>
+<li><a href="https://www.queryverse.org/VegaLite.jl/stable/">VegaLite.jl</a></li>
 </ul>
 </section>
-<section id="gráfica-de-una-función-con-plot.jl" class="slide level2">
-<h2>Gráfica de una función con Plot.jl</h2>
+<section id="gráficos-con-el-paquete-plots.jl" class="slide level2">
+<h2>Gráficos con el paquete Plots.jl</h2>
+<p><a href="https://docs.juliaplots.org/">Plots.js</a> es el paquete más usado por disponer de más posibilidades gráficas y ser bastante sencillo de usar.</p>
+<p>Implementa una interfaz para otras librerías gráficas (backends), por lo que en algunas ocasiones puede ser bastante lento al tener que llamar a otras librerías.</p>
+
+<img data-src="img/logos/plotsjl.png" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 id="backends-de-plot.jl">Backends de Plot.jl</h3>
+<ul>
+<li><a href="https://gr-framework.org/">GR</a>. Es el backend pro defecto. Es bastante rápida y permite tanto gráficos 2D como 3D no interactivos. Se inicializa con la función <code>gr()</code>. (<a href="https://docs.juliaplots.org/latest/gallery/gr/">Ver ejemplos</a>)</li>
+<li><a href="https://plotly.com/">PlotlyJS</a>. Es más lenta pero permite gráficos 2D y 3D interactivos con un montón de funcionalidades. Se inicializa con la función <code>plotlyjs()</code>. (<a href="https://docs.juliaplots.org/latest/gallery/plotlyjs/">Ver ejemplos</a>)</li>
+<li><a href="https://matplotlib.org/">PyPlot</a>. Utiliza la librería gráfica Matplotlib de Python por lo que es bastante lenta. Sin embargo, tiene ofrece todas las posibilidades de Matplotlib que es bastante madura. Se inicializa con la función <code>pyplot()</code>. (<a href="https://docs.juliaplots.org/latest/gallery/pyplot/">Ver ejemplos</a>)</li>
+<li><a href="">PGFPlotsX</a>. Utiliza la librería PGF/TikZ de <span class="math inline">\(\LaTeX\)</span> por lo que genera gráficos de muy alta calidad tanto en 2D como 3D, especialmente para publicaciones.Se inicializa con la función <code>pgfplotsx()</code>. (<a href="https://docs.juliaplots.org/latest/gallery/pgfplotsx/">Ver ejemplos</a>)</li>
+<li>UnicodePlots. Permite dibujar gráficos en la terminal. Los gráficos son de poca calidad pero funciona con gran rapidez. Se inicializa con la función <code>unicodeplots()</code>. (<a href="https://docs.juliaplots.org/latest/gallery/unicodeplots/">Ver ejemplos</a>)</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="gráfica-de-una-función-de-una-variable">Gráfica de una función de una variable</h3>
 <ul>
 <li><code>plot(f, min, max)</code>: Dibuja la gráfica de la función de una variable <code>f</code> para argumentos desde <code>xmin</code> a <code>xmax</code>.</li>
 </ul>
@@ -3454,8 +3482,9 @@
 
 </div>
 <img data-src="index_files/figure-revealjs/cell-2-output-1.svg" class="r-stretch"></section>
-<section id="gráfica-interactiva-de-una-función-con-plot.jl-via-plot.ly" class="slide level2">
-<h2>Gráfica interactiva de una función con Plot.jl via Plot.ly</h2>
+<section class="slide level2">
+
+<h3 id="gráfica-interactiva-de-una-función-de-una-variable">Gráfica interactiva de una función de una variable</h3>
 <div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb91"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots</span></span>
 <span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="co">#plotly()  # Usar la librería Plot.ly como back-end</span></span>
@@ -3467,7 +3496,7 @@
 <img data-src="index_files/figure-revealjs/cell-3-output-1.svg" class="r-stretch"></section>
 <section class="slide level2">
 
-<h3 id="gráficas-de-varias-funciones-con-plot.jl">Gráficas de varias funciones con Plot.jl</h3>
+<h3 id="gráficas-de-varias-funciones">Gráficas de varias funciones</h3>
 <ul>
 <li><code>plot!(f, xmin, xmax)</code>: Añade la gráfica de la función de una variable <code>f</code> para argumentos desde <code>xmin</code> a <code>xmax</code> al último gráfico realizado.</li>
 </ul>
@@ -3549,8 +3578,9 @@
 
 </div>
 <img data-src="index_files/figure-revealjs/cell-8-output-1.svg" class="r-stretch"></section>
-<section id="personalización-de-gráficos" class="slide level2">
-<h2>Personalización de gráficos</h2>
+<section class="slide level2">
+
+<h3 id="personalización-de-gráficos">Personalización de gráficos</h3>
 <p>Los siguientes parámetros pueden añadirse a la función <code>plot</code> para modificar el aspecto de los gráficos.</p>
 <ul>
 <li><code>title</code>: Añade un título principal al gráfico.</li>
@@ -3588,7 +3618,334 @@
 <span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, f, st<span class="op">=:</span>surface)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="index_files/figure-revealjs/cell-10-output-1.svg" class="r-stretch"></section></section>
+<img data-src="index_files/figure-revealjs/cell-10-output-1.svg" class="r-stretch"></section>
+<section id="gráficos-con-gadfly.jl" class="slide level2">
+<h2>Gráficos con GadFly.jl</h2>
+<p><a href="http://gadflyjl.org/">GadFly.js</a> es un paquete nativo que genera gráficos interactivos 2D y 3D por medio de librerías de Javascript basadas en la <a href="https://www.cs.uic.edu/~wilkinson/TheGrammarOfGraphics/GOG.html">gramática de gráficos</a> (usada también por el paquete ggplot2 de R).</p>
+<p>Al estar implementado en Julia es mucho más rápido que Plots.js pero ofrece menos posibilidades.</p>
+
+<!-- ---
+
+### Gráfica de una función de una variable
+
+```julia
+using Gadfly
+
+plot([sin, cos], 0, 2pi)
+``` -->
+<img data-src="img/logos/gadfly.svg" class="r-stretch"></section>
+<section id="gráficos-con-vegalite.jl" class="slide level2">
+<h2>Gráficos con VegaLite.jl</h2>
+<p><a href="https://www.queryverse.org/VegaLite.jl/stable/">VegaLite.jl</a> es un paquete que genera gráficos estáticos por medio de las librerías de Javascript de la gramática de gráficos <a href="https://vega.github.io/">Vega</a>.</p>
+<p>Dispone de muchas más opciones de personalización de gráficos que GadFly.jl.</p>
+
+<!-- ---
+
+### Gráfica de una función de una variable
+
+```julia
+using VegaLite
+
+@vlplot(
+    width=300,
+    height=150,
+    data={sequence={start=0,stop=12.7,step=0.1,as="x"}},
+    transform=[
+        {calculate="sin(datum.x)", as="sin(x)"},
+        {calculate="cos(datum.x)", as="cos(x)"},
+        {fold=["sin(x)", "cos(x)"]}
+    ],
+    mark=:line,
+    x="x:q",
+    y="value:q",
+    color={"key:n",title=nothing}
+)
+``` -->
+<img data-src="img/logos/vega-little.png" class="r-stretch"></section></section>
+<section>
+<section id="cálculo-simbólico" class="title-slide slide level1 center">
+<h1>Cálculo simbólico</h1>
+
+</section>
+<section id="symbolics.jl" class="slide level2">
+<h2>Symbolics.jl</h2>
+<p><code>Symbolics.jl</code> es un paquete que implenta un avanzado Sistema de Álgebra Computacional (CAS) basado en un lenguaje de modelado simbólico.</p>
+<p>Las variables y las expresiones simbólicas pueden utilizarse con la mayoría de las funciones de Julia para cálculo numérico, por lo que se integran a la perfección en el ecosistema de Julia.</p>
+
+<img data-src="img/logos/juliasymbolics.png" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 id="variables-y-expresione-simbólicas">Variables y expresione simbólicas</h3>
+<p>Para declarar variables simbólicas se utiliza la siguiente macro:</p>
+<ul>
+<li><code>variables x y ...</code>: Declara las variables <code>x</code>, <code>y</code>, etc. como variables simbólicas.</li>
+</ul>
+<p>El tipo de las variables simbólicas es <code>Num</code>.</p>
+<p>Cualquier expresión en la que interviene una variable simbólica se convierte automáticamente en una expresión simbólica.</p>
+</section>
+<section class="slide level2">
+
+<h3 id="ejemplo-de-variables-y-expresiones-simbólicas">Ejemplo de variables y expresiones simbólicas</h3>
+<div class="sourceCode" id="cb99"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Symbolics</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="pp">@variables</span> x y</span>
+<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a><span class="fl">2</span><span class="op">-</span>element <span class="dt">Vector</span>{Num}<span class="op">:</span></span>
+<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a> x</span>
+<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a> y</span>
+<span id="cb99-7"><a href="#cb99-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-8"><a href="#cb99-8" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> z <span class="op">=</span> x<span class="op">^</span><span class="fl">2</span> <span class="op">-</span> y</span>
+<span id="cb99-9"><a href="#cb99-9" aria-hidden="true" tabindex="-1"></a>x<span class="op">^</span><span class="fl">2</span> <span class="op">-</span> y</span>
+<span id="cb99-10"><a href="#cb99-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-11"><a href="#cb99-11" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">typeof</span>(z)</span>
+<span id="cb99-12"><a href="#cb99-12" aria-hidden="true" tabindex="-1"></a>Num</span>
+<span id="cb99-13"><a href="#cb99-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-14"><a href="#cb99-14" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> A <span class="op">=</span> [x <span class="op">+</span> y <span class="fl">2</span>x; <span class="op">-</span>y y <span class="op">-</span> x]  <span class="co"># Matriz simbólica</span></span>
+<span id="cb99-15"><a href="#cb99-15" aria-hidden="true" tabindex="-1"></a><span class="fl">2</span><span class="op">×</span><span class="fl">2</span> <span class="dt">Matrix</span>{Num}<span class="op">:</span></span>
+<span id="cb99-16"><a href="#cb99-16" aria-hidden="true" tabindex="-1"></a> x <span class="op">+</span> y     <span class="fl">2</span>x</span>
+<span id="cb99-17"><a href="#cb99-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>y  y <span class="op">-</span> x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<h3 id="álgebra-simbólica">Álgebra simbólica</h3>
+<p>Se pueden realizar operaciones algebráicas con expresiones simbólicas utilizando los mismos operadores del Álgebra numérica.</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Symbolics</span></span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="pp">@variables</span> x y;</span>
+<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-5"><a href="#cb100-5" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> (x <span class="op">+</span> <span class="fl">1</span>) <span class="op">+</span> (x <span class="op">+</span> <span class="fl">2</span>)</span>
+<span id="cb100-6"><a href="#cb100-6" aria-hidden="true" tabindex="-1"></a><span class="fl">3</span> <span class="op">+</span> <span class="fl">2</span>x</span>
+<span id="cb100-7"><a href="#cb100-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-8"><a href="#cb100-8" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> A <span class="op">=</span> [x <span class="op">+</span> y <span class="fl">2</span>x; <span class="op">-</span>y y <span class="op">-</span> x]  <span class="co"># Matriz simbólica</span></span>
+<span id="cb100-9"><a href="#cb100-9" aria-hidden="true" tabindex="-1"></a><span class="fl">2</span><span class="op">×</span><span class="fl">2</span> <span class="dt">Matrix</span>{Num}<span class="op">:</span></span>
+<span id="cb100-10"><a href="#cb100-10" aria-hidden="true" tabindex="-1"></a> x <span class="op">+</span> y     <span class="fl">2</span>x</span>
+<span id="cb100-11"><a href="#cb100-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>y  y <span class="op">-</span> x</span>
+<span id="cb100-12"><a href="#cb100-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-13"><a href="#cb100-13" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> B <span class="op">=</span> [x, y]  <span class="co"># Vector simbólico</span></span>
+<span id="cb100-14"><a href="#cb100-14" aria-hidden="true" tabindex="-1"></a><span class="fl">2</span><span class="op">-</span>element <span class="dt">Vector</span>{Num}<span class="op">:</span></span>
+<span id="cb100-15"><a href="#cb100-15" aria-hidden="true" tabindex="-1"></a> x</span>
+<span id="cb100-16"><a href="#cb100-16" aria-hidden="true" tabindex="-1"></a> y</span>
+<span id="cb100-17"><a href="#cb100-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-18"><a href="#cb100-18" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> A <span class="op">*</span> B  <span class="co"># Producto matricial</span></span>
+<span id="cb100-19"><a href="#cb100-19" aria-hidden="true" tabindex="-1"></a><span class="fl">2</span><span class="op">-</span>element <span class="dt">Vector</span>{Num}<span class="op">:</span></span>
+<span id="cb100-20"><a href="#cb100-20" aria-hidden="true" tabindex="-1"></a> <span class="fu">x*</span>(x <span class="op">+</span> y) <span class="op">+</span> <span class="fl">2</span>x<span class="op">*</span>y</span>
+<span id="cb100-21"><a href="#cb100-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">y*</span>(y <span class="op">-</span> x) <span class="op">-</span> x<span class="op">*</span>y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<h3 id="simplicación-de-expresiones">Simplicación de expresiones</h3>
+<p>Para simplificar expresiones simbólicas se utiliza la siguiente función:</p>
+<ul>
+<li><code>simplify(e)</code>: Devuelve la expresión simbólica que resulta de simplicar la expresión simbólica <code>e</code>.</li>
+</ul>
+<p>La simplificación utiliza el paquete <code>SymbolicUtils.jl</code> que implementa un potente sistema de reescritura de términos.</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Symbolics</span></span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a><span class="pp">@variables</span> x y;</span>
+<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">simplify</span>(<span class="fl">2</span>(x<span class="op">+</span>y))</span>
+<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a><span class="fl">2</span>x <span class="op">+</span> <span class="fl">2</span>y</span>
+<span id="cb101-7"><a href="#cb101-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-8"><a href="#cb101-8" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">simplify</span>(<span class="fl">2</span>(x<span class="op">+</span>y))</span>
+<span id="cb101-9"><a href="#cb101-9" aria-hidden="true" tabindex="-1"></a><span class="fl">2</span>x <span class="op">+</span> <span class="fl">2</span>y</span>
+<span id="cb101-10"><a href="#cb101-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-11"><a href="#cb101-11" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">simplify</span>(<span class="fu">sin</span>(x)<span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fu">cos</span>(x)<span class="op">^</span><span class="fl">2</span>)</span>
+<span id="cb101-12"><a href="#cb101-12" aria-hidden="true" tabindex="-1"></a><span class="fl">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<h3 id="sustitución-de-variables-en-expresiones">Sustitución de variables en expresiones</h3>
+<p>Para sustituir una variable simbólica en una expresión se utiliza la siguiente función:</p>
+<ul>
+<li><code>substitute(e, d)</code>: Realiza la sustitución de las claves por los valores del diccionario <code>d</code> en la expresión simbólica <code>e</code>.</li>
+</ul>
+<div class="sourceCode" id="cb102"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Symbolics</span></span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a><span class="pp">@variables</span> x y;</span>
+<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">substitute</span>(<span class="fu">cos</span>(<span class="fl">2</span>x), <span class="fu">Dict</span>([x <span class="op">=&gt;</span> <span class="cn">π</span>])) </span>
+<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a><span class="fl">1.0</span></span>
+<span id="cb102-7"><a href="#cb102-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-8"><a href="#cb102-8" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">substitute</span>(x <span class="op">*</span> y <span class="op">+</span> <span class="fl">2</span>x <span class="op">-</span>y <span class="op">+</span> <span class="fl">2</span>, <span class="fu">Dict</span>([x <span class="op">=&gt;</span> <span class="fl">1</span>, y <span class="op">=&gt;</span> <span class="fl">2</span>]))</span>
+<span id="cb102-9"><a href="#cb102-9" aria-hidden="true" tabindex="-1"></a><span class="fl">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<h3 id="resolución-de-ecuaciones">Resolución de ecuaciones</h3>
+<p>Para definir una ecuación se utiliza el símbolo <code>~</code> en lugar de la igualdad.</p>
+<p>Para resolver una ecuación se utiliza la siguiente función:</p>
+<ul>
+<li><code>Symbolics.solve_for(eq, var)</code>: Devuelve un vector con los valores de las variables del vector <code>var</code> que cumplen la ecuación o sistema de ecuaciones <code>eq</code>, siempre que la ecuación tenga solución.</li>
+</ul>
+<div class="callout callout-warning callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>Actualmente solo funciona para ecuaciones lineales.</p>
+</div>
+</div>
+</div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Symbolics</span></span>
+<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a><span class="pp">@variables</span> x y;</span>
+<span id="cb103-4"><a href="#cb103-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-5"><a href="#cb103-5" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> Symbolics.<span class="fu">solve_for</span>(x <span class="op">+</span> y <span class="op">~</span> <span class="fl">0</span>, x)</span>
+<span id="cb103-6"><a href="#cb103-6" aria-hidden="true" tabindex="-1"></a><span class="op">-</span>y</span>
+<span id="cb103-7"><a href="#cb103-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-8"><a href="#cb103-8" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> Symbolics.<span class="fu">solve_for</span>([x <span class="op">+</span> y <span class="op">~</span> <span class="fl">4</span>, x <span class="op">-</span> y <span class="op">~</span> <span class="fl">2</span>], [x, y])</span>
+<span id="cb103-9"><a href="#cb103-9" aria-hidden="true" tabindex="-1"></a><span class="fl">2</span><span class="op">-</span>element <span class="dt">Vector</span>{<span class="dt">Float64</span>}<span class="op">:</span></span>
+<span id="cb103-10"><a href="#cb103-10" aria-hidden="true" tabindex="-1"></a> <span class="fl">3.0</span></span>
+<span id="cb103-11"><a href="#cb103-11" aria-hidden="true" tabindex="-1"></a> <span class="fl">1.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<h3 id="cálculo-de-derivadas">Cálculo de derivadas</h3>
+<p>Para calcular la derivada de una función se utiliza la siguiente función:</p>
+<ul>
+<li><code>Symbolics.derivative(f, x)</code>: Devuelve la expresión simbólica de la derivada de la función <code>f</code> con respecto a la variable simbólica <code>x</code>.</li>
+</ul>
+<div class="sourceCode" id="cb104"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Symbolics</span></span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="pp">@variables</span> x y;</span>
+<span id="cb104-4"><a href="#cb104-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-5"><a href="#cb104-5" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> Symbolics.<span class="fu">derivative</span>(<span class="fu">exp</span>(x<span class="op">*</span>y), x)</span>
+<span id="cb104-6"><a href="#cb104-6" aria-hidden="true" tabindex="-1"></a><span class="fu">y*exp</span>(x<span class="op">*</span>y)</span>
+<span id="cb104-7"><a href="#cb104-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-8"><a href="#cb104-8" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> Symbolics.<span class="fu">derivative</span>(Symbolics.<span class="fu">derivative</span>(<span class="fu">exp</span>(x<span class="op">*</span>y), x), y)</span>
+<span id="cb104-9"><a href="#cb104-9" aria-hidden="true" tabindex="-1"></a><span class="fu">x*y*exp</span>(x<span class="op">*</span>y) <span class="op">+</span> <span class="fu">exp</span>(x<span class="op">*</span>y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<h3 id="cálculo-de-derivadas-con-operadores-diferenciales">Cálculo de derivadas con operadores diferenciales</h3>
+<p>Para construir un operador differencial (<span class="math inline">\(\frac{d}{dx}\)</span>) se utiliza la siguiente función:</p>
+<ul>
+<li><code>Differential(x)</code>: Crea el operador differencial con respecto a la variable simbólica <code>x</code>.</li>
+</ul>
+<p>Para obtener la función derivada, una vez aplicado el operador diferencial a una función, es necesario aplicar la siguiente función:</p>
+<ul>
+<li><code>expand_derivatives(D(f))</code>: Devuelve la expresión simbólica que corresonde a la derivada de la función <code>f</code> con respecto a la variable del operador differencial <code>D</code>.</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="ejemplo-de-cálculo-de-derivadas-con-operadores-diferenciales">Ejemplo de cálculo de derivadas con operadores diferenciales</h3>
+<div class="sourceCode" id="cb105"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Symbolics</span></span>
+<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a><span class="pp">@variables</span> x y;</span>
+<span id="cb105-4"><a href="#cb105-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb105-5"><a href="#cb105-5" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> Dx <span class="op">=</span> <span class="fu">Differential</span>(x)</span>
+<span id="cb105-6"><a href="#cb105-6" aria-hidden="true" tabindex="-1"></a>(<span class="op">::</span><span class="dt">Differential</span>) (generic <span class="kw">function</span> with <span class="fl">2</span> methods)</span>
+<span id="cb105-7"><a href="#cb105-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb105-8"><a href="#cb105-8" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">f</span>(x) <span class="op">=</span> <span class="fu">sin</span>(x<span class="op">^</span><span class="fl">2</span>)</span>
+<span id="cb105-9"><a href="#cb105-9" aria-hidden="true" tabindex="-1"></a>f (generic <span class="kw">function</span> with <span class="fl">1</span> method)</span>
+<span id="cb105-10"><a href="#cb105-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb105-11"><a href="#cb105-11" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">f1</span>(x) <span class="op">=</span> <span class="fu">Dx</span>(<span class="fu">f</span>(x))</span>
+<span id="cb105-12"><a href="#cb105-12" aria-hidden="true" tabindex="-1"></a>f1 (generic <span class="kw">function</span> with <span class="fl">1</span> method)</span>
+<span id="cb105-13"><a href="#cb105-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb105-14"><a href="#cb105-14" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">expand_derivatives</span>(<span class="fu">f1</span>(x))</span>
+<span id="cb105-15"><a href="#cb105-15" aria-hidden="true" tabindex="-1"></a><span class="fl">2</span><span class="fu">x*cos</span>(x<span class="op">^</span><span class="fl">2</span>)</span>
+<span id="cb105-16"><a href="#cb105-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb105-17"><a href="#cb105-17" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> Dy <span class="op">=</span> <span class="fu">Differential</span>(y)</span>
+<span id="cb105-18"><a href="#cb105-18" aria-hidden="true" tabindex="-1"></a>(<span class="op">::</span><span class="dt">Differential</span>) (generic <span class="kw">function</span> with <span class="fl">2</span> methods)</span>
+<span id="cb105-19"><a href="#cb105-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb105-20"><a href="#cb105-20" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="fu">expand_derivatives</span>(<span class="fu">Dx</span>(<span class="fu">Dy</span>(<span class="fu">cos</span>(x<span class="op">*</span>y))))</span>
+<span id="cb105-21"><a href="#cb105-21" aria-hidden="true" tabindex="-1"></a><span class="fu">-sin</span>(x<span class="op">*</span>y) <span class="op">-</span> <span class="fu">x*y*cos</span>(x<span class="op">*</span>y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<h3 id="gradiente-y-matriz-hessiana-de-una-función-de-varias-variables">Gradiente y matriz Hessiana de una función de varias variables</h3>
+<p>Para calcular el vector gradiente de una función de varias variables se utiliza la siguiente función:</p>
+<ul>
+<li><code>Symbolics.gradient(f, vars)</code>: Devuelve el vector gradiente de la función <code>f</code> con respecto a las variables del vector <code>vars</code>.</li>
+</ul>
+<p>Y para calcular la matriz Hessiana se utiliza la siguiente función:</p>
+<ul>
+<li><code>Symbolics.hessian(f, vars)</code>: Devuelve la matriz Hessiana de la función <code>f</code> con respecto a las variables del vector <code>vars</code>.</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="ejemplo-de-gradiente-y-matriz-hessiana-de-una-función-de-varias-variables">Ejemplo de gradiente y matriz hessiana de una función de varias variables</h3>
+<div class="sourceCode" id="cb106"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Symbolics</span></span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a><span class="pp">@variables</span> x y;</span>
+<span id="cb106-4"><a href="#cb106-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-5"><a href="#cb106-5" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> Symbolics.<span class="fu">gradient</span>(<span class="fu">exp</span>(x<span class="op">*</span>y), [x, y])</span>
+<span id="cb106-6"><a href="#cb106-6" aria-hidden="true" tabindex="-1"></a><span class="fl">2</span><span class="op">-</span>element <span class="dt">Vector</span>{Num}<span class="op">:</span></span>
+<span id="cb106-7"><a href="#cb106-7" aria-hidden="true" tabindex="-1"></a> <span class="fu">y*exp</span>(x<span class="op">*</span>y)</span>
+<span id="cb106-8"><a href="#cb106-8" aria-hidden="true" tabindex="-1"></a> <span class="fu">x*exp</span>(x<span class="op">*</span>y)</span>
+<span id="cb106-9"><a href="#cb106-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-10"><a href="#cb106-10" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> Symbolics.<span class="fu">hessian</span>(<span class="fu">exp</span>(x<span class="op">*</span>y), [x, y])</span>
+<span id="cb106-11"><a href="#cb106-11" aria-hidden="true" tabindex="-1"></a><span class="fl">2</span><span class="op">×</span><span class="fl">2</span> <span class="dt">Matrix</span>{Num}<span class="op">:</span></span>
+<span id="cb106-12"><a href="#cb106-12" aria-hidden="true" tabindex="-1"></a> (y<span class="op">^</span><span class="fl">2</span>)<span class="fu">*exp</span>(x<span class="op">*</span>y)               <span class="fu">x*y*exp</span>(x<span class="op">*</span>y) <span class="op">+</span> <span class="fu">exp</span>(x<span class="op">*</span>y)</span>
+<span id="cb106-13"><a href="#cb106-13" aria-hidden="true" tabindex="-1"></a>   <span class="fu">x*y*exp</span>(x<span class="op">*</span>y) <span class="op">+</span> <span class="fu">exp</span>(x<span class="op">*</span>y)  (x<span class="op">^</span><span class="fl">2</span>)<span class="fu">*exp</span>(x<span class="op">*</span>y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section></section>
+<section>
+<section id="análisis-de-datos" class="title-slide slide level1 center">
+<h1>Análisis de datos</h1>
+
+</section>
+<section id="el-paquete-dataframes.jl" class="slide level2">
+<h2>El paquete DataFrames.jl</h2>
+<p>El principal paquete para análisis de datos es <a href="https://dataframes.juliadata.org/stable/"><code>DataFrames.jl</code></a> que proporciona herramientas para trabajar con conjuntos de datos en formato de tabla de forma similiar a pandas en Python o data.frames y dplyr en R.</p>
+<p>En conjunción con este paque es frecuente utilizar también alguno de los siguientes paquetes:</p>
+<ul>
+<li><a href="https://github.com/nalimilan/FreqTables.jl">FreqTables.jl</a>. Funciones para la construcción de tablas de frecuencias.</li>
+<li><a href="https://docs.julialang.org/en/v1/stdlib/Statistics/">Statistics.jl</a>. Funciones para los principales estadísticos descriptivos.</li>
+<li><a href="https://juliastats.org/HypothesisTests.jl/stable/">HypothesisTests.jl</a> Funciones para los contrastes de hipótesis paramétricos y no paramétricos más comunes.</li>
+<li><a href="https://juliastats.org/GLM.jl/stable/">GLM.jl</a>. Funciones para modelos lineales generales.</li>
+<li><a href="https://multivariatestatsjl.readthedocs.io/en/stable/index.html">MultivariateStats.jl</a>. Funciones para análisis multivariante.</li>
+<li><a href="https://github.com/alan-turing-institute/MLJ.jl">MLJ.jl</a>. Funciones para los principales algoritmos de aprendizaje automático.</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="creación-de-dataframes">Creación de DataFrames</h3>
+<p>Para crear un DataFrame su utiliza la siguiente función:</p>
+<ul>
+<li><code>DataFrame(x1=v1, x2=v2, ...)</code>: Devuelve el DataFrame que formado por las columnas de los vectores <code>v1</code>, <code>v2</code>, etc, con los nombres <code>x1</code>, <code>x2</code>, etc, respectivamente.</li>
+</ul>
+<div class="sourceCode" id="cb107"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrames</span></span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> df <span class="op">=</span> <span class="fu">DataFrame</span>(Nombre <span class="op">=</span> [<span class="st">"María"</span>, <span class="st">"Luis"</span>, <span class="st">"Carmen"</span>], Edad <span class="op">=</span> [<span class="fl">22</span>, <span class="fl">18</span>, <span class="fl">20</span>])</span>
+<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a><span class="fl">3</span><span class="op">×</span><span class="fl">2</span> DataFrame</span>
+<span id="cb107-5"><a href="#cb107-5" aria-hidden="true" tabindex="-1"></a> Row │ Nombre  Edad  </span>
+<span id="cb107-6"><a href="#cb107-6" aria-hidden="true" tabindex="-1"></a>     │ <span class="dt">String</span>  <span class="dt">Int64</span> </span>
+<span id="cb107-7"><a href="#cb107-7" aria-hidden="true" tabindex="-1"></a>─────┼───────────────</span>
+<span id="cb107-8"><a href="#cb107-8" aria-hidden="true" tabindex="-1"></a>   <span class="fl">1</span> │ María      <span class="fl">22</span></span>
+<span id="cb107-9"><a href="#cb107-9" aria-hidden="true" tabindex="-1"></a>   <span class="fl">2</span> │ Luis       <span class="fl">18</span></span>
+<span id="cb107-10"><a href="#cb107-10" aria-hidden="true" tabindex="-1"></a>   <span class="fl">3</span> │ Carmen     <span class="fl">20</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<h3 id="creación-de-dataframes-desde-una-url">Creación de DataFrames desde una url</h3>
+<p>Para crear una DataFrame a partir de un fichero csv en la nube, se utiliza la siguiente función del paquete <code>CSV.jl</code>:</p>
+<ul>
+<li><code>CSV.read(download(url), DataFrame)</code>: Devuelve el DataFrame que resulta de importar el fichero csv con la url <code>url</code>.</li>
+</ul>
+<div class="sourceCode" id="cb108"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrames</span>, <span class="bu">CSV</span></span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> df <span class="op">=</span> CSV.<span class="fu">read</span>(<span class="fu">download</span>(<span class="st">"https://raw.githubusercontent.com/asalber/manual-python/master/datos/colesteroles.csv"</span>), DataFrame)</span>
+<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a><span class="fl">14</span><span class="op">×</span><span class="fl">6</span> DataFrame</span>
+<span id="cb108-5"><a href="#cb108-5" aria-hidden="true" tabindex="-1"></a> Row │ nombre                           edad   sexo     peso     altura   colesterol </span>
+<span id="cb108-6"><a href="#cb108-6" aria-hidden="true" tabindex="-1"></a>     │ <span class="dt">String</span>                           <span class="dt">Int64</span>  String1  <span class="dt">Int64</span>?   String7  <span class="dt">Int64</span>?     </span>
+<span id="cb108-7"><a href="#cb108-7" aria-hidden="true" tabindex="-1"></a>─────┼───────────────────────────────────────────────────────────────────────────────</span>
+<span id="cb108-8"><a href="#cb108-8" aria-hidden="true" tabindex="-1"></a>   <span class="fl">1</span> │ José Luis Martínez Izquierdo        <span class="fl">18</span>  H             <span class="fl">85</span>  <span class="fl">1</span>,<span class="fl">79</span>            <span class="fl">182</span></span>
+<span id="cb108-9"><a href="#cb108-9" aria-hidden="true" tabindex="-1"></a>   <span class="fl">2</span> │ Rosa Díaz Díaz                      <span class="fl">32</span>  M             <span class="fl">65</span>  <span class="fl">1</span>,<span class="fl">73</span>            <span class="fl">232</span></span>
+<span id="cb108-10"><a href="#cb108-10" aria-hidden="true" tabindex="-1"></a>   <span class="fl">3</span> │ Javier García Sánchez               <span class="fl">24</span>  H        <span class="cn">missing</span>  <span class="fl">1</span>,<span class="fl">81</span>            <span class="fl">191</span></span>
+<span id="cb108-11"><a href="#cb108-11" aria-hidden="true" tabindex="-1"></a>   <span class="fl">4</span> │ Carmen López Pinzón                 <span class="fl">35</span>  M             <span class="fl">65</span>  <span class="fl">1</span>,<span class="fl">70</span>            <span class="fl">200</span></span>
+<span id="cb108-12"><a href="#cb108-12" aria-hidden="true" tabindex="-1"></a>   <span class="fl">5</span> │ Marisa López Collado                <span class="fl">46</span>  M             <span class="fl">51</span>  <span class="fl">1</span>,<span class="fl">58</span>            <span class="fl">148</span></span>
+<span id="cb108-13"><a href="#cb108-13" aria-hidden="true" tabindex="-1"></a>   <span class="fl">6</span> │ Antonio Ruiz Cruz                   <span class="fl">68</span>  H             <span class="fl">66</span>  <span class="fl">1</span>,<span class="fl">74</span>            <span class="fl">249</span></span>
+<span id="cb108-14"><a href="#cb108-14" aria-hidden="true" tabindex="-1"></a>   <span class="fl">7</span> │ Antonio Fernández Ocaña             <span class="fl">51</span>  H             <span class="fl">62</span>  <span class="fl">1</span>,<span class="fl">72</span>            <span class="fl">276</span></span>
+<span id="cb108-15"><a href="#cb108-15" aria-hidden="true" tabindex="-1"></a>   <span class="fl">8</span> │ Pilar Martín González               <span class="fl">22</span>  M             <span class="fl">60</span>  <span class="fl">1</span>,<span class="fl">66</span>        <span class="cn">missing</span> </span>
+<span id="cb108-16"><a href="#cb108-16" aria-hidden="true" tabindex="-1"></a>   <span class="fl">9</span> │ Pedro Gálvez Tenorio                <span class="fl">35</span>  H             <span class="fl">90</span>  <span class="fl">1</span>,<span class="fl">94</span>            <span class="fl">241</span></span>
+<span id="cb108-17"><a href="#cb108-17" aria-hidden="true" tabindex="-1"></a>  <span class="fl">10</span> │ Santiago Reillo Manzano             <span class="fl">46</span>  H             <span class="fl">75</span>  <span class="fl">1</span>,<span class="fl">85</span>            <span class="fl">280</span></span>
+<span id="cb108-18"><a href="#cb108-18" aria-hidden="true" tabindex="-1"></a>  <span class="fl">11</span> │ Macarena Álvarez Luna               <span class="fl">53</span>  M             <span class="fl">55</span>  <span class="fl">1</span>,<span class="fl">62</span>            <span class="fl">262</span></span>
+<span id="cb108-19"><a href="#cb108-19" aria-hidden="true" tabindex="-1"></a>  <span class="fl">12</span> │ José María de la Guía Sanz          <span class="fl">58</span>  H             <span class="fl">78</span>  <span class="fl">1</span>,<span class="fl">87</span>            <span class="fl">198</span></span>
+<span id="cb108-20"><a href="#cb108-20" aria-hidden="true" tabindex="-1"></a>  <span class="fl">13</span> │ Miguel Angel Cuadrado Gutiérrez     <span class="fl">27</span>  H            <span class="fl">109</span>  <span class="fl">1</span>,<span class="fl">98</span>            <span class="fl">210</span></span>
+<span id="cb108-21"><a href="#cb108-21" aria-hidden="true" tabindex="-1"></a>  <span class="fl">14</span> │ Carolina Rubio Moreno               <span class="fl">20</span>  M             <span class="fl">61</span>  <span class="fl">1</span>,<span class="fl">77</span>            <span class="fl">194</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section></section>
 <section>
 <section id="aplicaciones" class="title-slide slide level1 center">
 <h1>Aplicaciones</h1>
@@ -3597,7 +3954,14 @@
 <section id="teoría-de-grafos" class="slide level2">
 <h2>Teoría de grafos</h2>
 <ul>
-<li><a href="https://juliagraphs.org/">JuliaGraphs</a>. Graphs analysis in Julia</li>
+<li><a href="https://juliagraphs.org/">JuliaGraphs</a>. Graphs analysis in Julia.</li>
+</ul>
+</section>
+<section id="cálculo-simbólico-1" class="slide level2">
+<h2>Cálculo simbólico</h2>
+<ul>
+<li><a href="https://docs.juliahub.com/SymPy/KzewI/1.0.31/">SymPy</a>. Sistema de Álgebra Computacional (CAS) basdado en la librería <code>SymPy</code> de Python.</li>
+<li><a href="https://juliasymbolics.org/">Symbolics</a> Sistema de Álgebra Computacional (CAS) basado en Julia.</li>
 </ul>
 
 <img src="img/logos/logo-julia.svg" class="slide-logo r-stretch"><div class="footer footer-default">
