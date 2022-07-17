@@ -1717,6 +1717,8 @@ julia> vcat(v...)
  4  5  6
 ```
 
+---
+
 ### Recorrido de matrices
 
 Una operación habitual es recorrer los elementos de una matriz para hacer una operación con ellos. El recorrido se suele hacer con dos bucles iterativos anidados.
@@ -3473,5 +3475,7 @@ julia> df = CSV.read(download("https://raw.githubusercontent.com/asalber/manual-
 - [SymPy](https://docs.juliahub.com/SymPy/KzewI/1.0.31/). Sistema de Álgebra Computacional (CAS) basdado en la librería `SymPy` de Python.
 - [Symbolics](https://juliasymbolics.org/) Sistema de Álgebra Computacional (CAS) basado en Julia.
 
+## Aprendizaje automático
 
+- [MLJ.jl](https://github.com/alan-turing-institute/MLJ.jl). Funciones para los principales algoritmos de aprendizaje automático.
 
