@@ -207,7 +207,7 @@ NaN
 
 ## Tipos de datos alfanuméricos
 
-- carácteres: `Char`. Se representan entre comillas simples.
+- caracteres: `Char`. Se representan entre comillas simples.
 - Cadenas: `String`. Se representan entre comillas dobles.
 
 ```julia
@@ -259,7 +259,7 @@ julia> typeof(x)
 String
 ```
 
-No obstante, para variables de ámbito local, por ejemplo en funciones, es posible fijar el tipo de una variable indicándolo detras de su nombre con el operador `::`.
+No obstante, para variables de ámbito local, por ejemplo en funciones, es posible fijar el tipo de una variable indicándolo detrás de su nombre con el operador `::`.
 
 ```julia
 x::Int64
@@ -582,7 +582,7 @@ De mayor a menor prioridad.
 
 ## Operaciones con cadenas
 
-Las cadenas son secuencias de carácteres alfanuméricos del tipo `char` entre dobles comillas.
+Las cadenas son secuencias de caracteres alfanuméricos del tipo `char` entre dobles comillas.
 
 Cada carácter tiene asociado un índice entero. El primer carácter de la cadena tiene índice 1. 
 
@@ -605,9 +605,9 @@ julia> c[2]
 
 ---
 
-### Acceso a carácteres Unicode
+### Acceso a caracteres Unicode
 
-Sin embargo, como Julia permite carácteres [Unicode](https://en.wikipedia.org/wiki/List_of_Unicode_characters), el índice de un carácter en una cadena, no siempre se corresponde con su posición en la cadena. Ello es debido a que la codificación UTF-8 no utiliza el mismo número de bytes para representar los carácteres Unicode. Mientras que los carácteres habituales del código ASCII (letras romanas y números árabes) solo necesitan un byte, otros carácteres como los símbolos matemáticos requieren más.
+Sin embargo, como Julia permite caracteres [Unicode](https://en.wikipedia.org/wiki/List_of_Unicode_characters), el índice de un carácter en una cadena, no siempre se corresponde con su posición en la cadena. Ello es debido a que la codificación UTF-8 no utiliza el mismo número de bytes para representar los caracteres Unicode. Mientras que los caracteres habituales del código ASCII (letras romanas y números árabes) solo necesitan un byte, otros caracteres como los símbolos matemáticos requieren más.
 
 | | | | | | |
 |:-|:-:|:-:|:-:|:-:|:-:|
@@ -616,7 +616,7 @@ Sin embargo, como Julia permite carácteres [Unicode](https://en.wikipedia.org/w
 
 ---
 
-### Ejemplo de acceso a carácteres Unicode
+### Ejemplo de acceso a caracteres Unicode
 
 ```julia
 julia> c = "∀x ∃y"
@@ -737,7 +737,7 @@ julia> "Hola $s"
 
 ### Otras operaciones comunes con cadenas
 
-- `length(c)`: Devuelve el número de carácteres de la cadena `c`.
+- `length(c)`: Devuelve el número de caracteres de la cadena `c`.
 - `findfirst(a, c)`: Devuelve el índice de la primera ocurrencia de la cadena `a` en la cadena `c`. Si `a` no es una subcadena de `c` devuelve nada (tipo `Nothing`).
 - `findlast(a, c)`: Devuelve el índice de la última ocurrencia de la cadena `a` en la cadena `c`. Si `a` no es una subcadena de `c` devuelve nada (tipo `Nothing`).
 - `findnext(a, c, i)`: Devuelve el índice de la primera ocurrencia de la cadena `a` en la cadena `c` posterior al índice `i`.
@@ -905,7 +905,7 @@ julia> for i = range(0, 10, 5)
 
 En muchas ocasiones es habitual incluir un bucle iterativo en el bloque de código de otro bucle iterativo, lo que se conoce como _bucles anidados_.
 
-Julia permite simplicar estas estructuras indicando los iteradores en la cabecera de un único bucle.
+Julia permite simplificar estas estructuras indicando los iteradores en la cabecera de un único bucle.
 
 ```julia
 julia> for i in "abc", j = 1:2
@@ -1021,7 +1021,7 @@ julia> [1.0, "julia", true]
 
 ## Arrays multidimensionales
 
-Los arrays pueden estructurar sus elementos en múltiples dimensiones. Dependiendo el número de dimesiones tenemos distintos tipos de arrays:
+Los arrays pueden estructurar sus elementos en múltiples dimensiones. Dependiendo el número de dimensiones tenemos distintos tipos de arrays:
 
 ![](img/arrays.png){}
 
@@ -1030,7 +1030,7 @@ Los arrays pueden estructurar sus elementos en múltiples dimensiones. Dependien
 ### Funciones de arrays
 
 - `length(A)`: Devuelve el número de elementos del array `A`.
-- `eltype(A)`: Deuvelve el tipo de los elementos del array `A`.
+- `eltype(A)`: Devuelve el tipo de los elementos del array `A`.
 - `ndims(A)`: Devuelve el número de dimensiones del array `A`.
 - `size(A)`: Devuelve una tupla con los tamaños de las dimensiones del array `A`.
 - `size(A, n)`: Devuelve el tamaño de la dimensión `n` del array `A`.
@@ -1074,7 +1074,7 @@ julia> fill(π, 2, 2)
 
 ---
 
-### Redimiensionado de arrays
+### Redimensionamiento de arrays
 
 La siguientes funciones permiten cambiar las dimensiones de un array, reestructurando sus elementos:
 
@@ -1087,7 +1087,7 @@ El array resultante debe tener los mismos elementos que el array original, por l
 
 ---
 
-### Ejemplo de redimensionado de arrays
+### Ejemplo de redimensionamiento de arrays
 
 ```julia
 julia> v = [1, 2, 3, 4, 5, 6]
@@ -1405,7 +1405,7 @@ Si una función recibe un parámetro del tipo de los elementos de un vector, se 
 - `f.(v)`: Devuelve el vector que resulta de aplicar la función `f` a cada uno de los elementos del vector `v`. 
 
 :::{.callout-warning}
-En la llamada a la función hay que pasarle com argumentos tantos vectores como parámetros tenga la función. Si los vectores son de distinto tamaño, se reciclan los de menor tamaño.
+En la llamada a la función hay que pasarle como argumentos tantos vectores como parámetros tenga la función. Si los vectores son de distinto tamaño, se reciclan los de menor tamaño.
 :::
 
 :::{.callout-warning}
@@ -1932,10 +1932,10 @@ julia> A \ B  # Solución del sistema Ax = B
 
 ### Álgebra lineal con matrices
 
-Otras funciones más avanzadas del paque `LinearAlgebra` son:
+Otras funciones más avanzadas del paquete `LinearAlgebra` son:
 
 - `eigvals(A)`: Devuelve un vector con los autovalores de la matriz `A`. 
-- `eigvecs(A)`: Devuelve la matriz con los autovectore de la matriz `A`.
+- `eigvecs(A)`: Devuelve la matriz con los autovectores de la matriz `A`.
 - `factorize(A)`: Devuelve las matrices resultantes de la factorización de la matriz `A`. La factorización dependerá de las propiedades de `A` (ver [tipos de factorización](https://docs.julialang.org/en/v1/stdlib/LinearAlgebra/#man-linalg-factorizations))
 
 ---
@@ -2021,7 +2021,7 @@ julia> v
 
 ## Tuplas
 
-Una tupla es una colección ordenada de tamaño fijo que puede contenere elementos de distintos tipos. 
+Una tupla es una colección ordenada de tamaño fijo que puede contener elementos de distintos tipos. 
 
 Generalmente se usan para pasar parámetros o devolver valores de funciones.
 
@@ -2052,7 +2052,7 @@ Tuple{Int64, String, Int64}
 Es posible asignar un nombre a cada uno de los elementos de la tupla. Para ello cada elemento de la tupla con nombre debe escribirse con la sintaxis `nombre = valor`.
 
 ```julia
-ulia> t = (día = 1, mes = "enero", año =  2020)
+julia> t = (día = 1, mes = "enero", año =  2020)
 (día = 1, mes = "enero", año = 2020)
 
 julia> typeof(t)
@@ -2141,7 +2141,7 @@ Se construyen con la siguiente constructor:
 - `Dic(k1 = v1, ...)`: Crea un diccionario con los pares indicados en formato `clave = valor`.
 
 :::{.callout-warning}
-En un diccionario no pueden existir dos pares con la misma clave, de modo que si se repite una clave se sobreescribe el par anterior.
+En un diccionario no pueden existir dos pares con la misma clave, de modo que si se repite una clave se sobrescribe el par anterior.
 :::
 
 ---
@@ -2260,7 +2260,7 @@ Las siguientes funciones permiten obtener todas las claves, valores y pares de u
 - `keys(d)`: Devuelve un iterador con las claves del diccionario `d`.
 - `values(d)`: Devuelve un iterador con las claves del diccionario `d`.
 
-Estos iteradores permiten recorrer facilmente los pares de un diccionario.
+Estos iteradores permiten recorrer fácilmente los pares de un diccionario.
 
 ---
 
@@ -2306,7 +2306,7 @@ US = Dollar
 
 Se pueden añadir pares nuevos a un diccionario de la siguiente manera:
 
-- `d[k] = v`: Añade el par con clave `k` y valor `v` al diccionario `d`. Si la clave `k` ya existía en el diccionario `d`, cambia su valor asociaco por `v`.
+- `d[k] = v`: Añade el par con clave `k` y valor `v` al diccionario `d`. Si la clave `k` ya existía en el diccionario `d`, cambia su valor asociado por `v`.
 
 - `push!(d, k => v)`: Añade el par con clave `k` y valor asociado `v` al diccionario `d`.
 
@@ -2399,7 +2399,7 @@ Si el elemento que se quiere añadir es de distinto tipo que los elemento del co
 ### Ejemplo de añadir elementos a un conjunto
 
 ```julia
-ulia> c = Set(1:3)
+julia> c = Set(1:3)
 Set{Int64} with 3 elements:
   2
   3
@@ -2425,7 +2425,7 @@ Closest candidates are:
 
 ### Eliminar elementos de un conjunto
 
-Para eleminiar elementos de un conjunto se utiliza la siguiente función: 
+Para eliminar elementos de un conjunto se utiliza la siguiente función: 
 
 - `delete!(c, e)`: Elimina el elemento `e` del conjunto `c`.
 
@@ -2470,7 +2470,7 @@ julia> for i = c
 - `in(e, c)`, `e ∈ c` : Devuelve `true` si el elemento `e` pertenece al conjunto `c` y `false` en caso contrario.
 - `e ∉ c`: Devuelve `true` si el elemento `e` no  pertenece al conjunto `c` y `false` en caso contrario.
 - `issubset(a, b)`, `a ⊆ b`: Devuelve `true` si todos los elementos de `a` pertenecen a `b` y `false` en caso contrario.
-- `a ⊈ b`: Deuvelve `true` si hay algún elemento de `a` que no pertenece a `b`.
+- `a ⊈ b`: Devuelve `true` si hay algún elemento de `a` que no pertenece a `b`.
 - `a ⊊ b`: Devuelve `true` si el conjunto `a` está contenido estrictamente en el conjunto `b`, es decir, todos los elementos de `a` pertenecen a `b` pero `a` y `b` son distintos.
 - `isdisjoint(a, b)`: Devuelve `true` si los conjuntos `a` y `b` no tienen elementos en común y `false` en caso contrario.
 
@@ -2509,7 +2509,7 @@ false
 - `symdiff(a, b)`: Devuelve el conjunto diferencia simétrica de los conjuntos `a` y `b`.
 
 
-Existen versiones de estas funciones acabadas en `!` que sobreescriben el conjunto dado como primer argumento con el resultado de la operación.
+Existen versiones de estas funciones acabadas en `!` que sobrescriben el conjunto dado como primer argumento con el resultado de la operación.
 
 ---
 
@@ -3034,7 +3034,7 @@ Este comportamiento no es deseable puesto que si la función no existe en un pun
 
 La siguiente función del paquete `MATH229` se encarga de evitar esto.
 
-- `rangeclamp(f)`: Devuelve una función idéntica a la función `f` excepto para los puntos donde la función no existe o es infinito que devuevle `NaN`.
+- `rangeclamp(f)`: Devuelve una función idéntica a la función `f` excepto para los puntos donde la función no existe o es infinito que devuelve `NaN`.
 
 ---
 
@@ -3158,7 +3158,7 @@ using VegaLite
 
 ## Symbolics.jl
 
-`Symbolics.jl` es un paquete que implenta un avanzado Sistema de Álgebra Computacional (CAS) basado en un lenguaje de modelado simbólico. 
+`Symbolics.jl` es un paquete que implementa un avanzado Sistema de Álgebra Computacional (CAS) basado en un lenguaje de modelado simbólico. 
 
 Las variables y las expresiones simbólicas pueden utilizarse con la mayoría de las funciones de Julia para cálculo numérico, por lo que se integran a la perfección en el ecosistema de Julia. 
 
@@ -3166,7 +3166,7 @@ Las variables y las expresiones simbólicas pueden utilizarse con la mayoría de
 
 ---
 
-### Variables y expresione simbólicas
+### Variables y expresiones simbólicas
 
 Para declarar variables simbólicas se utiliza la siguiente macro:
 
@@ -3204,7 +3204,7 @@ julia> A = [x + y 2x; -y y - x]  # Matriz simbólica
 
 ### Álgebra simbólica
 
-Se pueden realizar operaciones algebráicas con expresiones simbólicas utilizando los mismos operadores del Álgebra numérica.
+Se pueden realizar operaciones algebraicas con expresiones simbólicas utilizando los mismos operadores del Álgebra numérica.
 
 ```julia
 using Symbolics
@@ -3232,11 +3232,11 @@ julia> A * B  # Producto matricial
 
 ---
 
-### Simplicación de expresiones
+### Simplificación de expresiones
 
 Para simplificar expresiones simbólicas se utiliza la siguiente función:
 
-- `simplify(e)`: Devuelve la expresión simbólica que resulta de simplicar la expresión simbólica `e`.
+- `simplify(e)`: Devuelve la expresión simbólica que resulta de simplificar la expresión simbólica `e`.
 
 La simplificación utiliza el paquete `SymbolicUtils.jl` que implementa un potente sistema de reescritura de términos.
 
@@ -3327,13 +3327,13 @@ x*y*exp(x*y) + exp(x*y)
 
 ### Cálculo de derivadas con operadores diferenciales 
 
-Para construir un operador differencial ($\frac{d}{dx}$) se utiliza la siguiente función:
+Para construir un operador diferencial ($\frac{d}{dx}$) se utiliza la siguiente función:
 
-- `Differential(x)`: Crea el operador differencial con respecto a la variable simbólica `x`.
+- `Differential(x)`: Crea el operador diferencial con respecto a la variable simbólica `x`.
 
 Para obtener la función derivada, una vez aplicado el operador diferencial a una función, es necesario aplicar la siguiente función:
 
-- `expand_derivatives(D(f))`: Devuelve la expresión simbólica que corresonde a la derivada de la función `f` con respecto a la variable del operador differencial `D`.
+- `expand_derivatives(D(f))`: Devuelve la expresión simbólica que corresponde a la derivada de la función `f` con respecto a la variable del operador diferencial `D`.
 
 ---
 
@@ -3377,7 +3377,7 @@ Y para calcular la matriz Hessiana se utiliza la siguiente función:
 
 ---
 
-### Ejemplo de gradiente y matriz hessiana de una función de varias variables
+### Ejemplo de gradiente y matriz Hessiana de una función de varias variables
 
 ```julia
 using Symbolics
@@ -3399,9 +3399,9 @@ julia> Symbolics.hessian(exp(x*y), [x, y])
 
 ## El paquete DataFrames.jl
 
-El principal paquete para análisis de datos es [`DataFrames.jl`](https://dataframes.juliadata.org/stable/) que proporciona herramientas para trabajar con conjuntos de datos en formato de tabla de forma similiar a pandas en Python o data.frames y dplyr en R.
+El principal paquete para análisis de datos es [`DataFrames.jl`](https://dataframes.juliadata.org/stable/) que proporciona herramientas para trabajar con conjuntos de datos en formato de tabla de forma similar a pandas en Python o data.frames y dplyr en R.
 
-En conjunción con este paque es frecuente utilizar también alguno de los siguientes paquetes:
+En conjunción con este paquete es frecuente utilizar también alguno de los siguientes paquetes:
 
 - [FreqTables.jl](https://github.com/nalimilan/FreqTables.jl). Funciones para la construcción de tablas de frecuencias.
 - [Statistics.jl](https://docs.julialang.org/en/v1/stdlib/Statistics/). Funciones para los principales estadísticos descriptivos.
